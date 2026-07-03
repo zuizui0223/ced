@@ -32,6 +32,24 @@ The standalone tests and replay verify that:
 5. common-mode robustness depends on failure-mode cover number, not raw replicate
    count.
 
+## Independent finite-oracle checks
+
+`tests/test_exhaustive_oracles.py` separately enumerates bounded finite cases
+rather than asserting only the package's own closed-form outputs. It checks:
+
+- delayed grammars and the no-uniform-horizon witness on small grids of module
+  counts, delays, and horizons;
+- every binary state class of small reset panels, including the number of
+  signatures and the size of every residual class;
+- canonical parsing of all short trial streams and the resource frontier over
+  small trial, action, and delay budgets; and
+- direct enumeration of declared common-mode failure subsets, including
+  overlapping modes.
+
+These are implementation cross-checks, not an automated proof of the unbounded
+all-family theorems. Their role is to catch formula, normalization, and
+boundary-condition regressions that fixed replay witnesses can miss.
+
 ## Analytic theorem versus replay
 
 The all-family no-uniform-horizon statement and the exact quotient claims remain
