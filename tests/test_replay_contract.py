@@ -1,8 +1,22 @@
-from scripts.verify_ced_core import build_report
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPT = ROOT / "scripts" / "verify_ced_core.py"
 
 
 def test_replay_report_matches_declared_witnesses():
-    report = build_report()
+    completed = subprocess.run(
+        [sys.executable, str(SCRIPT)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    report = json.loads(completed.stdout)
     assert report["schema_version"] == 1
     assert report["delayed_exposure"] == {
         "module_count": 4,
