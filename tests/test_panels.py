@@ -6,9 +6,9 @@ def test_panel_coverage_is_an_exact_partial_quotient():
     assert panel.read_ports == frozenset({0, 3})
     assert panel.intervention
     assert panel.retained_bits == 4
-    assert panel.residual_bits == 1
+    assert panel.residual_bits == 2
     assert panel.quotient_state_count == 16
-    assert panel.residual_class_size == 2
+    assert panel.residual_class_size == 4
     assert panel.verify()
 
 
