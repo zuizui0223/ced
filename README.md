@@ -30,6 +30,11 @@ contains the active development core.
    repeat frontier gives the exact effort required for a declared joint
    positive-detection confidence. See
    [the imperfect-detection theorem](docs/imperfect_detection_theorem.md).
+6. **Mode-diverse imperfect detection.** Under independent declared failure modes,
+   repeats inside one mode improve sensitivity but cannot overcome the probability
+   that every selected mode fails together. The exact joint-detection frontier
+   separates repeats per mode from the number of independent modes. See
+   [the common-mode detection theorem](docs/mode_diverse_detection_theorem.md).
 
 ## Ecological reading
 
@@ -59,9 +64,11 @@ replacement/rewiring transport theory.
 - [Standalone verification audit](docs/standalone_verification_audit.md) —
   source-to-successor mapping, replay boundary, and added invariants.
 - `pytest` checks theorem witnesses, canonical panel behavior, bounded independent
-  oracles, and imperfect-detection outcome enumerations.
+  oracles, imperfect-detection outcome enumerations, and direct common-mode
+  outcome enumerations.
 - `scripts/verify_ced_core.py` writes the deterministic finite-core artifact.
-- `scripts/verify_imperfect_detection.py` writes the imperfect-detection replay.
+- `scripts/verify_imperfect_detection.py` writes the independent-read replay.
+- `scripts/verify_mode_detection.py` writes the common-mode replay.
 
 ## Run
 
@@ -70,15 +77,17 @@ python -m pip install -e '.[dev]'
 pytest
 python scripts/verify_ced_core.py
 python scripts/verify_imperfect_detection.py
+python scripts/verify_mode_detection.py
 ```
 
-The replays write `artifacts/ced_core_report.json` and
-`artifacts/ced_imperfect_detection_report.json`.
+The replays write `artifacts/ced_core_report.json`,
+`artifacts/ced_imperfect_detection_report.json`, and
+`artifacts/ced_mode_detection_report.json`.
 
 ## Scope
 
 CED concerns declared finite deterministic grammars, resettable probe panels,
 declared failure-mode families, and explicit observation contracts. It does not
 infer delays, resetability, closure, action grammars, failure probabilities,
-detection sensitivity, independence, coordinate semantics, or ecological
-mechanisms from observations.
+detection sensitivity, mode availability, independence, coordinate semantics, or
+ecological mechanisms from observations.

@@ -24,12 +24,18 @@ jobs:
         run: python -m pip install -e '.[dev]'
       - name: Run CED theorem tests
         run: pytest
-      - name: Write deterministic replay report
+      - name: Write deterministic replay reports
         if: matrix.python-version == '3.12'
-        run: python scripts/verify_ced_core.py
-      - name: Upload replay artifact
+        run: |
+          python scripts/verify_ced_core.py
+          python scripts/verify_imperfect_detection.py
+          python scripts/verify_mode_detection.py
+      - name: Upload replay artifacts
         if: matrix.python-version == '3.12'
         uses: actions/upload-artifact@v4
         with:
-          name: ced-core-reproducibility
-          path: artifacts/ced_core_report.json
+          name: ced-reproducibility
+          path: |
+            artifacts/ced_core_report.json
+            artifacts/ced_imperfect_detection_report.json
+            artifacts/ced_mode_detection_report.json

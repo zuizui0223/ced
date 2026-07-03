@@ -1,12 +1,8 @@
-"""Closure Evidence Design (CED).
-
-Finite theorems for delayed exposure, exact partial identification under reset
-panels, robustness to declared common-mode measurement failures, and one-sided
-imperfect-detection evidence design.
-"""
+"""Closure Evidence Design (CED)."""
 
 from .delayed import DelayedExposureFamily, no_uniform_closure_horizon
 from .detection import OneSidedDetectionPanel, OneSidedDetector
+from .mode_detection import ModeDiverseDetectionPanel
 from .panels import PanelCoverage, panel_budget_frontier
 from .robustness import CommonModeProfile
 
@@ -15,6 +11,7 @@ __all__ = [
     "no_uniform_closure_horizon",
     "OneSidedDetector",
     "OneSidedDetectionPanel",
+    "ModeDiverseDetectionPanel",
     "PanelCoverage",
     "panel_budget_frontier",
     "CommonModeProfile",
