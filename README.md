@@ -24,14 +24,22 @@ contains the active development core.
 4. **Common-mode robustness.** A panel survives a declared number of failures
    when every required separator set cannot be covered by that many common-mode
    failure groups. Raw replicate count is not failure diversity.
+5. **One-sided imperfect detection.** With declared zero false positives,
+   bounded sensitivity, and resettable independent reads, positive detections are
+   certificates of presence but finite non-detections do not certify absence. A
+   repeat frontier gives the exact effort required for a declared joint
+   positive-detection confidence. See
+   [the imperfect-detection theorem](docs/imperfect_detection_theorem.md).
 
 ## Ecological reading
 
 Potential interpretations include phenological gates, seasonal corridors,
 post-disturbance colonization, delayed pathogen exposure, seed-bank recruitment,
 and camera or sensor panels sharing power, weather, access, or communication
-failure domains. These are model contracts, not empirical claims established by
-the finite certificates.
+failure domains. Imperfect-detection coordinates may represent a target taxon,
+an interaction channel, a pathogen signal, or a prespecified environmental
+exposure. These are model contracts, not empirical claims established by the
+finite certificates.
 
 ## Provenance
 
@@ -50,9 +58,10 @@ replacement/rewiring transport theory.
 
 - [Standalone verification audit](docs/standalone_verification_audit.md) —
   source-to-successor mapping, replay boundary, and added invariants.
-- `pytest` checks theorem witnesses, canonical panel behavior, and replay-report
-  values.
-- `scripts/verify_ced_core.py` writes a deterministic JSON artifact.
+- `pytest` checks theorem witnesses, canonical panel behavior, bounded independent
+  oracles, and imperfect-detection outcome enumerations.
+- `scripts/verify_ced_core.py` writes the deterministic finite-core artifact.
+- `scripts/verify_imperfect_detection.py` writes the imperfect-detection replay.
 
 ## Run
 
@@ -60,13 +69,16 @@ replacement/rewiring transport theory.
 python -m pip install -e '.[dev]'
 pytest
 python scripts/verify_ced_core.py
+python scripts/verify_imperfect_detection.py
 ```
 
-The replay writes `artifacts/ced_core_report.json`.
+The replays write `artifacts/ced_core_report.json` and
+`artifacts/ced_imperfect_detection_report.json`.
 
 ## Scope
 
 CED concerns declared finite deterministic grammars, resettable probe panels,
-and declared failure-mode families. It does not infer delays, resetability,
-closure, action grammars, failure probabilities, or ecological mechanisms from
-observations.
+declared failure-mode families, and explicit observation contracts. It does not
+infer delays, resetability, closure, action grammars, failure probabilities,
+detection sensitivity, independence, coordinate semantics, or ecological
+mechanisms from observations.

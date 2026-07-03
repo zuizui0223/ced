@@ -13,6 +13,7 @@ is deliberately not claimed by a passing test suite.
 | delayed addressability / no-uniform-horizon family | `ced.delayed.DelayedExposureFamily` | migrated as a finite witness interface |
 | reset-panel partial quotient and budget frontiers | `ced.panels.PanelCoverage` | migrated as an exact signature/count construction |
 | common-mode canonical panel analysis | `ced.robustness.CommonModeProfile` | migrated as finite mode-cover robustness |
+| no CCOC predecessor | `ced.detection.OneSidedDetector` | new one-sided imperfect-detection extension |
 
 The relay-tree compilation and CCOC open-composition manuscript theorem are not
 CED dependencies. They remain provenance in the frozen archive.
@@ -28,9 +29,12 @@ The standalone tests and replay verify that:
 3. retained and residual signature counts multiply to the declared binary state
    space size;
 4. trial, action, and temporal-depth resources are not silently conflated in the
-   implemented budget helper; and
+   implemented budget helper;
 5. common-mode robustness depends on failure-mode cover number, not raw replicate
-   count.
+   count; and
+6. under the declared one-sided detection contract, finite all-negative records
+   remain compatible with presence while repeated reads give an exact lower bound
+   for joint positive-detection probability.
 
 ## Independent finite-oracle checks
 
@@ -46,7 +50,12 @@ rather than asserting only the package's own closed-form outputs. It checks:
 - direct enumeration of declared common-mode failure subsets, including
   overlapping modes.
 
-These are implementation cross-checks, not an automated proof of the unbounded
+`tests/test_detection_oracles.py` separately enumerates every binary observation
+record over bounded repeat panels. It checks the single-coordinate and joint
+detection formulas, the minimal-repeat helper, and the fact that a fully
+negative signature is not an absence certificate when sensitivity is imperfect.
+
+These are implementation cross-checks, not automated proofs of the unbounded
 all-family theorems. Their role is to catch formula, normalization, and
 boundary-condition regressions that fixed replay witnesses can miss.
 
@@ -54,12 +63,16 @@ boundary-condition regressions that fixed replay witnesses can miss.
 
 The all-family no-uniform-horizon statement and the exact quotient claims remain
 mathematical consequences of their declared finite grammar and panel contracts.
-The replay is a regression witness for selected values; it is not an automated
-proof of the all-system theorems.
+The imperfect-detection extension is a theorem under its own explicit
+zero-false-positive, bounded-sensitivity, conditional-independence, and
+resettable-read contract. The replays are regression witnesses for selected
+values; they are not automated proofs of the all-system theorems.
 
 ## Explicit boundaries
 
-The current package does not cover imperfect detection, probabilistic delays,
-non-reset monitoring, adaptive policies, unknown failure architectures, or
-inference of a real ecological closure boundary. Those are next-theorem targets,
-not hidden claims of the migrated core.
+The current imperfect-detection extension does not cover false positives,
+unknown sensitivity bounds, dependent repeats, non-reset monitoring,
+common-mode observation failure combined with imperfect detection, adaptive
+policies, probabilistic delays, unknown failure architectures, or inference of
+a real ecological closure boundary. Those are next-theorem targets, not hidden
+claims of the current package.
