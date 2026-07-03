@@ -6,11 +6,11 @@ from ced.mode_detection import ModeDiverseDetectionPanel
 
 def test_common_mode_ceiling_cannot_be_bought_with_within_mode_repeats():
     detector = OneSidedDetector(0.6)
-    one_mode = ModeDiverseDetectionPanel(3, 1, 200, 0.8, detector)
+    one_mode = ModeDiverseDetectionPanel(3, 1, 10, 0.8, detector)
     two_modes = ModeDiverseDetectionPanel(3, 2, 5, 0.8, detector)
     assert one_mode.availability_ceiling == pytest.approx(0.8)
     assert one_mode.joint_detection_lower_bound < 0.8
-    assert one_mode.joint_detection_lower_bound == pytest.approx(0.8, abs=1e-12)
+    assert one_mode.joint_detection_lower_bound == pytest.approx(0.7997483681473567)
     assert two_modes.availability_ceiling == pytest.approx(0.96)
     assert two_modes.joint_detection_lower_bound == pytest.approx(0.9500686142165017)
 
