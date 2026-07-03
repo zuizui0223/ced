@@ -43,8 +43,16 @@ at `zuizui0223/ccoc`, especially:
 - `docs/common_mode_canonical_panels.md`.
 
 The migration narrows the public surface to the evidence-and-design program. It
-does not import CCOC's open-composition manuscript theorem or EXT's replacement
-transport theory.
+does not import CCOC's open-composition manuscript theorem or MLTR's
+replacement/rewiring transport theory.
+
+## Verification
+
+- [Standalone verification audit](docs/standalone_verification_audit.md) —
+  source-to-successor mapping, replay boundary, and added invariants.
+- `pytest` checks theorem witnesses, canonical panel behavior, and replay-report
+  values.
+- `scripts/verify_ced_core.py` writes a deterministic JSON artifact.
 
 ## Run
 
