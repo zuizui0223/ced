@@ -16,6 +16,7 @@ is deliberately not claimed by a passing test suite.
 | no CCOC predecessor | `ced.detection.OneSidedDetector` | one-sided imperfect-detection extension |
 | no CCOC predecessor | `ced.mode_detection.ModeDiverseDetectionPanel` | common-mode imperfect-detection extension |
 | no CCOC predecessor | `ced.threshold_detection.ThresholdEvidenceDesign` | bounded false-positive evidence extension |
+| no CCOC predecessor | `ced.multiple_testing.MultipleThresholdEvidenceDesign` | multiple-coordinate familywise extension |
 
 The relay-tree compilation and CCOC open-composition manuscript theorem are not
 CED dependencies. They remain provenance in the frozen archive.
@@ -39,10 +40,12 @@ The standalone tests and replay verify that:
    joint positive-detection probability;
 7. under declared independent common-mode availability, moving effort across
    failure modes changes the detection frontier in a way that repeated reads
-   inside one mode cannot reproduce; and
+   inside one mode cannot reproduce;
 8. with bounded false positives, threshold crossings are not deductive presence
    certificates but do have a posterior-free event-level evidence-ratio lower
-   bound under the declared read contract.
+   bound under the declared read contract; and
+9. screening many declared coordinates inflates false-alert risk, requiring an
+   explicit familywise bound even when the per-coordinate evidence ratio is high.
 
 ## Independent finite-oracle checks
 
@@ -74,6 +77,11 @@ for bounded false-positive threshold events. It checks the binomial tail formula
 the event-level evidence ratio, the minimum-threshold helper, and the fact that
 threshold crossing is not a proof of presence when false positives are allowed.
 
+`tests/test_multiple_testing_oracles.py` enumerates all small coordinate-by-read
+binary records under the all-absent state. It checks the exact independent
+familywise formula, the Bonferroni dominance bound, and the threshold-search
+frontier for declared familywise false-alert control.
+
 These are implementation cross-checks, not automated proofs of the unbounded
 all-family theorems. Their role is to catch formula, normalization, and
 boundary-condition regressions that fixed replay witnesses can miss.
@@ -82,16 +90,16 @@ boundary-condition regressions that fixed replay witnesses can miss.
 
 The all-family no-uniform-horizon statement and the exact quotient claims remain
 mathematical consequences of their declared finite grammar and panel contracts.
-The imperfect-detection, mode-diverse, and bounded-false-positive extensions are
-theorems under their own explicit sensitivity, error-rate, resettable-read, and
-independence contracts. The replays are regression witnesses for selected
-values; they are not automated proofs of the all-system theorems.
+The imperfect-detection, mode-diverse, bounded-false-positive, and
+multiple-coordinate extensions are theorems under their own explicit target-set,
+sensitivity, error-rate, resettable-read, and independence contracts. The replays
+are regression witnesses for selected values; they are not automated proofs of
+the all-system theorems.
 
 ## Explicit boundaries
 
-The false-positive threshold extension does not cover unknown or estimated error
-rates, dependent reads, correlated false positives, heterogeneous sensitivity,
-multiple testing across many coordinates, adaptive threshold choice, non-reset
-monitoring, unobserved failure modes, probabilistic delays, or inference of an
-ecological closure boundary from the record. Those are next-theorem targets, not
-hidden claims of the current package.
+The multiple-coordinate threshold extension does not estimate the target set,
+control false discovery rate, infer coordinate dependence, infer error rates,
+handle adaptive threshold choice, handle heterogeneous coordinate-specific
+calibration, or infer an ecological closure boundary from the record. Those are
+next-theorem targets, not hidden claims of the current package.
