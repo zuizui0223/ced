@@ -19,6 +19,7 @@ is deliberately not claimed by a passing test suite.
 | no CCOC predecessor | `ced.multiple_testing.MultipleThresholdEvidenceDesign` | multiple-coordinate familywise extension |
 | no CCOC predecessor | `ced.calibration.CalibrationBounds` | calibration-derived error-bound extension |
 | no CCOC predecessor | `ced.discovery_budget.FalseDiscoveryBudget` | expected false-discovery budget extension |
+| no CCOC predecessor | `ced.dependent_repeats.DependentThresholdEvidenceDesign` | dependent-repeat threshold extension |
 
 The relay-tree compilation and CCOC open-composition manuscript theorem are not
 CED dependencies. They remain provenance in the frozen archive.
@@ -49,9 +50,11 @@ The standalone tests and replay verify that:
 9. screening many declared coordinates inflates false-alert risk, requiring an
    explicit familywise bound even when the per-coordinate evidence ratio is high;
 10. finite blank and present controls can be converted into conservative one-sided
-    binomial error bounds before threshold evidence is computed; and
+    binomial error bounds before threshold evidence is computed;
 11. expected false discoveries are bounded by linearity, with Markov bounds for
-    exceeding declared false-discovery budgets.
+    exceeding declared false-discovery budgets; and
+12. if reads are dependent or non-reset, binomial threshold tails must be replaced
+    by sharp expectation-based bounds from the marginal read contract.
 
 ## Independent finite-oracle checks
 
@@ -98,6 +101,11 @@ counts under finite independent alert distributions. It checks the expected
 false-discovery formula and verifies that the Markov budget tail dominates the
 enumerated tail probability.
 
+`tests/test_dependent_repeats_oracles.py` constructs extremal dependent count
+distributions. It checks that the marginal-only false-alert and detection bounds
+are sharp, and that they are weaker than the binomial thresholds available under
+resettable independence.
+
 These are implementation cross-checks, not automated proofs of the unbounded
 all-family theorems. Their role is to catch formula, normalization, and
 boundary-condition regressions that fixed replay witnesses can miss.
@@ -107,15 +115,15 @@ boundary-condition regressions that fixed replay witnesses can miss.
 The all-family no-uniform-horizon statement and the exact quotient claims remain
 mathematical consequences of their declared finite grammar and panel contracts.
 The imperfect-detection, mode-diverse, bounded-false-positive,
-multiple-coordinate, calibration-bound, and discovery-budget extensions are
-theorems under their own explicit target-set, control-label, sensitivity,
-error-rate, resettable-read, and independence contracts. The replays are
-regression witnesses for selected values; they are not automated proofs of the
-all-system theorems.
+multiple-coordinate, calibration-bound, discovery-budget, and dependent-repeat
+extensions are theorems under their own explicit target-set, control-label,
+sensitivity, error-rate, resettable-read, marginal-read, and independence
+contracts. The replays are regression witnesses for selected values; they are not
+automated proofs of the all-system theorems.
 
 ## Explicit boundaries
 
-The discovery-budget extension does not control ordinary false discovery rate,
-infer the number of absent coordinates, infer error rates, require independence,
-or infer an ecological closure boundary from the record. Those are next-theorem
-targets, not hidden claims of the current package.
+The dependent-repeat extension does not infer dependence structure, resetability,
+error rates, ordinary false discovery rate, the number of absent coordinates, or
+an ecological closure boundary from the record. Those are next-theorem targets,
+not hidden claims of the current package.
