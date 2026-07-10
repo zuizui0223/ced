@@ -1,5 +1,6 @@
 """Closure Evidence Design (CED)."""
 
+from .adaptive_spending import AdaptiveAlphaSpend, AdaptiveAlphaSpendingLedger
 from .calibration import (
     CalibrationBounds,
     false_positive_upper_confidence_bound,
@@ -17,6 +18,8 @@ from .robustness import CommonModeProfile
 from .threshold_detection import ThresholdEvidenceDesign, binomial_tail
 
 __all__ = [
+    "AdaptiveAlphaSpend",
+    "AdaptiveAlphaSpendingLedger",
     "CalibrationBounds",
     "false_positive_upper_confidence_bound",
     "sensitivity_lower_confidence_bound",
