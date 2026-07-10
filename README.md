@@ -40,6 +40,11 @@ contains the active development core.
    instead has a posterior-free evidence-ratio lower bound against the declared
    absence model. See
    [the false-positive threshold theorem](docs/false_positive_threshold_theorem.md).
+8. **Multiple-coordinate threshold control.** Screening many declared coordinates
+   inflates the probability of at least one false alert. A Bonferroni familywise
+   bound stays valid without cross-coordinate independence; an exact all-absent
+   formula is available only when independence is declared. See
+   [the multiple-testing threshold theorem](docs/multiple_testing_threshold_theorem.md).
 
 ## Ecological reading
 
@@ -70,11 +75,13 @@ replacement/rewiring transport theory.
   source-to-successor mapping, replay boundary, and added invariants.
 - `pytest` checks theorem witnesses, canonical panel behavior, bounded independent
   oracles, imperfect-detection outcome enumerations, direct common-mode outcome
-  enumerations, and threshold evidence enumerations.
+  enumerations, threshold evidence enumerations, and multiple-coordinate
+  familywise enumerations.
 - `scripts/verify_ced_core.py` writes the deterministic finite-core artifact.
 - `scripts/verify_imperfect_detection.py` writes the independent-read replay.
 - `scripts/verify_mode_detection.py` writes the common-mode replay.
 - `scripts/verify_threshold_detection.py` writes the false-positive replay.
+- `scripts/verify_multiple_testing.py` writes the multiple-testing replay.
 
 ## Run
 
@@ -85,17 +92,19 @@ python scripts/verify_ced_core.py
 python scripts/verify_imperfect_detection.py
 python scripts/verify_mode_detection.py
 python scripts/verify_threshold_detection.py
+python scripts/verify_multiple_testing.py
 ```
 
 The replays write `artifacts/ced_core_report.json`,
 `artifacts/ced_imperfect_detection_report.json`,
-`artifacts/ced_mode_detection_report.json`, and
-`artifacts/ced_threshold_detection_report.json`.
+`artifacts/ced_mode_detection_report.json`,
+`artifacts/ced_threshold_detection_report.json`, and
+`artifacts/ced_multiple_testing_report.json`.
 
 ## Scope
 
 CED concerns declared finite deterministic grammars, resettable probe panels,
 declared failure-mode families, and explicit observation contracts. It does not
 infer delays, resetability, closure, action grammars, failure probabilities,
-detection sensitivity, false-positive rates, mode availability, independence,
-coordinate semantics, or ecological mechanisms from observations.
+detection sensitivity, false-positive rates, target-set size, mode availability,
+independence, coordinate semantics, or ecological mechanisms from observations.
