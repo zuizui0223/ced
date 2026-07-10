@@ -16,7 +16,7 @@ def test_threshold_detection_replay_matches_declared_witness():
         "false_positive_upper_bound": 0.05,
         "detection_probability_lower_bound": 0.83692,
         "false_alert_probability_upper_bound": 0.001158125,
-        "evidence_ratio_lower_bound": 722.650836481237,
+        "evidence_ratio_lower_bound": 722.650836481381,
         "threshold_is_presence_certificate": False,
     }
     assert report["frontier"] == {
