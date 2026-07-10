@@ -53,6 +53,10 @@ contains the active development core.
     budget across absent coordinates, and Markov's inequality converts that into
     a finite bound on exceeding a declared false-discovery budget. See
     [the discovery-budget theorem](docs/discovery_budget_theorem.md).
+11. **Dependent repeats and non-reset reads.** If repeated reads are not declared
+    independent and resettable, binomial tails are invalid. Marginal read bounds
+    still yield sharp expectation-based threshold bounds. See
+    [the dependent-repeat theorem](docs/dependent_repeats_theorem.md).
 
 ## Ecological reading
 
@@ -84,8 +88,8 @@ replacement/rewiring transport theory.
 - `pytest` checks theorem witnesses, canonical panel behavior, bounded independent
   oracles, imperfect-detection outcome enumerations, direct common-mode outcome
   enumerations, threshold evidence enumerations, multiple-coordinate familywise
-  enumerations, calibration coverage enumerations, and false-discovery budget
-  enumerations.
+  enumerations, calibration coverage enumerations, false-discovery budget
+  enumerations, and dependent-repeat sharpness constructions.
 - `scripts/verify_ced_core.py` writes the deterministic finite-core artifact.
 - `scripts/verify_imperfect_detection.py` writes the independent-read replay.
 - `scripts/verify_mode_detection.py` writes the common-mode replay.
@@ -93,6 +97,7 @@ replacement/rewiring transport theory.
 - `scripts/verify_multiple_testing.py` writes the multiple-testing replay.
 - `scripts/verify_calibration_bounds.py` writes the calibration-bound replay.
 - `scripts/verify_discovery_budget.py` writes the discovery-budget replay.
+- `scripts/verify_dependent_repeats.py` writes the dependent-repeat replay.
 
 ## Run
 
@@ -106,6 +111,7 @@ python scripts/verify_threshold_detection.py
 python scripts/verify_multiple_testing.py
 python scripts/verify_calibration_bounds.py
 python scripts/verify_discovery_budget.py
+python scripts/verify_dependent_repeats.py
 ```
 
 The replays write `artifacts/ced_core_report.json`,
@@ -113,8 +119,9 @@ The replays write `artifacts/ced_core_report.json`,
 `artifacts/ced_mode_detection_report.json`,
 `artifacts/ced_threshold_detection_report.json`,
 `artifacts/ced_multiple_testing_report.json`,
-`artifacts/ced_calibration_bounds_report.json`, and
-`artifacts/ced_discovery_budget_report.json`.
+`artifacts/ced_calibration_bounds_report.json`,
+`artifacts/ced_discovery_budget_report.json`, and
+`artifacts/ced_dependent_repeats_report.json`.
 
 ## Scope
 
