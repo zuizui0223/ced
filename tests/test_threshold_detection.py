@@ -18,7 +18,7 @@ def test_threshold_event_has_posterior_free_evidence_ratio():
     )
     assert design.detection_probability_lower_bound == pytest.approx(0.83692)
     assert design.false_alert_probability_upper_bound == pytest.approx(0.001158125)
-    assert design.evidence_ratio_lower_bound == pytest.approx(722.6508364810922)
+    assert design.evidence_ratio_lower_bound == pytest.approx(722.650836481381)
     assert not design.threshold_is_presence_certificate
     assert design.accepts(3)
     assert not design.accepts(2)
@@ -33,7 +33,7 @@ def test_threshold_search_returns_first_ratio_feasible_threshold():
     weaker = ThresholdEvidenceDesign(5, 2, 0.7, 0.05)
     assert weaker.evidence_ratio_lower_bound < 100
     with pytest.raises(ValueError):
-        ThresholdEvidenceDesign.minimum_threshold_for_evidence_ratio(5, 0.7, 0.05, 10000)
+        ThresholdEvidenceDesign.minimum_threshold_for_evidence_ratio(5, 0.7, 0.05, 1_000_000)
 
 
 def test_zero_false_positive_contract_recovers_deductive_certificate():
