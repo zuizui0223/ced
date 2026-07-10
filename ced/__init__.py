@@ -5,6 +5,7 @@ from .detection import OneSidedDetectionPanel, OneSidedDetector
 from .mode_detection import ModeDiverseDetectionPanel
 from .panels import PanelCoverage, panel_budget_frontier
 from .robustness import CommonModeProfile
+from .threshold_detection import ThresholdEvidenceDesign, binomial_tail
 
 __all__ = [
     "DelayedExposureFamily",
@@ -12,6 +13,8 @@ __all__ = [
     "OneSidedDetector",
     "OneSidedDetectionPanel",
     "ModeDiverseDetectionPanel",
+    "ThresholdEvidenceDesign",
+    "binomial_tail",
     "PanelCoverage",
     "panel_budget_frontier",
     "CommonModeProfile",
