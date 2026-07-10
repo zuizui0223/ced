@@ -61,6 +61,10 @@ contains the active development core.
     counts, thresholds, sensitivity bounds, and false-positive bounds. Union,
     Frechet, product, and weighted-budget formulas must be kept separate. See
     [the heterogeneous-threshold theorem](docs/heterogeneous_thresholds_theorem.md).
+13. **Adaptive alpha spending.** Coordinates, modes, and confirmation stages may
+    be chosen after seeing earlier outcomes while preserving false-alert risk via
+    conditional alpha spending. See
+    [the adaptive-spending theorem](docs/adaptive_spending_theorem.md).
 
 ## Ecological reading
 
@@ -93,8 +97,8 @@ replacement/rewiring transport theory.
   oracles, imperfect-detection outcome enumerations, direct common-mode outcome
   enumerations, threshold evidence enumerations, multiple-coordinate familywise
   enumerations, calibration coverage enumerations, false-discovery budget
-  enumerations, dependent-repeat sharpness constructions, and heterogeneous-panel
-  finite enumerations.
+  enumerations, dependent-repeat sharpness constructions, heterogeneous-panel
+  finite enumerations, and adaptive-policy alpha-spending enumerations.
 - `scripts/verify_ced_core.py` writes the deterministic finite-core artifact.
 - `scripts/verify_imperfect_detection.py` writes the independent-read replay.
 - `scripts/verify_mode_detection.py` writes the common-mode replay.
@@ -105,6 +109,7 @@ replacement/rewiring transport theory.
 - `scripts/verify_dependent_repeats.py` writes the dependent-repeat replay.
 - `scripts/verify_heterogeneous_thresholds.py` writes the heterogeneous-threshold
   replay.
+- `scripts/verify_adaptive_spending.py` writes the adaptive-spending replay.
 
 ## Run
 
@@ -120,6 +125,7 @@ python scripts/verify_calibration_bounds.py
 python scripts/verify_discovery_budget.py
 python scripts/verify_dependent_repeats.py
 python scripts/verify_heterogeneous_thresholds.py
+python scripts/verify_adaptive_spending.py
 ```
 
 The replays write `artifacts/ced_core_report.json`,
@@ -129,8 +135,9 @@ The replays write `artifacts/ced_core_report.json`,
 `artifacts/ced_multiple_testing_report.json`,
 `artifacts/ced_calibration_bounds_report.json`,
 `artifacts/ced_discovery_budget_report.json`,
-`artifacts/ced_dependent_repeats_report.json`, and
-`artifacts/ced_heterogeneous_thresholds_report.json`.
+`artifacts/ced_dependent_repeats_report.json`,
+`artifacts/ced_heterogeneous_thresholds_report.json`, and
+`artifacts/ced_adaptive_spending_report.json`.
 
 ## Scope
 
@@ -139,5 +146,5 @@ declared failure-mode families, explicit observation contracts, and declared
 calibration-control contracts. It does not infer delays, resetability, closure,
 action grammars, failure probabilities, detection sensitivity, false-positive
 rates, calibration representativeness, target-set size, mode availability,
-independence, coordinate semantics, false-discovery rates, or ecological
-mechanisms from observations.
+independence, coordinate semantics, false-discovery rates, adaptive policy
+optimality, or ecological mechanisms from observations.
