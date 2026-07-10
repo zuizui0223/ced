@@ -21,6 +21,7 @@ is deliberately not claimed by a passing test suite.
 | no CCOC predecessor | `ced.discovery_budget.FalseDiscoveryBudget` | expected false-discovery budget extension |
 | no CCOC predecessor | `ced.dependent_repeats.DependentThresholdEvidenceDesign` | dependent-repeat threshold extension |
 | no CCOC predecessor | `ced.heterogeneous_thresholds.HeterogeneousThresholdEvidencePanel` | heterogeneous threshold-panel extension |
+| no CCOC predecessor | `ced.adaptive_spending.AdaptiveAlphaSpendingLedger` | adaptive alpha-spending extension |
 
 The relay-tree compilation and CCOC open-composition manuscript theorem are not
 CED dependencies. They remain provenance in the frozen archive.
@@ -55,9 +56,12 @@ The standalone tests and replay verify that:
 11. expected false discoveries are bounded by linearity, with Markov bounds for
     exceeding declared false-discovery budgets;
 12. if reads are dependent or non-reset, binomial threshold tails must be replaced
-    by sharp expectation-based bounds from the marginal read contract; and
+    by sharp expectation-based bounds from the marginal read contract;
 13. coordinate-specific threshold designs compose through heterogeneous union,
-    Frechet, product, and weighted-budget bounds that must not be conflated.
+    Frechet, product, and weighted-budget bounds that must not be conflated; and
+14. adaptively selected coordinates, modes, and confirmation stages preserve
+    false-alert risk accounting when every selected stage spends declared
+    conditional alpha.
 
 ## Independent finite-oracle checks
 
@@ -114,6 +118,10 @@ coordinate count patterns. It checks exact independent all-absent familywise ris
 exact independent all-present joint detection, and the independence-free sharpness
 of union and Frechet bounds.
 
+`tests/test_adaptive_spending_oracles.py` enumerates a small adaptive policy tree.
+It checks that exact all-absent false-alert probability is bounded by expected
+spent alpha and by the conservative all-possible-stage ledger.
+
 These are implementation cross-checks, not automated proofs of the unbounded
 all-family theorems. Their role is to catch formula, normalization, and
 boundary-condition regressions that fixed replay witnesses can miss.
@@ -123,16 +131,16 @@ boundary-condition regressions that fixed replay witnesses can miss.
 The all-family no-uniform-horizon statement and the exact quotient claims remain
 mathematical consequences of their declared finite grammar and panel contracts.
 The imperfect-detection, mode-diverse, bounded-false-positive,
-multiple-coordinate, calibration-bound, discovery-budget, dependent-repeat, and
-heterogeneous-threshold extensions are theorems under their own explicit target-
-set, control-label, sensitivity, error-rate, resettable-read, marginal-read,
-coordinate-specific, and independence contracts. The replays are regression
-witnesses for selected values; they are not automated proofs of the all-system
-theorems.
+multiple-coordinate, calibration-bound, discovery-budget, dependent-repeat,
+heterogeneous-threshold, and adaptive-spending extensions are theorems under their
+own explicit target-set, control-label, sensitivity, error-rate, resettable-read,
+marginal-read, coordinate-specific, conditional-alpha, and independence contracts.
+The replays are regression witnesses for selected values; they are not automated
+proofs of the all-system theorems.
 
 ## Explicit boundaries
 
-The heterogeneous-threshold extension does not infer coordinate states, error
-rates, cross-coordinate independence, shared thresholds, false discovery rates, or
-an ecological closure boundary from the record. Those are next-theorem targets,
-not hidden claims of the current package.
+The adaptive-spending extension does not infer policy optimality, detection
+power, sensitivity, false-positive rates, coordinate states, cross-coordinate
+independence, false discovery rates, or an ecological closure boundary from the
+record. Those are next-theorem targets, not hidden claims of the current package.
