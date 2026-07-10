@@ -20,6 +20,7 @@ is deliberately not claimed by a passing test suite.
 | no CCOC predecessor | `ced.calibration.CalibrationBounds` | calibration-derived error-bound extension |
 | no CCOC predecessor | `ced.discovery_budget.FalseDiscoveryBudget` | expected false-discovery budget extension |
 | no CCOC predecessor | `ced.dependent_repeats.DependentThresholdEvidenceDesign` | dependent-repeat threshold extension |
+| no CCOC predecessor | `ced.heterogeneous_thresholds.HeterogeneousThresholdEvidencePanel` | heterogeneous threshold-panel extension |
 
 The relay-tree compilation and CCOC open-composition manuscript theorem are not
 CED dependencies. They remain provenance in the frozen archive.
@@ -52,9 +53,11 @@ The standalone tests and replay verify that:
 10. finite blank and present controls can be converted into conservative one-sided
     binomial error bounds before threshold evidence is computed;
 11. expected false discoveries are bounded by linearity, with Markov bounds for
-    exceeding declared false-discovery budgets; and
+    exceeding declared false-discovery budgets;
 12. if reads are dependent or non-reset, binomial threshold tails must be replaced
-    by sharp expectation-based bounds from the marginal read contract.
+    by sharp expectation-based bounds from the marginal read contract; and
+13. coordinate-specific threshold designs compose through heterogeneous union,
+    Frechet, product, and weighted-budget bounds that must not be conflated.
 
 ## Independent finite-oracle checks
 
@@ -106,6 +109,11 @@ distributions. It checks that the marginal-only false-alert and detection bounds
 are sharp, and that they are weaker than the binomial thresholds available under
 resettable independence.
 
+`tests/test_heterogeneous_thresholds_oracles.py` enumerates finite heterogeneous
+coordinate count patterns. It checks exact independent all-absent familywise risk,
+exact independent all-present joint detection, and the independence-free sharpness
+of union and Frechet bounds.
+
 These are implementation cross-checks, not automated proofs of the unbounded
 all-family theorems. Their role is to catch formula, normalization, and
 boundary-condition regressions that fixed replay witnesses can miss.
@@ -115,15 +123,16 @@ boundary-condition regressions that fixed replay witnesses can miss.
 The all-family no-uniform-horizon statement and the exact quotient claims remain
 mathematical consequences of their declared finite grammar and panel contracts.
 The imperfect-detection, mode-diverse, bounded-false-positive,
-multiple-coordinate, calibration-bound, discovery-budget, and dependent-repeat
-extensions are theorems under their own explicit target-set, control-label,
-sensitivity, error-rate, resettable-read, marginal-read, and independence
-contracts. The replays are regression witnesses for selected values; they are not
-automated proofs of the all-system theorems.
+multiple-coordinate, calibration-bound, discovery-budget, dependent-repeat, and
+heterogeneous-threshold extensions are theorems under their own explicit target-
+set, control-label, sensitivity, error-rate, resettable-read, marginal-read,
+coordinate-specific, and independence contracts. The replays are regression
+witnesses for selected values; they are not automated proofs of the all-system
+theorems.
 
 ## Explicit boundaries
 
-The dependent-repeat extension does not infer dependence structure, resetability,
-error rates, ordinary false discovery rate, the number of absent coordinates, or
+The heterogeneous-threshold extension does not infer coordinate states, error
+rates, cross-coordinate independence, shared thresholds, false discovery rates, or
 an ecological closure boundary from the record. Those are next-theorem targets,
 not hidden claims of the current package.
