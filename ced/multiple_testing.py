@@ -16,6 +16,8 @@ from typing import Iterable
 
 from .threshold_detection import ThresholdEvidenceDesign
 
+_FLOAT_TOLERANCE = 1e-12
+
 
 def _positive_int(name: str, value: int) -> int:
     if not isinstance(value, int) or isinstance(value, bool) or value < 1:
@@ -72,6 +74,8 @@ class MultipleThresholdEvidenceDesign:
     def exact_independent_all_absent_familywise_false_alert(self) -> float:
         """Exact all-absent familywise false-alert probability under independence."""
         alpha = self.per_coordinate_false_alert_upper_bound
+        if self.coordinate_count == 1:
+            return alpha
         return 1.0 - (1.0 - alpha) ** self.coordinate_count
 
     @property
@@ -158,5 +162,5 @@ class MultipleThresholdEvidenceDesign:
             and 0.0 <= self.familywise_false_alert_upper_bound <= 1.0
             and 0.0 <= self.exact_independent_all_absent_familywise_false_alert <= 1.0
             and self.exact_independent_all_absent_familywise_false_alert
-            <= self.familywise_false_alert_upper_bound
+            <= self.familywise_false_alert_upper_bound + _FLOAT_TOLERANCE
         )
