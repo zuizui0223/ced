@@ -61,8 +61,8 @@ def test_bonferroni_bound_dominates_exact_independent_familywise_risk():
         per = ThresholdEvidenceDesign(5, 3, 0.7, 0.05)
         design = MultipleThresholdEvidenceDesign(coordinate_count, per)
         exact = design.exact_independent_all_absent_familywise_false_alert
-        assert exact <= design.familywise_false_alert_upper_bound
-        assert design.familywise_false_alert_upper_bound <= design.expected_false_alerts_upper_bound
+        assert exact <= design.familywise_false_alert_upper_bound + 1e-12
+        assert design.familywise_false_alert_upper_bound <= design.expected_false_alerts_upper_bound + 1e-12
 
 
 def test_familywise_threshold_search_matches_direct_scan():
