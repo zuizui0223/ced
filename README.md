@@ -57,6 +57,10 @@ contains the active development core.
     independent and resettable, binomial tails are invalid. Marginal read bounds
     still yield sharp expectation-based threshold bounds. See
     [the dependent-repeat theorem](docs/dependent_repeats_theorem.md).
+12. **Heterogeneous coordinate thresholds.** Coordinates may have different read
+    counts, thresholds, sensitivity bounds, and false-positive bounds. Union,
+    Frechet, product, and weighted-budget formulas must be kept separate. See
+    [the heterogeneous-threshold theorem](docs/heterogeneous_thresholds_theorem.md).
 
 ## Ecological reading
 
@@ -89,7 +93,8 @@ replacement/rewiring transport theory.
   oracles, imperfect-detection outcome enumerations, direct common-mode outcome
   enumerations, threshold evidence enumerations, multiple-coordinate familywise
   enumerations, calibration coverage enumerations, false-discovery budget
-  enumerations, and dependent-repeat sharpness constructions.
+  enumerations, dependent-repeat sharpness constructions, and heterogeneous-panel
+  finite enumerations.
 - `scripts/verify_ced_core.py` writes the deterministic finite-core artifact.
 - `scripts/verify_imperfect_detection.py` writes the independent-read replay.
 - `scripts/verify_mode_detection.py` writes the common-mode replay.
@@ -98,6 +103,8 @@ replacement/rewiring transport theory.
 - `scripts/verify_calibration_bounds.py` writes the calibration-bound replay.
 - `scripts/verify_discovery_budget.py` writes the discovery-budget replay.
 - `scripts/verify_dependent_repeats.py` writes the dependent-repeat replay.
+- `scripts/verify_heterogeneous_thresholds.py` writes the heterogeneous-threshold
+  replay.
 
 ## Run
 
@@ -112,6 +119,7 @@ python scripts/verify_multiple_testing.py
 python scripts/verify_calibration_bounds.py
 python scripts/verify_discovery_budget.py
 python scripts/verify_dependent_repeats.py
+python scripts/verify_heterogeneous_thresholds.py
 ```
 
 The replays write `artifacts/ced_core_report.json`,
@@ -120,8 +128,9 @@ The replays write `artifacts/ced_core_report.json`,
 `artifacts/ced_threshold_detection_report.json`,
 `artifacts/ced_multiple_testing_report.json`,
 `artifacts/ced_calibration_bounds_report.json`,
-`artifacts/ced_discovery_budget_report.json`, and
-`artifacts/ced_dependent_repeats_report.json`.
+`artifacts/ced_discovery_budget_report.json`,
+`artifacts/ced_dependent_repeats_report.json`, and
+`artifacts/ced_heterogeneous_thresholds_report.json`.
 
 ## Scope
 
