@@ -34,6 +34,7 @@ jobs:
           python scripts/verify_multiple_testing.py
           python scripts/verify_calibration_bounds.py
           python scripts/verify_discovery_budget.py
+          python scripts/verify_dependent_repeats.py
       - name: Upload replay artifacts
         if: matrix.python-version == '3.12'
         uses: actions/upload-artifact@v4
@@ -47,3 +48,4 @@ jobs:
             artifacts/ced_multiple_testing_report.json
             artifacts/ced_calibration_bounds_report.json
             artifacts/ced_discovery_budget_report.json
+            artifacts/ced_dependent_repeats_report.json

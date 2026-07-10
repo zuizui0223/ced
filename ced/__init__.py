@@ -6,6 +6,7 @@ from .calibration import (
     sensitivity_lower_confidence_bound,
 )
 from .delayed import DelayedExposureFamily, no_uniform_closure_horizon
+from .dependent_repeats import DependentThresholdEvidenceDesign
 from .detection import OneSidedDetectionPanel, OneSidedDetector
 from .discovery_budget import FalseDiscoveryBudget
 from .mode_detection import ModeDiverseDetectionPanel
@@ -20,6 +21,7 @@ __all__ = [
     "sensitivity_lower_confidence_bound",
     "DelayedExposureFamily",
     "no_uniform_closure_horizon",
+    "DependentThresholdEvidenceDesign",
     "OneSidedDetector",
     "OneSidedDetectionPanel",
     "FalseDiscoveryBudget",
