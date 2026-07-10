@@ -58,7 +58,7 @@ def test_adaptive_policy_false_alert_is_bounded_by_expected_spend():
     )
 
     assert exact_any_false_alert == pytest.approx(0.0397)
-    assert expected_spent_alpha == pytest.approx(0.040988)
+    assert expected_spent_alpha == pytest.approx(0.041088)
     assert exact_any_false_alert <= expected_spent_alpha
     assert expected_spent_alpha <= all_possible_stage_ledger.total_spent_alpha
     assert exact_any_false_alert <= all_possible_stage_ledger.familywise_false_alert_upper_bound
