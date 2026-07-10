@@ -49,7 +49,7 @@ The standalone tests and replay verify that:
    explicit familywise bound even when the per-coordinate evidence ratio is high;
    and
 10. finite blank and present controls can be converted into conservative one-sided
-   binomial error bounds before threshold evidence is computed.
+    binomial error bounds before threshold evidence is computed.
 
 ## Independent finite-oracle checks
 
