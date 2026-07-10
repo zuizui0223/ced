@@ -9,6 +9,7 @@ from .delayed import DelayedExposureFamily, no_uniform_closure_horizon
 from .dependent_repeats import DependentThresholdEvidenceDesign
 from .detection import OneSidedDetectionPanel, OneSidedDetector
 from .discovery_budget import FalseDiscoveryBudget
+from .heterogeneous_thresholds import HeterogeneousThresholdEvidencePanel
 from .mode_detection import ModeDiverseDetectionPanel
 from .multiple_testing import MultipleThresholdEvidenceDesign
 from .panels import PanelCoverage, panel_budget_frontier
@@ -25,6 +26,7 @@ __all__ = [
     "OneSidedDetector",
     "OneSidedDetectionPanel",
     "FalseDiscoveryBudget",
+    "HeterogeneousThresholdEvidencePanel",
     "ModeDiverseDetectionPanel",
     "MultipleThresholdEvidenceDesign",
     "ThresholdEvidenceDesign",
