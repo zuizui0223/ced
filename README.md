@@ -49,6 +49,10 @@ contains the active development core.
    conservative one-sided binomial bounds for `f_max` and `p_min`, avoiding the
    pretense that detection error rates are known exactly. See
    [the calibration-bound theorem](docs/calibration_bounds_theorem.md).
+10. **Expected false-discovery budgets.** Linearity gives an expected false-alert
+    budget across absent coordinates, and Markov's inequality converts that into
+    a finite bound on exceeding a declared false-discovery budget. See
+    [the discovery-budget theorem](docs/discovery_budget_theorem.md).
 
 ## Ecological reading
 
@@ -80,13 +84,15 @@ replacement/rewiring transport theory.
 - `pytest` checks theorem witnesses, canonical panel behavior, bounded independent
   oracles, imperfect-detection outcome enumerations, direct common-mode outcome
   enumerations, threshold evidence enumerations, multiple-coordinate familywise
-  enumerations, and calibration coverage enumerations.
+  enumerations, calibration coverage enumerations, and false-discovery budget
+  enumerations.
 - `scripts/verify_ced_core.py` writes the deterministic finite-core artifact.
 - `scripts/verify_imperfect_detection.py` writes the independent-read replay.
 - `scripts/verify_mode_detection.py` writes the common-mode replay.
 - `scripts/verify_threshold_detection.py` writes the false-positive replay.
 - `scripts/verify_multiple_testing.py` writes the multiple-testing replay.
 - `scripts/verify_calibration_bounds.py` writes the calibration-bound replay.
+- `scripts/verify_discovery_budget.py` writes the discovery-budget replay.
 
 ## Run
 
@@ -99,14 +105,16 @@ python scripts/verify_mode_detection.py
 python scripts/verify_threshold_detection.py
 python scripts/verify_multiple_testing.py
 python scripts/verify_calibration_bounds.py
+python scripts/verify_discovery_budget.py
 ```
 
 The replays write `artifacts/ced_core_report.json`,
 `artifacts/ced_imperfect_detection_report.json`,
 `artifacts/ced_mode_detection_report.json`,
 `artifacts/ced_threshold_detection_report.json`,
-`artifacts/ced_multiple_testing_report.json`, and
-`artifacts/ced_calibration_bounds_report.json`.
+`artifacts/ced_multiple_testing_report.json`,
+`artifacts/ced_calibration_bounds_report.json`, and
+`artifacts/ced_discovery_budget_report.json`.
 
 ## Scope
 
@@ -115,4 +123,5 @@ declared failure-mode families, explicit observation contracts, and declared
 calibration-control contracts. It does not infer delays, resetability, closure,
 action grammars, failure probabilities, detection sensitivity, false-positive
 rates, calibration representativeness, target-set size, mode availability,
-independence, coordinate semantics, or ecological mechanisms from observations.
+independence, coordinate semantics, false-discovery rates, or ecological
+mechanisms from observations.
