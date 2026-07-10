@@ -15,6 +15,7 @@ is deliberately not claimed by a passing test suite.
 | common-mode canonical panel analysis | `ced.robustness.CommonModeProfile` | migrated as finite mode-cover robustness |
 | no CCOC predecessor | `ced.detection.OneSidedDetector` | one-sided imperfect-detection extension |
 | no CCOC predecessor | `ced.mode_detection.ModeDiverseDetectionPanel` | common-mode imperfect-detection extension |
+| no CCOC predecessor | `ced.threshold_detection.ThresholdEvidenceDesign` | bounded false-positive evidence extension |
 
 The relay-tree compilation and CCOC open-composition manuscript theorem are not
 CED dependencies. They remain provenance in the frozen archive.
@@ -35,10 +36,13 @@ The standalone tests and replay verify that:
    count;
 6. under the declared one-sided detection contract, finite all-negative records
    remain compatible with presence while repeated reads give a lower bound for
-   joint positive-detection probability; and
+   joint positive-detection probability;
 7. under declared independent common-mode availability, moving effort across
    failure modes changes the detection frontier in a way that repeated reads
-   inside one mode cannot reproduce.
+   inside one mode cannot reproduce; and
+8. with bounded false positives, threshold crossings are not deductive presence
+   certificates but do have a posterior-free event-level evidence-ratio lower
+   bound under the declared read contract.
 
 ## Independent finite-oracle checks
 
@@ -65,6 +69,11 @@ common-mode inclusion–exclusion formula, the availability ceiling, and the fac
 that the mode floor is necessary but does not by itself make finite sensing
 sufficient.
 
+`tests/test_threshold_detection_oracles.py` enumerates every binary read outcome
+for bounded false-positive threshold events. It checks the binomial tail formula,
+the event-level evidence ratio, the minimum-threshold helper, and the fact that
+threshold crossing is not a proof of presence when false positives are allowed.
+
 These are implementation cross-checks, not automated proofs of the unbounded
 all-family theorems. Their role is to catch formula, normalization, and
 boundary-condition regressions that fixed replay witnesses can miss.
@@ -73,16 +82,16 @@ boundary-condition regressions that fixed replay witnesses can miss.
 
 The all-family no-uniform-horizon statement and the exact quotient claims remain
 mathematical consequences of their declared finite grammar and panel contracts.
-The imperfect-detection and mode-diverse extensions are theorems under their own
-explicit zero-false-positive, bounded-sensitivity, resettable-read, and stated
+The imperfect-detection, mode-diverse, and bounded-false-positive extensions are
+theorems under their own explicit sensitivity, error-rate, resettable-read, and
 independence contracts. The replays are regression witnesses for selected
 values; they are not automated proofs of the all-system theorems.
 
 ## Explicit boundaries
 
-The mode-diverse detection extension does not cover false positives, unknown or
-estimated sensitivity, correlated mode failures, dependent reads within a mode,
-heterogeneous coordinates, non-reset monitoring, adaptive allocation,
-unobserved failure modes, probabilistic delays, or inference of an ecological
-closure boundary from the record. Those are next-theorem targets, not hidden
-claims of the current package.
+The false-positive threshold extension does not cover unknown or estimated error
+rates, dependent reads, correlated false positives, heterogeneous sensitivity,
+multiple testing across many coordinates, adaptive threshold choice, non-reset
+monitoring, unobserved failure modes, probabilistic delays, or inference of an
+ecological closure boundary from the record. Those are next-theorem targets, not
+hidden claims of the current package.

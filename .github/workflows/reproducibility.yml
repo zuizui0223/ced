@@ -30,6 +30,7 @@ jobs:
           python scripts/verify_ced_core.py
           python scripts/verify_imperfect_detection.py
           python scripts/verify_mode_detection.py
+          python scripts/verify_threshold_detection.py
       - name: Upload replay artifacts
         if: matrix.python-version == '3.12'
         uses: actions/upload-artifact@v4
@@ -39,3 +40,4 @@ jobs:
             artifacts/ced_core_report.json
             artifacts/ced_imperfect_detection_report.json
             artifacts/ced_mode_detection_report.json
+            artifacts/ced_threshold_detection_report.json
