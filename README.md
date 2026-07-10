@@ -45,6 +45,10 @@ contains the active development core.
    bound stays valid without cross-coordinate independence; an exact all-absent
    formula is available only when independence is declared. See
    [the multiple-testing threshold theorem](docs/multiple_testing_threshold_theorem.md).
+9. **Calibration-derived error bounds.** Blank and present controls can supply
+   conservative one-sided binomial bounds for `f_max` and `p_min`, avoiding the
+   pretense that detection error rates are known exactly. See
+   [the calibration-bound theorem](docs/calibration_bounds_theorem.md).
 
 ## Ecological reading
 
@@ -75,13 +79,14 @@ replacement/rewiring transport theory.
   source-to-successor mapping, replay boundary, and added invariants.
 - `pytest` checks theorem witnesses, canonical panel behavior, bounded independent
   oracles, imperfect-detection outcome enumerations, direct common-mode outcome
-  enumerations, threshold evidence enumerations, and multiple-coordinate
-  familywise enumerations.
+  enumerations, threshold evidence enumerations, multiple-coordinate familywise
+  enumerations, and calibration coverage enumerations.
 - `scripts/verify_ced_core.py` writes the deterministic finite-core artifact.
 - `scripts/verify_imperfect_detection.py` writes the independent-read replay.
 - `scripts/verify_mode_detection.py` writes the common-mode replay.
 - `scripts/verify_threshold_detection.py` writes the false-positive replay.
 - `scripts/verify_multiple_testing.py` writes the multiple-testing replay.
+- `scripts/verify_calibration_bounds.py` writes the calibration-bound replay.
 
 ## Run
 
@@ -93,18 +98,21 @@ python scripts/verify_imperfect_detection.py
 python scripts/verify_mode_detection.py
 python scripts/verify_threshold_detection.py
 python scripts/verify_multiple_testing.py
+python scripts/verify_calibration_bounds.py
 ```
 
 The replays write `artifacts/ced_core_report.json`,
 `artifacts/ced_imperfect_detection_report.json`,
 `artifacts/ced_mode_detection_report.json`,
-`artifacts/ced_threshold_detection_report.json`, and
-`artifacts/ced_multiple_testing_report.json`.
+`artifacts/ced_threshold_detection_report.json`,
+`artifacts/ced_multiple_testing_report.json`, and
+`artifacts/ced_calibration_bounds_report.json`.
 
 ## Scope
 
 CED concerns declared finite deterministic grammars, resettable probe panels,
-declared failure-mode families, and explicit observation contracts. It does not
-infer delays, resetability, closure, action grammars, failure probabilities,
-detection sensitivity, false-positive rates, target-set size, mode availability,
+declared failure-mode families, explicit observation contracts, and declared
+calibration-control contracts. It does not infer delays, resetability, closure,
+action grammars, failure probabilities, detection sensitivity, false-positive
+rates, calibration representativeness, target-set size, mode availability,
 independence, coordinate semantics, or ecological mechanisms from observations.
