@@ -1,5 +1,10 @@
 """Closure Evidence Design (CED)."""
 
+from .calibration import (
+    CalibrationBounds,
+    false_positive_upper_confidence_bound,
+    sensitivity_lower_confidence_bound,
+)
 from .delayed import DelayedExposureFamily, no_uniform_closure_horizon
 from .detection import OneSidedDetectionPanel, OneSidedDetector
 from .mode_detection import ModeDiverseDetectionPanel
@@ -9,6 +14,9 @@ from .robustness import CommonModeProfile
 from .threshold_detection import ThresholdEvidenceDesign, binomial_tail
 
 __all__ = [
+    "CalibrationBounds",
+    "false_positive_upper_confidence_bound",
+    "sensitivity_lower_confidence_bound",
     "DelayedExposureFamily",
     "no_uniform_closure_horizon",
     "OneSidedDetector",
