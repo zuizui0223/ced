@@ -10,6 +10,7 @@ from .delayed import DelayedExposureFamily, no_uniform_closure_horizon
 from .dependent_repeats import DependentThresholdEvidenceDesign
 from .detection import OneSidedDetectionPanel, OneSidedDetector
 from .discovery_budget import FalseDiscoveryBudget
+from .discovery_concentration import IndependentFalseDiscoveryConcentration
 from .heterogeneous_thresholds import HeterogeneousThresholdEvidencePanel
 from .mode_detection import ModeDiverseDetectionPanel
 from .multiple_testing import MultipleThresholdEvidenceDesign
@@ -30,6 +31,7 @@ __all__ = [
     "OneSidedDetector",
     "OneSidedDetectionPanel",
     "FalseDiscoveryBudget",
+    "IndependentFalseDiscoveryConcentration",
     "HeterogeneousThresholdEvidencePanel",
     "ModeDiverseDetectionPanel",
     "MultipleThresholdEvidenceDesign",
