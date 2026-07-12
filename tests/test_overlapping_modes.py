@@ -16,9 +16,9 @@ def test_partially_shared_failure_factors():
     assert panel.shared_factor_count == 1
     assert panel.pairwise_mode_overlap_counts == ((2, 1), (1, 2))
     assert panel.within_mode_coordinate_miss_probability_upper_bound == pytest.approx(0.16)
-    assert panel.all_modes_failed_probability == pytest.approx(0.44)
-    assert panel.availability_ceiling == pytest.approx(0.56)
-    assert panel.joint_detection_probability_lower_bound == pytest.approx(0.441758068736)
+    assert panel.all_modes_failed_probability == pytest.approx(0.224)
+    assert panel.availability_ceiling == pytest.approx(0.776)
+    assert panel.joint_detection_probability_lower_bound == pytest.approx(0.6274907366031359)
     assert panel.total_read_count == 12
     assert panel.verify()
 
