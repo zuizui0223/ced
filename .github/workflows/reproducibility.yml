@@ -38,6 +38,7 @@ jobs:
           python scripts/verify_heterogeneous_thresholds.py
           python scripts/verify_adaptive_spending.py
           python scripts/verify_overlapping_modes.py
+          python scripts/verify_discovery_concentration.py
       - name: Upload replay artifacts
         if: matrix.python-version == '3.12'
         uses: actions/upload-artifact@v4
@@ -55,3 +56,4 @@ jobs:
             artifacts/ced_heterogeneous_thresholds_report.json
             artifacts/ced_adaptive_spending_report.json
             artifacts/ced_overlapping_modes_report.json
+            artifacts/ced_discovery_concentration_report.json
