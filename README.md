@@ -65,6 +65,11 @@ contains the active development core.
     be chosen after seeing earlier outcomes while preserving false-alert risk via
     conditional alpha spending. See
     [the adaptive-spending theorem](docs/adaptive_spending_theorem.md).
+14. **Overlapping failure factors.** Independent modes and one global common mode
+    are endpoint cases of a latent factor graph in which modes may share some but
+    not all failure causes. Exact finite mixture bounds follow by averaging over
+    factor states. See
+    [the overlapping-failure-mode theorem](docs/overlapping_failure_modes_theorem.md).
 
 ## Ecological reading
 
@@ -98,7 +103,8 @@ replacement/rewiring transport theory.
   enumerations, threshold evidence enumerations, multiple-coordinate familywise
   enumerations, calibration coverage enumerations, false-discovery budget
   enumerations, dependent-repeat sharpness constructions, heterogeneous-panel
-  finite enumerations, and adaptive-policy alpha-spending enumerations.
+  finite enumerations, adaptive-policy alpha-spending enumerations, and overlapping
+  failure-factor enumerations.
 - `scripts/verify_ced_core.py` writes the deterministic finite-core artifact.
 - `scripts/verify_imperfect_detection.py` writes the independent-read replay.
 - `scripts/verify_mode_detection.py` writes the common-mode replay.
@@ -110,6 +116,7 @@ replacement/rewiring transport theory.
 - `scripts/verify_heterogeneous_thresholds.py` writes the heterogeneous-threshold
   replay.
 - `scripts/verify_adaptive_spending.py` writes the adaptive-spending replay.
+- `scripts/verify_overlapping_modes.py` writes the overlapping-mode replay.
 
 ## Run
 
@@ -126,6 +133,7 @@ python scripts/verify_discovery_budget.py
 python scripts/verify_dependent_repeats.py
 python scripts/verify_heterogeneous_thresholds.py
 python scripts/verify_adaptive_spending.py
+python scripts/verify_overlapping_modes.py
 ```
 
 The replays write `artifacts/ced_core_report.json`,
@@ -136,8 +144,9 @@ The replays write `artifacts/ced_core_report.json`,
 `artifacts/ced_calibration_bounds_report.json`,
 `artifacts/ced_discovery_budget_report.json`,
 `artifacts/ced_dependent_repeats_report.json`,
-`artifacts/ced_heterogeneous_thresholds_report.json`, and
-`artifacts/ced_adaptive_spending_report.json`.
+`artifacts/ced_heterogeneous_thresholds_report.json`,
+`artifacts/ced_adaptive_spending_report.json`, and
+`artifacts/ced_overlapping_modes_report.json`.
 
 ## Scope
 
@@ -146,5 +155,5 @@ declared failure-mode families, explicit observation contracts, and declared
 calibration-control contracts. It does not infer delays, resetability, closure,
 action grammars, failure probabilities, detection sensitivity, false-positive
 rates, calibration representativeness, target-set size, mode availability,
-independence, coordinate semantics, false-discovery rates, adaptive policy
-optimality, or ecological mechanisms from observations.
+independence, latent failure factors, coordinate semantics, false-discovery rates,
+adaptive policy optimality, or ecological mechanisms from observations.

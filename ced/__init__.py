@@ -13,6 +13,7 @@ from .discovery_budget import FalseDiscoveryBudget
 from .heterogeneous_thresholds import HeterogeneousThresholdEvidencePanel
 from .mode_detection import ModeDiverseDetectionPanel
 from .multiple_testing import MultipleThresholdEvidenceDesign
+from .overlapping_modes import OverlappingFailureModePanel
 from .panels import PanelCoverage, panel_budget_frontier
 from .robustness import CommonModeProfile
 from .threshold_detection import ThresholdEvidenceDesign, binomial_tail
@@ -32,6 +33,7 @@ __all__ = [
     "HeterogeneousThresholdEvidencePanel",
     "ModeDiverseDetectionPanel",
     "MultipleThresholdEvidenceDesign",
+    "OverlappingFailureModePanel",
     "ThresholdEvidenceDesign",
     "binomial_tail",
     "PanelCoverage",
