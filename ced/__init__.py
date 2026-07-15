@@ -11,6 +11,7 @@ from .dependent_repeats import DependentThresholdEvidenceDesign
 from .detection import OneSidedDetectionPanel, OneSidedDetector
 from .discovery_budget import FalseDiscoveryBudget
 from .discovery_concentration import IndependentFalseDiscoveryConcentration
+from .experiment_quotient import CompatibleRecordReport, ExperimentInducedQuotient
 from .heterogeneous_thresholds import HeterogeneousThresholdEvidencePanel
 from .mode_detection import ModeDiverseDetectionPanel
 from .multiple_testing import MultipleThresholdEvidenceDesign
@@ -32,6 +33,8 @@ __all__ = [
     "OneSidedDetectionPanel",
     "FalseDiscoveryBudget",
     "IndependentFalseDiscoveryConcentration",
+    "ExperimentInducedQuotient",
+    "CompatibleRecordReport",
     "HeterogeneousThresholdEvidencePanel",
     "ModeDiverseDetectionPanel",
     "MultipleThresholdEvidenceDesign",
