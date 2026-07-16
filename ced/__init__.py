@@ -18,6 +18,12 @@ from .multiple_testing import MultipleThresholdEvidenceDesign
 from .overlapping_modes import OverlappingFailureModePanel
 from .panels import PanelCoverage, panel_budget_frontier
 from .robustness import CommonModeProfile
+from .target_resolution import (
+    CostedTargetResolutionDesign,
+    RiskLimitedTargetResolution,
+    TargetRecordOutcome,
+    cheapest_feasible_target_resolution,
+)
 from .threshold_detection import ThresholdEvidenceDesign, binomial_tail
 
 __all__ = [
@@ -35,6 +41,10 @@ __all__ = [
     "IndependentFalseDiscoveryConcentration",
     "ExperimentInducedQuotient",
     "CompatibleRecordReport",
+    "TargetRecordOutcome",
+    "RiskLimitedTargetResolution",
+    "CostedTargetResolutionDesign",
+    "cheapest_feasible_target_resolution",
     "HeterogeneousThresholdEvidencePanel",
     "ModeDiverseDetectionPanel",
     "MultipleThresholdEvidenceDesign",
