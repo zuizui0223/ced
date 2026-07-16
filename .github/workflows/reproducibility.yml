@@ -41,6 +41,7 @@ jobs:
           python scripts/verify_discovery_concentration.py
           python scripts/verify_experiment_quotient.py
           python scripts/verify_target_resolution.py
+          python scripts/verify_failure_target_comparison.py
       - name: Upload replay artifacts
         if: matrix.python-version == '3.12'
         uses: actions/upload-artifact@v4
@@ -61,3 +62,4 @@ jobs:
             artifacts/ced_discovery_concentration_report.json
             artifacts/ced_experiment_quotient_report.json
             artifacts/ced_target_resolution_report.json
+            artifacts/ced_failure_target_comparison_report.json
