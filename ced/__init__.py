@@ -1,6 +1,12 @@
 """Closure Evidence Design (CED)."""
 
 from .adaptive_spending import AdaptiveAlphaSpend, AdaptiveAlphaSpendingLedger
+from .adaptive_target_policy import (
+    AdaptiveTargetBranch,
+    AdaptiveTargetPolicy,
+    TerminalTargetReport,
+    cheapest_feasible_policy,
+)
 from .calibration import (
     CalibrationBounds,
     false_positive_upper_confidence_bound,
@@ -30,6 +36,10 @@ from .threshold_detection import ThresholdEvidenceDesign, binomial_tail
 __all__ = [
     "AdaptiveAlphaSpend",
     "AdaptiveAlphaSpendingLedger",
+    "AdaptiveTargetBranch",
+    "AdaptiveTargetPolicy",
+    "TerminalTargetReport",
+    "cheapest_feasible_policy",
     "CalibrationBounds",
     "false_positive_upper_confidence_bound",
     "sensitivity_lower_confidence_bound",
