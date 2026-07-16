@@ -11,6 +11,10 @@ requires-python = ">=3.10"
 [project.optional-dependencies]
 dev = ["pytest>=8"]
 
+[tool.setuptools.packages.find]
+include = ["ced*"]
+exclude = ["manuscript*"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
