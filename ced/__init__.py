@@ -12,6 +12,7 @@ from .detection import OneSidedDetectionPanel, OneSidedDetector
 from .discovery_budget import FalseDiscoveryBudget
 from .discovery_concentration import IndependentFalseDiscoveryConcentration
 from .experiment_quotient import CompatibleRecordReport, ExperimentInducedQuotient
+from .failure_target_comparison import EqualCostFailureComparison
 from .heterogeneous_thresholds import HeterogeneousThresholdEvidencePanel
 from .mode_detection import ModeDiverseDetectionPanel
 from .multiple_testing import MultipleThresholdEvidenceDesign
@@ -41,6 +42,7 @@ __all__ = [
     "IndependentFalseDiscoveryConcentration",
     "ExperimentInducedQuotient",
     "CompatibleRecordReport",
+    "EqualCostFailureComparison",
     "TargetRecordOutcome",
     "RiskLimitedTargetResolution",
     "CostedTargetResolutionDesign",
