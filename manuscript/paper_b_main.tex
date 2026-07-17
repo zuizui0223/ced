@@ -1,0 +1,100 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,graphicx,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\title{Honest Ecological Prediction from Finite Evidence:\\Quotients, Failure Architecture, and Risk-limited Experiments}
+\author{Author names withheld for drafting}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Ecological monitoring rarely identifies a unique latent world: nondetection can mask presence, several mechanisms can predict the same observations, and interventions can be informative only under particular current states. We represent a finite ecological evidence problem by latent worlds, admissible experiments, observation contracts, and a report target. Every declared experiment induces an ecological quotient whose classes contain worlds producing the same complete record; deterministic reporting is justified exactly when the target is constant on each relevant class, and otherwise the honest conclusion is set-valued. We then characterize the unique coarsest observation-preserving, target-safe quotient stable under future actions, thereby retaining only distinctions needed for declared ecological conclusions. Observation failure architecture determines which quotient refinements can be trusted: shared failures impose resolution ceilings that replication within one mode cannot overcome, whereas independent or partially overlapping modes support different reliable refinements. Finally, adaptive experiment trees minimize expected cost or residual ambiguity subject to explicit correct-report and false-resolution constraints. A plant--pollinator example jointly involving uncertain interaction presence and ambiguous intervention response shows why more data need not justify a sharper prediction unless the experiment separates the target-relevant latent classes and its failure structure supports that separation.
+\end{abstract}
+
+\section{Introduction}
+Finite ecological evidence can leave several kinds of uncertainty entangled. A focal species or interaction may be absent or merely undetected. Several candidate mechanisms may remain compatible with the same record. An intervention may separate those mechanisms only when a prerequisite ecological state is present. Finally, the observation process itself may fail through shared weather, access, camera, laboratory, or observer effects. Treating a positive detection, a best-fitting mechanism, or a maximum-posterior state as full resolution can therefore produce a conclusion that the declared experiment does not logically support.
+
+Occupancy and imperfect-detection models quantify uncertainty about presence. Structural-uncertainty and multimodel methods compare candidate mechanisms. Adaptive monitoring and experimental design select additional measurements. These literatures address crucial parts of the problem, but they do not by themselves supply one exact object describing what a finite experiment identifies jointly across presence and mechanism dimensions, nor a unique minimal abstraction retaining exactly the distinctions needed for a declared management report under future intervention.
+
+We formulate the problem using a finite latent-world set, admissible experiments, an observation contract, and a target report. Four result packages organize the paper. First, every experiment induces an ecological quotient of worlds with identical complete records, and deterministic reporting is valid exactly when the target is constant on the relevant classes. Second, a unique coarsest observation-preserving, action-stable, target-safe quotient removes distinctions irrelevant to the declared report while preserving those required for intervention prediction. Third, failure architecture determines whether intended quotient refinements are reliable and may impose ceilings that additional replication within one mode cannot overcome. Fourth, adaptive experiment trees are evaluated by correct, wrong, and ambiguous report probabilities and expected cost, allowing target resolution to be optimized under explicit risk constraints rather than full latent-world identification.
+
+The resulting framework asks not only how uncertain a conclusion is, but whether the evidence justifies stating it deterministically, which target-relevant distinctions remain unresolved, and which additional experiment can safely reduce that ambiguity. The contribution is structural and mathematical. Standard probability bounds, threshold searches, posterior updates, and finite enumeration support the analysis but are not headline claims.
+
+\section{Finite ecological evidence problems}
+A finite ecological evidence problem consists of a latent-world set $W$, a declared experiment family $\mathcal{D}$, an observation contract, a finite action grammar, and a target map $T:W\to Y$ or set-valued target. For a deterministic design $D$, let $\operatorname{record}_D(w)$ denote the complete record generated under world $w$.
+
+\begin{definition}[Experiment-induced ecological quotient]
+For a design $D$, define
+\[
+w\sim_D w' \quad\Longleftrightarrow\quad \operatorname{record}_D(w)=\operatorname{record}_D(w').
+\]
+The quotient $W/{\sim_D}$ is the experiment-induced ecological quotient.
+\end{definition}
+
+Under bounded-support observation error, an observed record $x$ induces the compatible set
+\[
+C_D(x)=\{w\in W:x\text{ is allowed under }w\text{ and }D\}.
+\]
+This set, rather than a single best world, is the exact state of knowledge supplied by the declared contract.
+
+\section{Results}
+\subsection{Experiment-induced quotient and honest reporting}
+\begin{theorem}[Experiment-induced ecological quotient]
+Every report computed solely from the complete record is constant on $\sim_D$ classes. An exact deterministic report of $T$ exists if and only if $T$ is constant on every relevant quotient class. If it is not constant, the exact record-based report is the set of target values represented in the compatible class. Refining the design can split quotient classes but cannot merge classes distinguished by the coarser design.
+\end{theorem}
+
+The equivalence relation itself is elementary; its ecological content is the reporting boundary it imposes. A monitoring record may justify a deterministic statement about presence while leaving the management response set-valued because several response mechanisms remain in the same class.
+
+\subsection{Target-safe minimal quotient}
+Experiments may distinguish latent worlds in ways that do not matter for the declared ecological conclusion. Conversely, apparently minor distinctions may be indispensable because future interventions expose different target responses.
+
+\begin{theorem}[Unique coarsest target-safe quotient]
+For a declared finite evidence problem, there exists a unique coarsest equivalence relation that preserves the current observable macrostate, preserves the target report under every declared future action, and is stable under action successors. Every observation-preserving, action-stable quotient supporting the same deterministic target conclusions refines this quotient.
+\end{theorem}
+
+This result identifies the least biological or mechanistic resolution required by the target. It neither demands full latent-world identification nor permits the removal of distinctions that alter the management report. The deterministic report criterion is therefore adjacent to, rather than separate from, the minimality theorem: a target can be stated sharply exactly when it is constant on the corresponding compatible target-safe class.
+
+\subsection{Failure architecture determines reliable refinement}
+An intended experiment-induced split may not be trustworthy when observations share failure causes. Let each observation mode depend on a declared set of latent failure factors. Shared, overlapping, and independent architectures generate different probabilities that the modes are simultaneously unavailable.
+
+\begin{proposition}[Failure-controlled refinement]
+Under a declared observation contract, the reliability of a quotient refinement is bounded by the probability that the modes required to realize the corresponding record distinctions are operational. A common failure factor produces an availability ceiling that cannot be exceeded by replication confined to that factor. Independent and partially overlapping mode architectures yield different ceilings and therefore different sets of target distinctions that can be resolved at a common nominal effort.
+\end{proposition}
+
+The main conclusion is structural, not a catalogue of inequalities. Markov, Chernoff, Poisson--binomial, calibration, and threshold calculations enter only to certify correct-, wrong-, and ambiguous-report probabilities under a chosen contract. Ecologically, the result explains why repeating one camera type, assay pipeline, observer protocol, or access window may fail to resolve ambiguity when all repetitions can fail together.
+
+\subsection{Adaptive risk-limited experiment design}
+An adaptive policy maps past records to the next experiment. Each terminal leaf carries a compatible target set, a correct-report probability, a wrong-report probability, an ambiguity probability, and an accumulated cost.
+
+\begin{theorem}[Finite adaptive risk-limited design]
+For a finite declared policy family and explicit lower and upper bounds on correct-report probability, wrong-report probability, and expected cost, the feasible policies can be compared exactly. A least-cost feasible policy exists whenever the feasible set is nonempty; policies that cannot satisfy the risk contract retain an honest ambiguous report rather than forcing deterministic resolution.
+\end{theorem}
+
+This is not claimed as a universal sequential-control theorem. Its scientific objective is target-safe stopping: monitoring may stop when the management target is resolved at acceptable risk, even if the full latent world remains unknown.
+
+\section{Integrated plant--pollinator example}
+Consider a rare plant--pollinator interaction monitored across sites. Each latent world combines two dimensions: whether the focal interaction is present and which response type governs a declared floral manipulation, exclusion, or competitor-removal intervention. The target is the management response, with absence reported separately from the candidate increase and decrease responses.
+
+Passive monitoring leaves all worlds in one broad class. A presence screen separates absent from present worlds but does not distinguish the response types among present worlds. Thus detection can justify the statement that the interaction occurs while still failing to justify a deterministic intervention prediction. A response experiment separates the present mechanism classes only after presence is established. This conditional structure is essential: the intervention record has no mechanism-typing meaning in an absent world.
+
+Observation architecture then determines whether the refinement is reliable. If the presence screen and response experiment share weather, camera-power, access, or laboratory failure, records compatible with both present response types may re-enter the same class. Replication within the shared mode improves within-mode sensitivity but cannot remove the shared availability ceiling. Independent or appropriately overlapping modes can support a sharper target-safe refinement under the same nominal effort.
+
+The adaptive policy first screens for presence and performs response typing only following a positive screen. Terminal leaves report one of four outcomes: a correct deterministic response, an incorrect deterministic response, an honest ambiguous response, or absence. Expected cost is lower than a policy that intervenes at every site, while the explicit wrong-resolution constraint prevents cost reduction from being purchased by unjustified certainty. The example therefore demonstrates a conclusion unavailable from either presence analysis or mechanism typing alone: resolving presence is not equivalent to resolving management response, and an intervention that separates mechanisms in principle may still fail to justify a deterministic conclusion under shared observation failure.
+
+\section{Discussion}
+The paper provides one finite decision language linking evidence, honest reporting, target-safe abstraction, observation failure, and adaptive intervention. The experiment-induced quotient states exactly what a declared design distinguishes. The set-valued fallback states exactly what remains justified when the target varies within a compatible class. The target-safe quotient then removes irrelevant distinctions while proving that every retained distinction is necessary for the declared current and future reports.
+
+This perspective complements occupancy and imperfect-detection analysis. Occupancy methods estimate presence under observation error; the present framework additionally tracks mechanism ambiguity and intervention-dependent targets. It also complements multimodel and structural-uncertainty approaches: candidate mechanisms are not merely ranked, but grouped according to whether their differences can change the declared report. Abstraction and bisimulation provide related minimization machinery, while the present quotient is explicitly experiment-relative and target-relative over latent ecological worlds. Adaptive monitoring is coupled to a false-resolution budget rather than an objective of complete identification.
+
+Failure architecture is central because nominal sample size is not equivalent to reliable class refinement. Shared causes can preserve ambiguity no matter how often one mode is repeated. This distinction has direct design consequences for camera networks, molecular assays, repeated observer visits, and intervention experiments: diversity of failure modes can matter more than replication count when the management target requires separating classes that a common failure merges.
+
+The framework is finite and conditional on declared latent worlds, actions, observation contracts, costs, and risk thresholds. It does not infer these objects from field data, replace occupancy estimation or causal identification, prove asymptotic consistency, or solve general partially observed stochastic control. Posterior updates and one-step value-of-information scores remain useful supporting diagnostics but do not convert posterior concentration into deterministic resolution unless the declared reporting criterion is met. Continuous, approximate, Bayesian, and large-state extensions are natural future directions, but the present manuscript prioritizes exact transparency and ecological interpretability.
+
+\section{Methods and supporting machinery}
+The experiment-induced quotient is constructed by grouping worlds with identical complete records. The target-safe quotient is obtained by finite monotone refinement using current observations, target reports under declared future actions, and successor stability; finiteness gives termination, and induction against any other safe quotient establishes coarseness and uniqueness. Failure reliability is calculated from the declared factor architecture and observation contract. Concentration bounds, exact Poisson--binomial tails, heterogeneous thresholds, calibration routines, exhaustive finite oracles, posterior updates, and replay utilities belong in Methods or Supplementary Information. Adaptive policies are evaluated by recursive propagation of record probabilities, terminal report classes, and accumulated costs.
+
+\end{document}
