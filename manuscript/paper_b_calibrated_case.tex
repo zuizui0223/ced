@@ -1,0 +1,11 @@
+\subsection{Literature-informed field calibration}
+
+We calibrated the plant--pollinator example against recent field evaluations of automated flower-visitor monitoring. Across contrasting field systems, on-device detection recall was approximately 0.77--0.83 and final mixed-community classification accuracy was approximately 0.76--0.89, although well represented honey-bee and bumble-bee classes performed better. We therefore use 0.80 as the baseline per-session presence-detection probability and 0.89 as the baseline accuracy of one response-typing block, with the published field ranges retained for sensitivity analysis.
+
+This calibration changes the recommended protocol. One response classification at accuracy 0.89 has error probability 0.11 and fails the declared 0.05 false-resolution contract. Three independently scheduled response blocks followed by majority voting have accuracy
+\[
+0.89^3+3(0.89)^2(1-0.89)=0.9664,
+\]
+which satisfies the contract. Likewise, three operationally independent presence screens with per-session detection 0.80 yield cumulative detection $1-(1-0.80)^3=0.992$.
+
+We next distinguish nominal from effective replication. With a baseline whole-window failure probability of 0.15, three screens and three response blocks sharing one failure factor give joint target resolution 0.8148. Assigning the same nominal effort to independently failing observation windows gives 0.9347, a gain of 0.1199. The common-failure probability is treated as an operational sensitivity parameter rather than a literature estimate. The calibrated management recommendation is therefore specific: do not issue a directional intervention report from one automated classification; use at least three independently scheduled response blocks, and diversify weather windows, power systems, observers, access routes, or processing batches rather than merely copying units within one failure domain.
