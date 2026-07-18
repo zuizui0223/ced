@@ -1,7 +1,9 @@
-"""Exact comparative benchmark for Paper B.
+"""Exact comparative benchmark for target-safe ecological modelling.
 
-Enumerates a finite plant--pollinator evidence problem over a parameter grid.
-No Monte Carlo noise is used in manuscript outputs.
+The finite scenario represents a generic ecological condition crossed with two
+possible intervention-response types. It applies to degradation and recovery,
+invasion and controllability, population decline and demographic intervention,
+or regime state and reversibility. Manuscript outputs use exact enumeration.
 """
 from __future__ import annotations
 
@@ -18,48 +20,44 @@ OUT_JSON = ROOT / "artifacts" / "paper_b_simulation_summary.json"
 OUT_CSV = ROOT / "artifacts" / "paper_b_simulation_grid.csv"
 OUT_TEX = ROOT / "artifacts" / "paper_b_simulation_table.tex"
 
-TARGETS = ("absent", "decrease", "increase")
+TARGETS = ("condition-absent", "response-A", "response-B")
 WORLDS = ((0, 0), (0, 1), (1, 0), (1, 1))
 
 
 @dataclass(frozen=True)
 class Parameters:
-    prevalence: float = 0.55
-    response_increase_probability: float = 0.50
-    detection_sensitivity: float = 0.80
-    typing_accuracy: float = 0.85
+    condition_prevalence: float = 0.55
+    response_b_probability: float = 0.50
+    state_detection_sensitivity: float = 0.80
+    response_typing_accuracy: float = 0.85
     common_failure_probability: float = 0.15
-    screen_cost: float = 1.0
-    typing_cost: float = 4.0
+    state_observation_cost: float = 1.0
+    response_experiment_cost: float = 4.0
     false_resolution_limit: float = 0.05
-    screen_replicates: int = 3
+    observation_replicates: int = 3
 
 
 def target(world: tuple[int, int]) -> str:
-    presence, response = world
-    return "absent" if not presence else ("increase" if response else "decrease")
+    condition, response_type = world
+    if not condition:
+        return "condition-absent"
+    return "response-B" if response_type else "response-A"
 
 
 def world_probability(world: tuple[int, int], p: Parameters) -> float:
-    presence, response = world
-    response_prob = p.response_increase_probability if response else 1.0 - p.response_increase_probability
-    if presence:
-        return p.prevalence * response_prob
-    return (1.0 - p.prevalence) * response_prob
+    condition, response_type = world
+    response_prob = p.response_b_probability if response_type else 1.0 - p.response_b_probability
+    return (p.condition_prevalence if condition else 1.0 - p.condition_prevalence) * response_prob
 
 
 def bernoulli_sequences(probability: float, n: int) -> Iterable[tuple[tuple[bool, ...], float]]:
     for values in itertools.product((False, True), repeat=n):
         successes = sum(values)
-        probability_mass = probability**successes * (1.0 - probability) ** (n - successes)
-        yield values, probability_mass
+        yield values, probability**successes * (1.0 - probability) ** (n - successes)
 
 
-def observation_paths(
-    world: tuple[int, int], p: Parameters, architecture: str
-) -> Iterable[tuple[dict[str, object], float]]:
-    """Enumerate records under shared or independent screen-failure architectures."""
-    presence, response = world
+def observation_paths(world: tuple[int, int], p: Parameters, architecture: str):
+    condition, response_type = world
     if architecture not in {"shared", "independent"}:
         raise ValueError(f"unknown architecture: {architecture}")
 
@@ -72,21 +70,27 @@ def observation_paths(
 
     for shared_failed, p_shared in shared_states:
         if shared_failed:
-            detections = (False,) * p.screen_replicates
-            yield {"detections": detections, "typed": None, "shared_failure": True}, p_shared
+            detections = (False,) * p.observation_replicates
+            yield {"detections": detections, "typed": None}, p_shared
             continue
 
-        effective_detection = p.detection_sensitivity
+        sensitivity = p.state_detection_sensitivity
         if architecture == "independent":
-            effective_detection *= 1.0 - p.common_failure_probability
-        detection_probability = effective_detection if presence else 0.0
-        for detections, p_detection in bernoulli_sequences(detection_probability, p.screen_replicates):
+            sensitivity *= 1.0 - p.common_failure_probability
+        detection_probability = sensitivity if condition else 0.0
+
+        for detections, p_detection in bernoulli_sequences(
+            detection_probability, p.observation_replicates
+        ):
             if not any(detections):
-                yield {"detections": detections, "typed": None, "shared_failure": False}, p_shared * p_detection
+                yield {"detections": detections, "typed": None}, p_shared * p_detection
                 continue
-            for typed_correct, p_typed in ((True, p.typing_accuracy), (False, 1.0 - p.typing_accuracy)):
-                typed = response if typed_correct else 1 - response
-                yield {"detections": detections, "typed": typed, "shared_failure": False}, p_shared * p_detection * p_typed
+            for correct, p_type in (
+                (True, p.response_typing_accuracy),
+                (False, 1.0 - p.response_typing_accuracy),
+            ):
+                typed = response_type if correct else 1 - response_type
+                yield {"detections": detections, "typed": typed}, p_shared * p_detection * p_type
 
 
 def classify(report: set[str], truth: str) -> str:
@@ -95,49 +99,46 @@ def classify(report: set[str], truth: str) -> str:
     return "correct" if next(iter(report)) == truth else "wrong"
 
 
-def occupancy_only(record: dict[str, object], p: Parameters) -> tuple[set[str], float]:
-    first = bool(record["detections"][0])
-    if first:
-        return {"decrease", "increase"}, p.screen_cost
-    return {"absent"}, p.screen_cost
+def state_only(record: dict[str, object], p: Parameters):
+    if bool(record["detections"][0]):
+        return {"response-A", "response-B"}, p.state_observation_cost
+    return {"condition-absent"}, p.state_observation_cost
 
 
-def full_identification(record: dict[str, object], p: Parameters) -> tuple[set[str], float]:
-    first = bool(record["detections"][0])
-    if not first:
-        return {"absent"}, p.screen_cost
-    typed = "increase" if record["typed"] == 1 else "decrease"
-    return {typed}, p.screen_cost + p.typing_cost
+def full_identification(record: dict[str, object], p: Parameters):
+    if not bool(record["detections"][0]):
+        return {"condition-absent"}, p.state_observation_cost
+    typed = "response-B" if record["typed"] == 1 else "response-A"
+    return {typed}, p.state_observation_cost + p.response_experiment_cost
 
 
-def information_gain(record: dict[str, object], p: Parameters) -> tuple[set[str], float]:
+def information_gain(record: dict[str, object], p: Parameters):
     detections = tuple(bool(value) for value in record["detections"])
-    used = next((index + 1 for index, value in enumerate(detections) if value), len(detections))
+    used = next((i + 1 for i, value in enumerate(detections) if value), len(detections))
     if not any(detections):
         prior = {
-            "absent": 1.0 - p.prevalence,
-            "decrease": p.prevalence * (1.0 - p.response_increase_probability),
-            "increase": p.prevalence * p.response_increase_probability,
+            "condition-absent": 1.0 - p.condition_prevalence,
+            "response-A": p.condition_prevalence * (1.0 - p.response_b_probability),
+            "response-B": p.condition_prevalence * p.response_b_probability,
         }
-        return {max(prior, key=prior.get)}, used * p.screen_cost
-    typed = "increase" if record["typed"] == 1 else "decrease"
-    return {typed}, used * p.screen_cost + p.typing_cost
+        return {max(prior, key=prior.get)}, used * p.state_observation_cost
+    typed = "response-B" if record["typed"] == 1 else "response-A"
+    return {typed}, used * p.state_observation_cost + p.response_experiment_cost
 
 
-def target_safe(record: dict[str, object], p: Parameters) -> tuple[set[str], float]:
+def target_safe(record: dict[str, object], p: Parameters):
     detections = tuple(bool(value) for value in record["detections"])
-    used = next((index + 1 for index, value in enumerate(detections) if value), len(detections))
+    used = next((i + 1 for i, value in enumerate(detections) if value), len(detections))
     if not any(detections):
-        return set(TARGETS), used * p.screen_cost
-    typing_error = 1.0 - p.typing_accuracy
-    if typing_error > p.false_resolution_limit:
-        return {"decrease", "increase"}, used * p.screen_cost + p.typing_cost
-    typed = "increase" if record["typed"] == 1 else "decrease"
-    return {typed}, used * p.screen_cost + p.typing_cost
+        return set(TARGETS), used * p.state_observation_cost
+    if 1.0 - p.response_typing_accuracy > p.false_resolution_limit:
+        return {"response-A", "response-B"}, used * p.state_observation_cost + p.response_experiment_cost
+    typed = "response-B" if record["typed"] == 1 else "response-A"
+    return {typed}, used * p.state_observation_cost + p.response_experiment_cost
 
 
-STRATEGIES: dict[str, Callable[[dict[str, object], Parameters], tuple[set[str], float]]] = {
-    "occupancy_only": occupancy_only,
+STRATEGIES: dict[str, Callable] = {
+    "state_only": state_only,
     "full_identification": full_identification,
     "information_gain": information_gain,
     "target_safe": target_safe,
@@ -159,25 +160,25 @@ def evaluate(p: Parameters, architecture: str) -> dict[str, dict[str, float]]:
                 totals[name][classify(report, truth)] += weight
                 totals[name]["cost"] += weight * cost
 
-    result = {}
-    for name, values in totals.items():
-        result[name] = {
+    return {
+        name: {
             "correct_probability": values["correct"],
             "wrong_probability": values["wrong"],
             "ambiguity_probability": values["ambiguous"],
             "expected_cost": values["cost"],
         }
-    return result
+        for name, values in totals.items()
+    }
 
 
-def parameter_grid(base: Parameters = Parameters()) -> Iterable[Parameters]:
+def parameter_grid(base: Parameters = Parameters()):
     for detection, typing, failure in itertools.product(
         (0.60, 0.80, 0.95), (0.85, 0.95, 0.99), (0.00, 0.15, 0.35)
     ):
         yield replace(
             base,
-            detection_sensitivity=detection,
-            typing_accuracy=typing,
+            state_detection_sensitivity=detection,
+            response_typing_accuracy=typing,
             common_failure_probability=failure,
         )
 
@@ -186,8 +187,7 @@ def run_grid(base: Parameters = Parameters()) -> dict[str, object]:
     rows = []
     for scenario_id, p in enumerate(parameter_grid(base), start=1):
         for architecture in ("shared", "independent"):
-            metrics = evaluate(p, architecture)
-            for strategy, values in metrics.items():
+            for strategy, values in evaluate(p, architecture).items():
                 rows.append(
                     {
                         "scenario_id": scenario_id,
@@ -210,7 +210,7 @@ def run_grid(base: Parameters = Parameters()) -> dict[str, object]:
         if row["architecture"] == "independent" and row["common_failure_probability"] == 0.35
     )
     return {
-        "schema_version": 2,
+        "schema_version": 3,
         "grid_size": len(rows),
         "rows": rows,
         "headline_checks": {
@@ -232,19 +232,13 @@ def write_outputs(report: dict[str, object]) -> None:
         writer.writerows(rows)
 
     baseline = [
-        row
-        for row in rows
+        row for row in rows
         if row["architecture"] == "shared"
-        and row["detection_sensitivity"] == 0.80
-        and row["typing_accuracy"] == 0.95
+        and row["state_detection_sensitivity"] == 0.80
+        and row["response_typing_accuracy"] == 0.95
         and row["common_failure_probability"] == 0.15
     ]
-    lines = [
-        r"\begin{tabular}{lrrrr}",
-        r"\toprule",
-        r"Strategy & Correct & Wrong & Ambiguous & Cost \\",
-        r"\midrule",
-    ]
+    lines = [r"\begin{tabular}{lrrrr}", r"\toprule", r"Strategy & Correct & Wrong & Ambiguous & Cost \\", r"\midrule"]
     for row in baseline:
         label = row["strategy"].replace("_", r"\_")
         lines.append(
