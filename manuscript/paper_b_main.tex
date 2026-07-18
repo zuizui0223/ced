@@ -5,7 +5,7 @@
 \newtheorem{proposition}{Proposition}
 \newtheorem{definition}{Definition}
 \lstset{basicstyle=\ttfamily\small,frame=single,breaklines=true}
-\title{Target-safe ecological modelling under finite evidence:\\Honest reports, failure-aware monitoring, and adaptive experiments}
+\title{Target-safe ecological modelling under finite evidence:\\From state estimation to defensible intervention prediction}
 \author{Author names withheld for drafting}
 \date{}
 
@@ -13,33 +13,33 @@
 \maketitle
 
 \begin{abstract}
-Ecological models often return a single occupancy state, mechanism, or management prediction even when finite observations support several target-relevant explanations. We introduce a modelling workflow that separates four tasks: defining candidate ecological worlds, mapping experiments to complete observation records, determining the sharpest target report justified by each compatible class, and selecting additional experiments under explicit error and cost constraints. The framework complements rather than replaces occupancy models: imperfect-detection models quantify uncertainty about occurrence, whereas our target-safe analysis asks whether all worlds compatible with the fitted observation model imply the same management conclusion. When they do not, the exact output is set-valued. A unique coarsest target-safe quotient removes distinctions irrelevant to the declared decision while preserving distinctions needed under future actions. Failure architecture is included explicitly, so replication sharing a common weather, access, observer, camera, or laboratory failure cannot create fictitious resolution. An exact 216-row benchmark crosses three detection levels, three response-typing accuracies, three common-failure levels, two failure architectures, and four reporting strategies. Under a common-failure probability of 0.35, the best correct deterministic reporting probability of the target-safe strategy is capped at 0.354 for shared-mode replication but reaches 0.514 when failures are diversified across independent modes. Across the grid its wrong deterministic reporting probability remains below the declared 0.05 contract, with unresolved cases reported explicitly. The framework is implemented as a finite, auditable software workflow for ecological model comparison, monitoring design, and management reporting.
+Ecological models can estimate present states more sharply than they identify the consequences of management intervention. A population decline, degraded ecosystem, invasive occurrence, or alternative regime may be well supported while several compatible mechanisms still imply different responses to restoration, control, supplementation, or disturbance. We introduce a finite modelling workflow that separates state estimation from intervention-response reportability. Candidate ecological worlds, observation models, management actions, failure structures, costs, and a declared target jointly determine which conclusions are supported. A deterministic report is valid exactly when all worlds compatible with the evidence imply the same target response; otherwise the exact conclusion is set-valued. We characterize the unique coarsest target-safe quotient that removes ecological distinctions irrelevant to the management question while retaining every distinction required by present and future interventions. We then compare adaptive policies by correct deterministic reporting, false resolution, honest ambiguity, and expected cost rather than by full-state identification or generic information gain. Exact benchmarks show that state-oriented monitoring can be highly informative yet insufficient for intervention choice, that target-irrelevant model discrimination can waste effort, and that nominally equal replication can have different resolution ceilings when observations share failure factors. The framework is a modular decision layer for occupancy, population, ecosystem, invasion, regime-shift, mechanistic, Bayesian, and ensemble models.
 \end{abstract}
 
 \section{Introduction}
-Ecological management rarely requires identifying every biological detail. It requires a defensible answer to a declared question: is a focal interaction present, will an intervention increase or decrease it, or is the evidence insufficient to choose? Standard modelling workflows often blur these tasks. A fitted occupancy probability may be interpreted as a management conclusion; the most probable mechanism may be reported even when alternatives imply opposite interventions; and additional sampling may be selected to maximize generic information rather than reduce uncertainty in the decision that matters.
+Ecological management does not usually require complete knowledge of a system. It requires a defensible answer to a specific intervention question. A manager may know that a population is declining but not whether survival improvement, recruitment enhancement, or connectivity restoration will reverse that decline. A lake may be classified as degraded while nutrient reduction and food-web manipulation remain observationally indistinguishable in their expected consequences. An invasive species may be detected without evidence that eradication, containment, or habitat modification will succeed. A system may appear close to a regime shift while competing models disagree about reversibility.
 
-The problem is not simply imperfect detection. Nondetection can mask presence, but even perfect detection of presence may leave intervention response unresolved. Nor is it only partial identification: an identified set describes what remains compatible, but ecological monitoring also needs a reproducible rule for which distinctions matter for the target, how future actions refine them, and when data collection should stop. Adaptive monitoring addresses sequential design, yet often optimizes information gain, parameter precision, or state estimation rather than an explicit contract on correct, wrong, and ambiguous management reports.
+These are not merely problems of imperfect detection. Better detection can resolve the current state while leaving intervention response unresolved. Nor are they solved by selecting the best-fitting model: several models can fit present observations similarly but imply opposite management actions. Generic adaptive design can also miss the point because maximizing entropy reduction may prioritize biologically interesting distinctions that do not alter the declared decision.
 
-We therefore present a finite modelling framework organized around the target report rather than full latent-state recovery. The user declares candidate ecological worlds, experiments, observation and failure contracts, future actions, costs, and the target. Each experiment partitions worlds by complete records. Deterministic reporting is valid exactly when the target is constant within the compatible class; otherwise the exact conclusion is the corresponding set of target values. The framework then constructs the unique coarsest observation-preserving, action-stable abstraction retaining every distinction required for present and future target reports. Finally, candidate adaptive policies are compared by correct-report probability, false-resolution probability, ambiguity, and expected cost.
+We formulate the missing layer as target-safe ecological modelling. The user declares candidate ecological worlds, observations, management actions, failure factors, costs, and the target report. Evidence partitions worlds into compatible classes. The ecological question is not whether one world has the highest score, but whether all worlds in the compatible class imply the same management conclusion. If they do, deterministic reporting is justified. If they do not, the honest output is the corresponding set of intervention responses.
 
-The contribution is a modelling workflow connecting ideas that are usually applied separately. We do not propose a replacement occupancy estimator, claim novelty for set-valued inference, or present a universal adaptive-control algorithm. Instead, we show how occupancy, structural uncertainty, partial identification, failure-aware monitoring, and adaptive design can be assembled into one auditable decision model. The distinctive empirical prediction is not merely that more uncertainty should be reported. It is that monitoring designs with equal nominal replication can have sharply different target-resolution ceilings when their failure factors differ.
+The contribution is therefore not a new occupancy estimator, identified-set theory, or universal adaptive-control algorithm. It is a modelling framework that connects state estimation, structural uncertainty, intervention prediction, monitoring design, and management reporting. Its central ecological distinction is between \emph{state identifiability} and \emph{intervention-response identifiability}.
 
-\section{Relationship to existing ecological modelling approaches}
+\section{Relationship to existing approaches}
 \subsection{Occupancy and imperfect detection}
-Occupancy models separate ecological state from observation and estimate occurrence when detection probability is below one. Our workflow can take fitted occupancy and detection models as inputs. The distinction is in the output question: occupancy asks how probable presence is, whereas target-safe reporting asks whether all candidate worlds compatible with the observation model imply the same declared management report. Presence may be well resolved while intervention response remains unresolved. In the benchmark, the occupancy-only rule therefore returns a set of response directions after detection rather than pretending that occurrence determines intervention effect.
+Occupancy models estimate occurrence while separating ecological and observation processes. They can provide world probabilities or compatible states to the present framework. The additional question is whether resolving occurrence also resolves the management target. Often it does not: presence, degradation, or decline may be established while the response to intervention remains ambiguous.
 
 \subsection{Partial identification}
-Partial-identification methods correctly emphasize that evidence and assumptions may support sets rather than points. We adopt that reporting discipline. Our additional object is a finite experiment- and target-relative quotient that removes observable differences irrelevant to the management target while retaining differences that alter reports under declared future actions. Set-valued reporting itself is not claimed as new.
-
-\subsection{Adaptive monitoring and experimental design}
-Adaptive monitoring selects future observations conditional on past records. Generic criteria such as entropy reduction or expected information gain reward distinctions anywhere in the latent state space. Our policies are evaluated directly on target outcomes: correct deterministic reports, wrong deterministic reports, honest ambiguity, and cost. Stopping with a set-valued report is permitted when further resolution is too costly or violates the error contract. The benchmark deliberately gives information-gain monitoring the same observation model and replication budget, but it forces a maximum-prior conclusion after the budget is exhausted; this isolates the consequence of different stopping semantics rather than differences in data quality.
+Partial-identification methods correctly allow evidence to support sets rather than points. We adopt that discipline. The additional ecological object is an experiment- and target-relative quotient that determines which compatible differences matter for future management actions and which can be safely removed.
 
 \subsection{Structural uncertainty and model averaging}
-Multimodel approaches rank or average candidate mechanisms. Our framework instead groups mechanisms according to whether their differences can change the declared target report. Posterior concentration is informative but does not by itself justify deterministic reporting when low-probability compatible worlds imply a different management action under the declared robustness contract.
+Model selection and averaging rank or combine candidate mechanisms. Target-safe modelling instead asks whether differences among those mechanisms can change the declared report. Two biologically different models may be equivalent for one management target, while nearly indistinguishable models must remain separate when they predict opposite intervention responses.
+
+\subsection{Adaptive monitoring and experimental design}
+Adaptive monitoring and value-of-information methods choose future observations. Generic information objectives reward reduction anywhere in the latent state space. Our objective is narrower and operational: reduce uncertainty in the management target while controlling false resolution and cost. Stopping with an honest set-valued report is permitted.
 
 \section{Modelling framework}
-A finite ecological evidence problem contains a latent-world set $W$, experiment family $\mathcal{D}$, observation contract, failure-factor architecture, finite action grammar, costs, and target map $T:W\to Y$. For a design $D$, $\operatorname{record}_D(w)$ is the complete record generated under world $w$.
+A finite ecological evidence problem contains a latent-world set $W$, experiment family $\mathcal{D}$, observation contract, failure-factor architecture, action grammar, costs, and target map $T:W\to Y$. For design $D$, let $\operatorname{record}_D(w)$ denote the complete record generated under world $w$.
 
 \begin{definition}[Experiment-induced quotient]
 For a design $D$,
@@ -49,48 +49,61 @@ w\sim_D w' \quad\Longleftrightarrow\quad \operatorname{record}_D(w)=\operatornam
 The quotient $W/{\sim_D}$ is the experiment-induced ecological quotient.
 \end{definition}
 
-Under bounded or probabilistic observation error, record $x$ induces a compatible set
+An observed record $x$ induces the compatible class
 \[
 C_D(x)=\{w\in W:x\text{ is allowed under }w\text{ and }D\}.
 \]
 The exact target report is $T(C_D(x))=\{T(w):w\in C_D(x)\}$.
 
 \begin{theorem}[Honest target reporting]
-A deterministic record-based report exists if and only if $T$ is constant on every relevant compatible class. Otherwise the sharp exact report is set-valued. Refining a design can split existing classes but cannot justify distinctions absent from its complete records.
+A deterministic record-based report exists if and only if $T$ is constant on every relevant compatible class. Otherwise the sharp exact report is set-valued.
 \end{theorem}
 
 \begin{theorem}[Unique coarsest target-safe quotient]
-For a declared finite evidence problem, there exists a unique coarsest equivalence relation that preserves current observable macrostates, preserves target reports under every declared future action, and is stable under action successors. Every other observation-preserving, action-stable quotient supporting the same target conclusions refines it.
+For a declared finite evidence problem, there exists a unique coarsest equivalence relation that preserves current observations, preserves target reports under every declared future action, and is stable under action successors. Every other observation-preserving, action-stable quotient supporting the same target conclusions refines it.
 \end{theorem}
 
 \begin{proposition}[Failure-controlled refinement]
-The reliability of a target-relevant class split is bounded by the probability that all observation modes required for that split are operational. Replication confined to a common failure factor cannot exceed its availability ceiling. Independent or partially overlapping modes can support refinements unavailable to nominally larger but failure-coupled designs.
+The reliability of a target-relevant class split is bounded by the availability of the observations required to realize that split. Replicates sharing weather, access, observer, sensor, laboratory, spatial, or temporal failure factors cannot exceed the corresponding common-cause ceiling.
 \end{proposition}
 
 \begin{theorem}[Finite risk-limited adaptive design]
-For a finite policy family and declared constraints on correct-report probability, false-resolution probability, ambiguity, and expected cost, all policies can be evaluated exactly. A least-cost feasible policy exists whenever the feasible set is nonempty. Infeasible terminal records retain an honest set-valued report rather than forcing resolution.
+For a finite policy family and declared bounds on false resolution, ambiguity, and expected cost, all policies can be evaluated exactly. A least-cost feasible policy exists whenever the feasible set is nonempty; unsupported terminal records retain a set-valued report rather than forcing resolution.
 \end{theorem}
 
-\section{User workflow}
-Figure~\ref{fig:workflow} shows the intended use. The framework begins after ecological candidate generation and observation-model fitting; it does not require those models to be estimated by a particular statistical method.
+\section{Ecological scope}
+The same finite structure appears across distinct ecological problems.
 
+\subsection{Degraded ecosystems and restoration}
+Observations may establish that a lake, grassland, forest, or reef is degraded while several mechanisms remain compatible. Nutrient limitation, trophic feedback, recruitment failure, or altered disturbance can imply different recovery trajectories. The target-safe question is whether the evidence supports a particular restoration response, not merely whether degradation is present.
+
+\subsection{Invasion and control}
+Detection of an invader does not identify whether eradication, containment, habitat modification, or no action is most effective. Worlds that agree on occurrence but differ in propagule pressure, source connectivity, or density dependence must remain separate when those differences alter control response.
+
+\subsection{Population decline and demographic intervention}
+A declining population can be generated by low survival, low recruitment, dispersal limitation, or transient environmental forcing. Trend detection alone does not determine whether supplementation, predator control, habitat restoration, or corridor creation is justified.
+
+\subsection{Regime shifts and reversibility}
+Alternative-state models may fit the same current observations while differing in hysteresis and recovery thresholds. Distinguishing current regime membership is not equivalent to identifying whether the system can be restored by reversing the original driver.
+
+\section{User workflow}
 \begin{figure}[ht]
 \centering
-\fbox{\parbox{0.17\linewidth}{\centering 1. Declare worlds\\presence, mechanism, context}}
+\fbox{\parbox{0.17\linewidth}{\centering 1. Declare worlds\\state, mechanism, context}}
 $\rightarrow$
-\fbox{\parbox{0.17\linewidth}{\centering 2. Declare record\\and failure models}}
+\fbox{\parbox{0.17\linewidth}{\centering 2. Declare observations\\actions and failures}}
 $\rightarrow$
 \fbox{\parbox{0.17\linewidth}{\centering 3. Build compatible\\target classes}}
 $\rightarrow$
 \fbox{\parbox{0.17\linewidth}{\centering 4. Compare policies\\error, ambiguity, cost}}
 $\rightarrow$
-\fbox{\parbox{0.11\linewidth}{\centering 5. Report\\or sample}}
-\caption{Target-safe ecological modelling workflow. Outputs include deterministic or set-valued target reports, unresolved target-relevant distinctions, and the least-cost feasible next experiment.}
+\fbox{\parbox{0.11\linewidth}{\centering 5. Report\\or experiment}}
+\caption{Target-safe ecological modelling separates estimation of current state from reportability of intervention response.}
 \label{fig:workflow}
 \end{figure}
 
 \section{Software implementation}
-The reference implementation represents worlds and records with ordinary Python objects. A minimal analysis is:
+The implementation accepts ordinary finite world and record objects. For example, a system can be either within a management threshold or degraded, and degraded worlds can differ in whether restoration is expected to succeed:
 
 \begin{lstlisting}[language=Python]
 from ced.experiment_quotient import ExperimentInducedQuotient
@@ -98,69 +111,48 @@ from ced.experiment_quotient import ExperimentInducedQuotient
 worlds = ((0, 0), (0, 1), (1, 0), (1, 1))
 
 def target(w):
-    presence, response = w
-    return "absent" if not presence else ("decrease" if response == 0 else "increase")
+    degraded, recoverable = w
+    if not degraded:
+        return "no intervention"
+    return "restore" if recoverable else "avoid ineffective restoration"
 
-screen = ExperimentInducedQuotient.from_functions(
+state_screen = ExperimentInducedQuotient.from_functions(
     worlds,
-    lambda w: "detected" if w[0] else "not-detected",
+    lambda w: "degraded" if w[0] else "within threshold",
     target,
 )
 
-print(screen.exact_report_for_record("detected"))
-# {'decrease', 'increase'}: presence is resolved, response is not.
+print(state_screen.exact_report_for_record("degraded"))
+# {'restore', 'avoid ineffective restoration'}
 \end{lstlisting}
 
-The reproducible pipeline exports quotient classes, compatible targets, refinement relations, shared-failure witnesses, and policy metrics as machine-readable JSON and CSV. The benchmark is evaluated by exact enumeration rather than Monte Carlo sampling, so every reported contrast is reproducible without simulation error.
+The state screen resolves degradation but not restoration response. The software exports compatible worlds, target sets, quotient refinements, failure witnesses, and policy metrics as auditable JSON and CSV outputs.
 
-\section{Simulation benchmark}
-\subsection{Scenario and factorial design}
-Each site belongs to one of four worlds combining interaction absence/presence and, when present, decrease/increase response to a floral intervention. Presence screens have imperfect sensitivity and no false positives. Response typing is informative only when the interaction is present. Three screens are available. Under the shared architecture, all screens can be disabled by one weather or access failure; under the independent architecture, each screen carries its own failure event. We cross detection sensitivity $\{0.60,0.80,0.95\}$, response-typing accuracy $\{0.85,0.95,0.99\}$, and common-failure probability $\{0,0.15,0.35\}$. Combined with two failure architectures and four strategies, the benchmark contains 216 exact strategy--scenario evaluations.
+\section{Comparative benchmark}
+\subsection{Generic state--response design}
+The benchmark crosses two dimensions: whether a focal ecological condition requiring management is present, and which of two intervention-response types governs the system when that condition is present. This structure represents decline plus recoverability, invasion plus controllability, degradation plus restoration response, or regime state plus reversibility. State observations are imperfect. Response experiments are informative only in the relevant state. Observation paths may share or diversify failure factors.
 
 \subsection{Compared strategies}
-All strategies see the same finite worlds and observation probabilities. \emph{Occupancy-only} uses one presence screen, reports absence after nondetection, and leaves response direction unresolved after detection. \emph{Full identification} uses one screen and forces a typed response following detection. \emph{Information gain} continues screening up to the common budget and then forces the maximum-prior target if no detection occurs. \emph{Target-safe risk-limited} uses the same sequential screens but reports a deterministic response only when the declared response-typing error does not exceed 0.05; otherwise it retains the exact target set.
+We compare four strategies using identical worlds and observation probabilities. \emph{State-only} stops after estimating the current condition. \emph{Full identification} seeks the complete latent world. \emph{Information gain} prioritizes expected reduction of latent uncertainty. \emph{Target-safe risk-limited} selects the least-cost experiment that can resolve the declared response under a false-resolution contract and otherwise retains ambiguity.
+
+\subsection{Questions tested}
+The benchmark tests four claims: whether state accuracy can be high while response reportability remains low; whether full identification spends effort on distinctions with identical target consequences; whether information gain selects experiments that are suboptimal for the target; and whether shared failure structures impose resolution ceilings despite increased nominal replication.
 
 \subsection{Evaluation metrics}
-Primary metrics are wrong deterministic report probability, correct deterministic report probability, honest ambiguity probability, and expected cost. The key design contrast is the correct-report ceiling under shared versus independent failures. This contrast holds the nominal replication budget fixed and changes only the architecture linking observations to failure factors.
-
-\subsection{Results}
-Across all 54 target-safe architecture--parameter combinations, wrong deterministic reporting never exceeds 0.0055, below the declared 0.05 risk contract. When response-typing accuracy is 0.85, the target-safe strategy makes no wrong deterministic response report because it abstains between increase and decrease. In contrast, full-identification and information-gain rules convert response-typing error or exhausted nondetection budgets into point conclusions.
-
-The most important result concerns failure architecture. At common-failure probability 0.35, the best target-safe correct deterministic reporting probability under three shared-mode replicates is 0.354. With the same nominal number of screens but independent failure events, the best value is 0.514. Thus the gain of 0.160 is produced by failure diversification rather than increased sample size. Same-mode replication cannot cross the common-cause availability ceiling; changing the observation architecture can.
-
-\begin{table}[ht]
-\centering
-\caption{Headline benchmark result at common-failure probability 0.35. Values are the best correct deterministic reporting probabilities across the declared detection and typing grid for the target-safe strategy.}
-\begin{tabular}{lrr}
-\toprule
-Failure architecture & Correct report & Difference from shared \\
-\midrule
-Shared factor across three screens & 0.354 & --- \\
-Independent failure events & 0.514 & 0.160 \\
-\bottomrule
-\end{tabular}
-\label{tab:failure-architecture}
-\end{table}
-
-These results meet the primary falsification criterion: the framework changes a monitoring recommendation. Under high shared failure, buying more copies of the same observation mode cannot deliver the target-resolution probability achieved by diversifying modes or failure factors. The remaining submission benchmark is empirical calibration: replacing the illustrative probability grid with estimates from a realistic plant--pollinator monitoring design.
-
-\section{Integrated plant--pollinator example}
-Consider a rare plant--pollinator interaction monitored across sites. The target is not simply occurrence but the response to floral enhancement, exclusion, or competitor removal. Passive monitoring leaves all worlds compatible. A presence screen separates absence from presence but leaves increase and decrease mechanisms together. A response experiment separates those mechanisms only after presence is established, because an intervention record has no mechanism-typing meaning in an absent world.
-
-Failure architecture changes the decision. Repeating cameras through the same storm window or processing all samples in one laboratory batch may raise nominal replication while preserving a shared failure ceiling. Diversifying access windows, sensor modes, observers, or laboratory batches can create a reliable target-relevant split. The exact benchmark shows that this is not a verbal warning: at failure probability 0.35, independent modes improve the best correct deterministic reporting probability from 0.354 to 0.514 without increasing the number of screens. The recommended adaptive policy therefore screens for presence, triggers response typing only after a compatible positive record, and stops when the response is resolved within the false-resolution budget or when further sampling is not cost-effective. Terminal output is one of four scientifically distinct states: absence, increase, decrease, or unresolved increase/decrease.
+Primary metrics are correct deterministic report probability, wrong deterministic report probability, honest ambiguity, expected cost, effort spent on target-irrelevant distinctions, and the probability that additional sampling changes the management recommendation.
 
 \section{Discussion}
-The main advance is a modelling discipline: ecological models should report only distinctions supported jointly by the experiment, observation process, failure architecture, and declared target. This discipline prevents three common substitutions: treating occupancy resolution as management-response resolution, treating posterior preference as logical reportability, and treating nominal replication as independent evidence.
+The ecological contribution is a distinction between knowing what state a system is in and knowing what will happen if it is managed. Those tasks coincide only when all compatible mechanisms imply the same intervention response. When they do not, forcing a point conclusion converts structural uncertainty into unjustified certainty.
 
-The benchmark identifies a concrete management consequence. When failures are shared, increasing replication count can leave target reportability almost unchanged; when failure factors are diversified, the same nominal effort can cross the resolution threshold. Monitoring design should therefore record and model failure-factor membership---weather window, access route, observer, sensor platform, extraction batch, or laboratory pipeline---rather than treating all replicate observations as exchangeable Bernoulli trials.
+The target-safe quotient also changes how model complexity should be judged. Ecological distinctions are retained not because they are biologically interesting in isolation, but because they alter present or future management reports. Conversely, models that differ strongly in internal mechanism can be collapsed when they are equivalent for the declared target. This gives a decision-relative alternative to both full mechanistic identification and indiscriminate model averaging.
 
-The framework is deliberately modular. Occupancy, N-mixture, latent-class, mechanistic, Bayesian, or ensemble models can provide probabilities over worlds and records. The target-safe layer then determines which conclusions those models jointly support and how monitoring should proceed. This makes the approach complementary to established ecological modelling rather than competitive with any one estimator.
+Monitoring design should therefore be evaluated by target resolution rather than sample size or information gain alone. A small manipulation that separates opposite intervention responses may be more valuable than extensive state monitoring. Likewise, replication within one weather window, spatial domain, observer protocol, or laboratory pipeline may add little if all replicates share the same blind spot.
 
-The finite formulation is a strength for auditability but a limitation for scale. Candidate worlds, actions, and failure factors must be declared; continuous parameter spaces require discretization or approximation; and results are conditional on model adequacy. The software should therefore expose sensitivity analyses over world sets, thresholds, and failure assumptions rather than presenting one quotient as model-free truth.
+The framework remains conditional on the declared world set, actions, observation models, and targets. It does not make model misspecification disappear. Its value is auditability: every deterministic conclusion can be traced to the compatible worlds it excludes, every retained ambiguity to the target differences it preserves, and every recommended experiment to the class split it is expected to create.
 
-For Ecological Modelling, the decisive evidence is practical: a reproducible workflow, clear contrast with occupancy-only and generic adaptive design, and a simulation result that changes a management conclusion. The theorems guarantee internal sharpness, but the ecological contribution is the ability to diagnose when more replication is useless and which type of monitoring diversity can restore target resolution.
+For Ecological Modelling, the central claim is therefore not a new mathematical object in isolation. It is a reusable systems-modelling layer that links ecological state models to intervention prediction and prevents state certainty from being mistaken for management certainty.
 
 \section{Methods and reproducibility}
-The quotient is constructed by grouping worlds with identical complete records. Target-safe minimization uses finite monotone refinement by current observations, target reports under future actions, and successor stability. Policy evaluation enumerates every latent world and observation path, weights it by the declared world and record probabilities, classifies the terminal output as correct, wrong, or ambiguous, and accumulates expected cost. The parameter grid, JSON summary, CSV rows, and manuscript-ready LaTeX table are generated by \texttt{scripts/simulate\_paper\_b\_benchmark.py}. Automated tests verify probability normalization, compliance with the false-resolution contract, and the prediction that independent observation modes break the shared-failure resolution ceiling. The supplement separates proofs and implementation details from the ecological modelling narrative.
+The quotient is constructed by grouping worlds with identical records. Target-safe minimization uses finite monotone refinement by observations, target reports under declared actions, and successor stability. Policy evaluation enumerates latent worlds and observation paths, classifies terminal reports as correct, wrong, or ambiguous, and accumulates cost. Proofs and implementation details belong in the Supplement; the main text emphasizes ecological interpretation, comparative benchmarks, and model-design consequences.
 
 \end{document}
