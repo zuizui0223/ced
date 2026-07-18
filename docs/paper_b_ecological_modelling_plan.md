@@ -2,42 +2,50 @@
 
 ## Fixed modelling claim
 
-Paper B is a target-safe modelling layer for finite ecological evidence. It consumes candidate worlds and fitted or declared record models, then returns the sharpest management report justified by the compatible class and a failure-aware next experiment.
+Paper B is a target-safe modelling layer that separates ecological state estimation from intervention-response reportability. It consumes candidate worlds and fitted or declared record models, then returns the sharpest management report justified by the compatible class and a target-relevant next experiment.
 
 The manuscript does not claim a new occupancy estimator, a new generic identified-set theory, or a universal adaptive-control algorithm.
 
-## Completed core benchmark
+## Ecological scope
 
-The comparative benchmark now uses exact enumeration rather than Monte Carlo sampling.
+The framework is deliberately general and is not tied to a focal taxon or interaction system. The main manuscript develops four recurring structures:
 
-- latent worlds: interaction absent/present crossed with decrease/increase intervention response;
-- detection sensitivity: 0.60, 0.80, 0.95;
+- degraded ecosystem state versus restoration response;
+- invasion detection versus control response;
+- population decline versus demographic intervention;
+- regime identification versus reversibility.
+
+The common problem is that present-state evidence can be strong while compatible mechanisms imply different intervention consequences.
+
+## Comparative benchmark
+
+The benchmark uses a generic state--response world model rather than a system-specific case.
+
+- latent worlds: management condition absent/present crossed with response type A/B;
+- state-observation sensitivity: 0.60, 0.80, 0.95;
 - response-typing accuracy: 0.85, 0.95, 0.99;
 - common-failure probability: 0, 0.15, 0.35;
 - failure architecture: one shared factor versus independent events;
-- strategies: occupancy-only, full identification, information gain, target-safe risk-limited;
+- strategies: state-only, full identification, information gain, target-safe risk-limited;
 - outputs: correct deterministic report, wrong deterministic report, honest ambiguity, expected cost.
 
 This gives 216 exact strategy--scenario evaluations.
 
-## Headline result
+## Central empirical questions
 
-At common-failure probability 0.35, the best target-safe correct deterministic reporting probability is 0.354 under three screens sharing one failure factor and 0.514 under three screens with independent failure events. The 0.160 gain comes from failure diversification, not additional sample size.
-
-Across the full grid, target-safe wrong deterministic reporting remains below the declared 0.05 contract. When response-typing accuracy is only 0.85, the policy abstains rather than forcing an intervention direction.
-
-## Ecological interpretation
-
-The actionable result is that monitoring replication should be classified by failure-factor membership. Three cameras in the same storm window, three visits blocked by the same access restriction, or three samples processed in one failed laboratory batch are not equivalent to three independently failing modes. Under a shared factor, nominal replication cannot cross the factor's availability ceiling.
+1. Can state accuracy be high while intervention-response reportability remains low?
+2. Does full identification spend effort on distinctions with identical management consequences?
+3. Can generic information gain select an experiment that is inferior for the declared target?
+4. Can shared observation structure prevent nominal replication from increasing reportability?
 
 ## Remaining submission work
 
-1. Calibrate one realistic plant--pollinator scenario with literature- or pilot-derived ranges for detection, typing accuracy, costs, and shared failures.
-2. Add a manuscript figure plotting correct/wrong/ambiguous reporting against failure probability for shared and independent architectures.
-3. Add the complete bibliography for occupancy, partial identification, adaptive monitoring, information gain, structural uncertainty, and common-cause failure.
-4. Move theorem proofs to a supplement and retain only operational guarantees in the main paper.
-5. Compile against the final Ecological Modelling journal format.
+1. Expand the benchmark so target-irrelevant latent dimensions are explicit rather than only discussed.
+2. Implement a genuine expected-information-gain policy instead of a simplified proxy.
+3. Add manuscript figures for state accuracy versus response reportability, target-irrelevant effort, and failure architecture.
+4. Add complete references for occupancy, structural uncertainty, partial identification, adaptive monitoring, regime shifts, restoration, and intervention prediction.
+5. Move formal proofs into the supplement and compile against the final Ecological Modelling format.
 
 ## Decision gate
 
-The realistic calibration must preserve the qualitative architecture result. If plausible parameter ranges eliminate the shared-versus-independent resolution contrast, the paper should retreat to a conceptual framework claim. If the contrast persists, it becomes the central ecological modelling result and the main simulation figure.
+Paper B succeeds only if the benchmark shows that the proposed layer changes ecological model construction or experiment choice. Failure architecture is supporting evidence, not the sole contribution. The headline result must remain the structural gap between knowing the present state and knowing the consequence of intervention.
