@@ -2,9 +2,9 @@
 
 ## Fixed modelling claim
 
-Paper B is a target-safe modelling layer that separates ecological state estimation from intervention-response reportability. It consumes candidate worlds and fitted or declared record models, then returns the sharpest management report justified by the compatible class and a target-relevant next experiment.
+Paper B is a target-safe modelling layer that separates ecological state estimation from prediction-target reportability. It consumes candidate worlds and fitted or declared record models, then returns the sharpest ecological prediction justified by the compatible class and a target-relevant next experiment.
 
-The manuscript does not claim a new occupancy estimator, a new generic identified-set theory, or a universal adaptive-control algorithm.
+The manuscript does not claim a new occupancy estimator, generic identified-set theory, or universal adaptive-control algorithm.
 
 ## Ecological scope
 
@@ -15,37 +15,28 @@ The framework is deliberately general and is not tied to a focal taxon or intera
 - population decline versus demographic intervention;
 - regime identification versus reversibility.
 
-The common problem is that present-state evidence can be strong while compatible mechanisms imply different intervention consequences.
+The common problem is that present-state evidence can be strong while compatible mechanisms imply different future or intervention consequences.
 
-## Comparative benchmark
+## Completed comparative benchmark
 
-The benchmark uses a generic state--response world model rather than a system-specific case.
+The exact benchmark now uses 16 latent worlds:
 
-- latent worlds: management condition absent/present crossed with response type A/B;
-- state-observation sensitivity: 0.60, 0.80, 0.95;
-- response-typing accuracy: 0.85, 0.95, 0.99;
-- common-failure probability: 0, 0.15, 0.35;
-- failure architecture: one shared factor versus independent events;
-- strategies: state-only, full identification, information gain, target-safe risk-limited;
-- outputs: correct deterministic report, wrong deterministic report, honest ambiguity, expected cost.
+- management condition absent/present;
+- intervention-response type A/B;
+- a four-level latent attribute that does not affect the declared prediction target.
 
-This gives 216 exact strategy--scenario evaluations.
+It compares state-only, full-identification, full-world expected-information-gain, and target-safe risk-limited strategies across state detectability, response-experiment accuracy, common failure, and shared versus independent evidence architectures.
 
-## Central empirical questions
-
-1. Can state accuracy be high while intervention-response reportability remains low?
-2. Does full identification spend effort on distinctions with identical management consequences?
-3. Can generic information gain select an experiment that is inferior for the declared target?
-4. Can shared observation structure prevent nominal replication from increasing reportability?
+The target-irrelevant experiment perfectly resolves the four-level attribute and therefore yields 2 bits of full-world information. At response accuracy 0.95, the response experiment yields approximately 0.714 bits. A genuine full-world EIG rule therefore selects the target-irrelevant experiment, whereas target-safe design selects the response experiment. At response accuracy 0.99, target-safe design resolves the prediction target more often than EIG and costs less than full latent-world identification.
 
 ## Remaining submission work
 
-1. Expand the benchmark so target-irrelevant latent dimensions are explicit rather than only discussed.
-2. Implement a genuine expected-information-gain policy instead of a simplified proxy.
-3. Add manuscript figures for state accuracy versus response reportability, target-irrelevant effort, and failure architecture.
-4. Add complete references for occupancy, structural uncertainty, partial identification, adaptive monitoring, regime shifts, restoration, and intervention prediction.
-5. Move formal proofs into the supplement and compile against the final Ecological Modelling format.
+1. Convert the benchmark outputs into final figures: state accuracy versus prediction reportability, full-world information versus target information, and failure-architecture sensitivity.
+2. Generalize the prediction target language beyond intervention response where useful, including future state, recovery, persistence, and regime transition.
+3. Add complete references for occupancy, structural uncertainty, partial identification, adaptive monitoring, value of information, regime shifts, restoration, and ecological forecasting.
+4. Move formal proofs and implementation details into the supplement.
+5. Compile against the final Ecological Modelling format and perform a claim-by-claim reviewer audit.
 
 ## Decision gate
 
-Paper B succeeds only if the benchmark shows that the proposed layer changes ecological model construction or experiment choice. Failure architecture is supporting evidence, not the sole contribution. The headline result must remain the structural gap between knowing the present state and knowing the consequence of intervention.
+Paper B succeeds only if it demonstrates that target-relative modelling changes ecological experiment choice. The decisive contrast is now explicit: an experiment can maximize information about the latent ecological world while contributing nothing to the prediction that matters.
