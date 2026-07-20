@@ -1,9 +1,8 @@
 """Exact benchmark for target-safe ecological prediction.
 
-The latent world contains current condition, intervention-response type, and a
-four-level attribute irrelevant to the declared prediction target. Expected
-information gain is computed on the full world; target-safe design values only
-splits that change the declared ecological prediction.
+Experiments are explicit likelihood kernels. Every strategy starts from the same
+posterior and uses the same risk-limited terminal reporting rule; strategies differ
+only in which follow-up experiment they select.
 """
 from __future__ import annotations
 
@@ -14,7 +13,7 @@ import json
 import math
 from dataclasses import asdict, dataclass, replace
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Hashable, Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_JSON = ROOT / "artifacts" / "paper_b_simulation_summary.json"
@@ -24,6 +23,10 @@ OUT_TEX = ROOT / "artifacts" / "paper_b_simulation_table.tex"
 TARGETS = ("condition-absent", "response-A", "response-B")
 NUISANCE_STATES = tuple(range(4))
 WORLDS = tuple(itertools.product((0, 1), (0, 1), NUISANCE_STATES))
+TOL = 1e-12
+World = tuple[int, int, int]
+Outcome = Hashable
+Kernel = Callable[[World], dict[Outcome, float]]
 
 
 @dataclass(frozen=True)
@@ -39,158 +42,282 @@ class Parameters:
     false_resolution_limit: float = 0.05
     observation_replicates: int = 3
 
+    def __post_init__(self) -> None:
+        probabilities = (
+            self.condition_prevalence,
+            self.response_b_probability,
+            self.state_detection_sensitivity,
+            self.response_typing_accuracy,
+            self.common_failure_probability,
+            self.false_resolution_limit,
+        )
+        if any(not 0.0 <= value <= 1.0 for value in probabilities):
+            raise ValueError("probability parameters must lie in [0, 1]")
+        if self.observation_replicates < 1:
+            raise ValueError("observation_replicates must be positive")
+        if min(
+            self.state_observation_cost,
+            self.response_experiment_cost,
+            self.nuisance_experiment_cost,
+        ) < 0.0:
+            raise ValueError("experiment costs must be nonnegative")
 
-def target(world: tuple[int, int, int]) -> str:
+
+def target(world: World) -> str:
     condition, response_type, _ = world
     if not condition:
         return "condition-absent"
     return "response-B" if response_type else "response-A"
 
 
-def world_probability(world: tuple[int, int, int], p: Parameters) -> float:
-    condition, response_type, _ = world
-    response_prob = p.response_b_probability if response_type else 1.0 - p.response_b_probability
-    condition_prob = p.condition_prevalence if condition else 1.0 - p.condition_prevalence
-    return condition_prob * response_prob / len(NUISANCE_STATES)
-
-
-def bernoulli_sequences(probability: float, n: int) -> Iterable[tuple[tuple[bool, ...], float]]:
-    for values in itertools.product((False, True), repeat=n):
-        successes = sum(values)
-        yield values, probability**successes * (1.0 - probability) ** (n - successes)
-
-
-def observation_paths(world: tuple[int, int, int], p: Parameters, architecture: str):
-    condition, response_type, nuisance = world
-    if architecture not in {"shared", "independent"}:
-        raise ValueError(f"unknown architecture: {architecture}")
-
-    shared_states = ((False, 1.0),)
-    if architecture == "shared":
-        shared_states = (
-            (False, 1.0 - p.common_failure_probability),
-            (True, p.common_failure_probability),
+def prior(p: Parameters) -> dict[World, float]:
+    result: dict[World, float] = {}
+    for condition, response_type, nuisance in WORLDS:
+        condition_mass = p.condition_prevalence if condition else 1.0 - p.condition_prevalence
+        response_mass = p.response_b_probability if response_type else 1.0 - p.response_b_probability
+        result[(condition, response_type, nuisance)] = (
+            condition_mass * response_mass / len(NUISANCE_STATES)
         )
-
-    for shared_failed, p_shared in shared_states:
-        if shared_failed:
-            yield {
-                "detections": (False,) * p.observation_replicates,
-                "response_typed": None,
-                "nuisance_observed": None,
-            }, p_shared
-            continue
-
-        sensitivity = p.state_detection_sensitivity
-        if architecture == "independent":
-            sensitivity *= 1.0 - p.common_failure_probability
-        detection_probability = sensitivity if condition else 0.0
-
-        for detections, p_detection in bernoulli_sequences(
-            detection_probability, p.observation_replicates
-        ):
-            if not any(detections):
-                yield {
-                    "detections": detections,
-                    "response_typed": None,
-                    "nuisance_observed": nuisance,
-                }, p_shared * p_detection
-                continue
-            for correct, p_type in (
-                (True, p.response_typing_accuracy),
-                (False, 1.0 - p.response_typing_accuracy),
-            ):
-                yield {
-                    "detections": detections,
-                    "response_typed": response_type if correct else 1 - response_type,
-                    "nuisance_observed": nuisance,
-                }, p_shared * p_detection * p_type
+    return result
 
 
-def classify(report: set[str], truth: str) -> str:
-    if len(report) != 1:
-        return "ambiguous"
-    return "correct" if next(iter(report)) == truth else "wrong"
+def normalize(weights: dict[World, float]) -> dict[World, float]:
+    total = sum(weights.values())
+    if total <= 0.0:
+        raise ValueError("posterior has zero mass")
+    return {world: value / total for world, value in weights.items() if value > 0.0}
 
 
-def used_observations(record: dict[str, object]) -> int:
-    detections = tuple(bool(value) for value in record["detections"])
-    return next((i + 1 for i, value in enumerate(detections) if value), len(detections))
-
-
-def state_only(record: dict[str, object], p: Parameters):
-    if bool(record["detections"][0]):
-        return {"response-A", "response-B"}, p.state_observation_cost
-    return {"condition-absent"}, p.state_observation_cost
-
-
-def full_identification(record: dict[str, object], p: Parameters):
-    used = used_observations(record)
-    if not any(record["detections"]):
-        return {"condition-absent"}, used * p.state_observation_cost
-    typed = "response-B" if record["response_typed"] == 1 else "response-A"
-    cost = used * p.state_observation_cost + p.response_experiment_cost + p.nuisance_experiment_cost
-    return {typed}, cost
+def posterior(belief: dict[World, float], kernel: Kernel, outcome: Outcome) -> dict[World, float]:
+    return normalize(
+        {
+            world: probability * kernel(world).get(outcome, 0.0)
+            for world, probability in belief.items()
+        }
+    )
 
 
 def entropy(probabilities: Iterable[float]) -> float:
     return -sum(value * math.log2(value) for value in probabilities if value > 0.0)
 
 
-def expected_information_gain(p: Parameters) -> dict[str, float]:
-    response_prior = (1.0 - p.response_b_probability, p.response_b_probability)
-    response_posterior_entropy = entropy(
-        (p.response_typing_accuracy, 1.0 - p.response_typing_accuracy)
+def predictive_distribution(belief: dict[World, float], kernel: Kernel) -> dict[Outcome, float]:
+    result: dict[Outcome, float] = {}
+    for world, world_mass in belief.items():
+        for outcome, likelihood in kernel(world).items():
+            result[outcome] = result.get(outcome, 0.0) + world_mass * likelihood
+    return result
+
+
+def mutual_information(belief: dict[World, float], kernel: Kernel) -> float:
+    expected_posterior_entropy = 0.0
+    for outcome, outcome_mass in predictive_distribution(belief, kernel).items():
+        if outcome_mass > 0.0:
+            expected_posterior_entropy += outcome_mass * entropy(
+                posterior(belief, kernel, outcome).values()
+            )
+    return entropy(belief.values()) - expected_posterior_entropy
+
+
+def response_kernel(p: Parameters) -> Kernel:
+    def kernel(world: World) -> dict[Outcome, float]:
+        condition, response_type, _ = world
+        if not condition:
+            return {"not-applicable": 1.0}
+        return {
+            response_type: p.response_typing_accuracy,
+            1 - response_type: 1.0 - p.response_typing_accuracy,
+        }
+    return kernel
+
+
+def nuisance_kernel(_: Parameters) -> Kernel:
+    return lambda world: {world[2]: 1.0}
+
+
+def target_masses(belief: dict[World, float]) -> dict[str, float]:
+    masses = {label: 0.0 for label in TARGETS}
+    for world, probability in belief.items():
+        masses[target(world)] += probability
+    return masses
+
+
+def risk_limited_report(
+    belief: dict[World, float], false_resolution_limit: float
+) -> frozenset[str]:
+    masses = target_masses(belief)
+    best_target, best_mass = max(masses.items(), key=lambda item: item[1])
+    if 1.0 - best_mass <= false_resolution_limit + TOL:
+        return frozenset((best_target,))
+    return frozenset(label for label, mass in masses.items() if mass > TOL)
+
+
+def classify(report: frozenset[str], truth: str) -> str:
+    if len(report) != 1:
+        return "ambiguous"
+    return "correct" if next(iter(report)) == truth else "wrong"
+
+
+def screen_paths(
+    world: World, p: Parameters, architecture: str
+) -> Iterable[tuple[tuple[bool, ...], float]]:
+    condition, _, _ = world
+    if architecture not in {"shared", "independent"}:
+        raise ValueError(f"unknown architecture: {architecture}")
+    if architecture == "shared":
+        if p.common_failure_probability > 0.0:
+            yield (False,) * p.observation_replicates, p.common_failure_probability
+        operational_mass = 1.0 - p.common_failure_probability
+        sensitivity = p.state_detection_sensitivity if condition else 0.0
+    else:
+        operational_mass = 1.0
+        sensitivity = (
+            p.state_detection_sensitivity * (1.0 - p.common_failure_probability)
+            if condition
+            else 0.0
+        )
+    for values in itertools.product((False, True), repeat=p.observation_replicates):
+        successes = sum(values)
+        mass = sensitivity**successes * (1.0 - sensitivity) ** (
+            p.observation_replicates - successes
+        )
+        yield values, operational_mass * mass
+
+
+def used_screens(detections: tuple[bool, ...]) -> int:
+    return next(
+        (index + 1 for index, detected in enumerate(detections) if detected),
+        len(detections),
     )
-    return {
-        "response_experiment": entropy(response_prior) - response_posterior_entropy,
-        "nuisance_experiment": math.log2(len(NUISANCE_STATES)),
-    }
 
 
-def information_gain(record: dict[str, object], p: Parameters):
-    used = used_observations(record)
-    if not any(record["detections"]):
-        return set(TARGETS), used * p.state_observation_cost
-    gains = expected_information_gain(p)
-    selected = max(gains, key=gains.get)
-    if selected != "nuisance_experiment":
-        raise AssertionError("benchmark requires full-world EIG to favor the target-irrelevant experiment")
-    return {"response-A", "response-B"}, used * p.state_observation_cost + p.nuisance_experiment_cost
+def belief_after_screen(
+    p: Parameters, architecture: str, detections: tuple[bool, ...]
+) -> dict[World, float]:
+    return normalize(
+        {
+            world: world_mass
+            * dict(screen_paths(world, p, architecture)).get(detections, 0.0)
+            for world, world_mass in prior(p).items()
+        }
+    )
 
 
-def target_safe(record: dict[str, object], p: Parameters):
-    used = used_observations(record)
-    if not any(record["detections"]):
-        return set(TARGETS), used * p.state_observation_cost
-    if 1.0 - p.response_typing_accuracy > p.false_resolution_limit:
-        return {"response-A", "response-B"}, used * p.state_observation_cost + p.response_experiment_cost
-    typed = "response-B" if record["response_typed"] == 1 else "response-A"
-    return {typed}, used * p.state_observation_cost + p.response_experiment_cost
+def target_resolution_probability(
+    belief: dict[World, float], kernel: Kernel, limit: float
+) -> float:
+    total = 0.0
+    for outcome, mass in predictive_distribution(belief, kernel).items():
+        if mass <= 0.0:
+            continue
+        if len(risk_limited_report(posterior(belief, kernel, outcome), limit)) == 1:
+            total += mass
+    return total
 
 
-STRATEGIES = {
-    "state_only": state_only,
-    "full_identification": full_identification,
-    "information_gain": information_gain,
-    "target_safe": target_safe,
-}
+def select_full_world_eig(
+    belief: dict[World, float], experiments: dict[str, tuple[Kernel, float]]
+) -> str:
+    return max(
+        experiments,
+        key=lambda name: (mutual_information(belief, experiments[name][0]), name),
+    )
+
+
+def select_target_safe(
+    belief: dict[World, float],
+    experiments: dict[str, tuple[Kernel, float]],
+    limit: float,
+) -> str | None:
+    candidates = []
+    for name, (kernel, cost) in experiments.items():
+        resolution = target_resolution_probability(belief, kernel, limit)
+        if resolution > TOL:
+            candidates.append((cost, -resolution, name))
+    return min(candidates)[2] if candidates else None
+
+
+def followup_distribution(
+    world: World,
+    belief: dict[World, float],
+    plan: tuple[tuple[Kernel, float], ...],
+    limit: float,
+) -> Iterable[tuple[frozenset[str], float, float]]:
+    states = [(belief, 1.0, 0.0)]
+    for kernel, cost in plan:
+        next_states = []
+        for current_belief, path_mass, path_cost in states:
+            for outcome, likelihood in kernel(world).items():
+                if likelihood > 0.0:
+                    next_states.append(
+                        (
+                            posterior(current_belief, kernel, outcome),
+                            path_mass * likelihood,
+                            path_cost + cost,
+                        )
+                    )
+        states = next_states
+    for final_belief, path_mass, path_cost in states:
+        yield risk_limited_report(final_belief, limit), path_mass, path_cost
 
 
 def evaluate(p: Parameters, architecture: str) -> dict[str, dict[str, float]]:
+    strategy_names = (
+        "state_only",
+        "full_identification",
+        "full_world_eig",
+        "target_safe",
+    )
     totals = {
         name: {"correct": 0.0, "wrong": 0.0, "ambiguous": 0.0, "cost": 0.0}
-        for name in STRATEGIES
+        for name in strategy_names
     }
-    for world in WORLDS:
-        p_world = world_probability(world, p)
+    experiments = {
+        "response": (response_kernel(p), p.response_experiment_cost),
+        "nuisance": (nuisance_kernel(p), p.nuisance_experiment_cost),
+    }
+    for world, world_mass in prior(p).items():
         truth = target(world)
-        for record, p_record in observation_paths(world, p, architecture):
-            weight = p_world * p_record
-            for name, strategy in STRATEGIES.items():
-                report, cost = strategy(record, p)
-                totals[name][classify(report, truth)] += weight
-                totals[name]["cost"] += weight * cost
+        for detections, screen_mass in screen_paths(world, p, architecture):
+            weight = world_mass * screen_mass
+            if weight <= 0.0:
+                continue
+            screen_cost = used_screens(detections) * p.state_observation_cost
+            belief = belief_after_screen(p, architecture, detections)
+            if not any(detections):
+                report = risk_limited_report(belief, p.false_resolution_limit)
+                for name in strategy_names:
+                    totals[name][classify(report, truth)] += weight
+                    totals[name]["cost"] += weight * screen_cost
+                continue
+
+            report = risk_limited_report(belief, p.false_resolution_limit)
+            totals["state_only"][classify(report, truth)] += weight
+            totals["state_only"]["cost"] += weight * screen_cost
+
+            eig_choice = select_full_world_eig(belief, experiments)
+            target_choice = select_target_safe(
+                belief, experiments, p.false_resolution_limit
+            )
+            plans = {
+                "full_identification": (
+                    experiments["response"],
+                    experiments["nuisance"],
+                ),
+                "full_world_eig": (experiments[eig_choice],),
+                "target_safe": (
+                    () if target_choice is None else (experiments[target_choice],)
+                ),
+            }
+            for name, plan in plans.items():
+                for final_report, followup_mass, followup_cost in followup_distribution(
+                    world, belief, plan, p.false_resolution_limit
+                ):
+                    path_weight = weight * followup_mass
+                    totals[name][classify(final_report, truth)] += path_weight
+                    totals[name]["cost"] += path_weight * (
+                        screen_cost + followup_cost
+                    )
 
     return {
         name: {
@@ -203,7 +330,7 @@ def evaluate(p: Parameters, architecture: str) -> dict[str, dict[str, float]]:
     }
 
 
-def parameter_grid(base: Parameters = Parameters()):
+def parameter_grid(base: Parameters = Parameters()) -> Iterable[Parameters]:
     for detection, typing, failure in itertools.product(
         (0.60, 0.80, 0.95), (0.85, 0.95, 0.99), (0.00, 0.15, 0.35)
     ):
@@ -215,43 +342,62 @@ def parameter_grid(base: Parameters = Parameters()):
         )
 
 
+def benchmark_contrast(p: Parameters = Parameters()) -> dict[str, object]:
+    detected_belief = normalize(
+        {world: mass for world, mass in prior(p).items() if world[0] == 1}
+    )
+    experiments = {
+        "response": (response_kernel(p), p.response_experiment_cost),
+        "nuisance": (nuisance_kernel(p), p.nuisance_experiment_cost),
+    }
+    return {
+        "full_world_eig_choice": select_full_world_eig(detected_belief, experiments),
+        "target_safe_choice": select_target_safe(
+            detected_belief, experiments, p.false_resolution_limit
+        ),
+        "full_world_information_gain_bits": {
+            name: mutual_information(detected_belief, kernel)
+            for name, (kernel, _) in experiments.items()
+        },
+        "target_resolution_probability": {
+            name: target_resolution_probability(
+                detected_belief, kernel, p.false_resolution_limit
+            )
+            for name, (kernel, _) in experiments.items()
+        },
+    }
+
+
 def run_grid(base: Parameters = Parameters()) -> dict[str, object]:
     rows = []
-    for scenario_id, p in enumerate(parameter_grid(base), start=1):
+    for scenario_id, parameters in enumerate(parameter_grid(base), start=1):
         for architecture in ("shared", "independent"):
-            for strategy, values in evaluate(p, architecture).items():
-                rows.append({
-                    "scenario_id": scenario_id,
-                    "architecture": architecture,
-                    **asdict(p),
-                    "strategy": strategy,
-                    **values,
-                })
-
+            for strategy, values in evaluate(parameters, architecture).items():
+                rows.append(
+                    {
+                        "scenario_id": scenario_id,
+                        "architecture": architecture,
+                        **asdict(parameters),
+                        "strategy": strategy,
+                        **values,
+                    }
+                )
+    contrast = benchmark_contrast(base)
     target_rows = [row for row in rows if row["strategy"] == "target_safe"]
-    aligned = evaluate(
-        replace(base, response_typing_accuracy=0.99, common_failure_probability=0.0),
-        "independent",
-    )
-    gains = expected_information_gain(base)
     return {
-        "schema_version": 4,
+        "schema_version": 5,
         "grid_size": len(rows),
         "rows": rows,
+        "benchmark_contrast": contrast,
         "headline_checks": {
-            "target_safe_max_wrong_probability": max(row["wrong_probability"] for row in target_rows),
-            "information_gain_selects_target_irrelevant_experiment": (
-                gains["nuisance_experiment"] > gains["response_experiment"]
+            "target_safe_max_wrong_probability": max(
+                row["wrong_probability"] for row in target_rows
             ),
-            "nuisance_information_gain_bits": gains["nuisance_experiment"],
-            "response_information_gain_bits": gains["response_experiment"],
-            "target_safe_more_resolving_than_information_gain": (
-                aligned["target_safe"]["correct_probability"]
-                > aligned["information_gain"]["correct_probability"]
+            "full_world_eig_selects_nuisance": (
+                contrast["full_world_eig_choice"] == "nuisance"
             ),
-            "target_safe_cheaper_than_full_identification": (
-                aligned["target_safe"]["expected_cost"]
-                < aligned["full_identification"]["expected_cost"]
+            "target_safe_selects_response": (
+                contrast["target_safe_choice"] == "response"
             ),
         },
     }
@@ -259,18 +405,20 @@ def run_grid(base: Parameters = Parameters()) -> dict[str, object]:
 
 def write_outputs(report: dict[str, object]) -> None:
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-    OUT_JSON.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    OUT_JSON.write_text(
+        json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     rows = report["rows"]
     with OUT_CSV.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=tuple(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
-
     baseline = [
-        row for row in rows
+        row
+        for row in rows
         if row["architecture"] == "independent"
         and row["state_detection_sensitivity"] == 0.80
-        and row["response_typing_accuracy"] == 0.99
+        and row["response_typing_accuracy"] == 0.95
         and row["common_failure_probability"] == 0.15
     ]
     lines = [
@@ -282,8 +430,10 @@ def write_outputs(report: dict[str, object]) -> None:
     for row in baseline:
         label = row["strategy"].replace("_", r"\_")
         lines.append(
-            f"{label} & {row['correct_probability']:.3f} & {row['wrong_probability']:.3f} & "
-            f"{row['ambiguity_probability']:.3f} & {row['expected_cost']:.2f} \\\\"
+            f"{label} & {row['correct_probability']:.3f} & "
+            f"{row['wrong_probability']:.3f} & "
+            f"{row['ambiguity_probability']:.3f} & "
+            f"{row['expected_cost']:.2f} \\\\"
         )
     lines.extend((r"\bottomrule", r"\end{tabular}"))
     OUT_TEX.write_text("\n".join(lines) + "\n", encoding="utf-8")
