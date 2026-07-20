@@ -42,7 +42,7 @@ jobs:
           python scripts/verify_experiment_quotient.py
           python scripts/verify_target_resolution.py
           python scripts/verify_failure_target_comparison.py
-          python scripts/verify_pollinator_adaptive_policy.py
+          python scripts/simulate_paper_b_benchmark.py
       - name: Upload replay artifacts
         if: matrix.python-version == '3.12'
         uses: actions/upload-artifact@v4
@@ -64,4 +64,6 @@ jobs:
             artifacts/ced_experiment_quotient_report.json
             artifacts/ced_target_resolution_report.json
             artifacts/ced_failure_target_comparison_report.json
-            artifacts/ced_pollinator_adaptive_policy_report.json
+            artifacts/paper_b_simulation_summary.json
+            artifacts/paper_b_simulation_grid.csv
+            artifacts/paper_b_simulation_table.tex
