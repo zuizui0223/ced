@@ -1,6 +1,3 @@
-import runpy
-from pathlib import Path
-
 import pytest
 
 from ced.adaptive_target_policy import (
@@ -10,38 +7,57 @@ from ced.adaptive_target_policy import (
 )
 
 
-ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "scripts" / "verify_pollinator_adaptive_policy.py"
+def build_generic_policies():
+    ambiguous = AdaptiveTargetPolicy.stop("ambiguous", ("response-A", "response-B"))
+    correct = AdaptiveTargetPolicy.stop("correct", ("response-A",))
+    wrong = AdaptiveTargetPolicy.stop("wrong", ("response-B",))
+    conservative = AdaptiveTargetPolicy(
+        "conservative",
+        experiment_cost=1.0,
+        branches=(
+            AdaptiveTargetBranch("resolved", 0.70, correct),
+            AdaptiveTargetBranch("wrong", 0.02, wrong),
+            AdaptiveTargetBranch("unresolved", 0.28, ambiguous),
+        ),
+    )
+    intensive = AdaptiveTargetPolicy(
+        "intensive",
+        experiment_cost=2.0,
+        branches=(
+            AdaptiveTargetBranch("resolved", 0.90, correct),
+            AdaptiveTargetBranch("wrong", 0.01, wrong),
+            AdaptiveTargetBranch("unresolved", 0.09, ambiguous),
+        ),
+    )
+    return conservative, intensive
 
 
-def test_pollinator_adaptive_policies_match_declared_risk_and_cost():
-    module = runpy.run_path(str(SCRIPT))
-    policies = module["build_policies"]()
-    by_name = {policy.name: policy for policy in policies}
+def test_adaptive_policy_decomposes_correct_wrong_and_ambiguous_reports():
+    conservative, intensive = build_generic_policies()
 
-    assert by_name["shared"].expected_total_cost == pytest.approx(2.5)
-    assert by_name["shared"].correct_probability("decrease") == pytest.approx(0.6)
-    assert by_name["shared"].wrong_probability("decrease") == pytest.approx(0.0725)
-    assert by_name["shared"].ambiguity_probability("decrease") == pytest.approx(0.3275)
-
-    assert by_name["overlapping"].expected_total_cost == pytest.approx(2.7)
-    assert by_name["overlapping"].correct_probability("decrease") == pytest.approx(0.765)
-    assert by_name["overlapping"].wrong_probability("decrease") == pytest.approx(0.05125)
-    assert by_name["overlapping"].ambiguity_probability("decrease") == pytest.approx(0.18375)
-
-    assert by_name["independent"].expected_total_cost == pytest.approx(2.86)
-    assert by_name["independent"].correct_probability("decrease") == pytest.approx(0.8928)
-    assert by_name["independent"].wrong_probability("decrease") == pytest.approx(0.03395)
-    assert by_name["independent"].ambiguity_probability("decrease") == pytest.approx(0.07325)
-    assert all(policy.verify("decrease") for policy in policies)
+    assert conservative.correct_probability("response-A") == pytest.approx(0.70)
+    assert conservative.wrong_probability("response-A") == pytest.approx(0.02)
+    assert conservative.ambiguity_probability("response-A") == pytest.approx(0.28)
+    assert intensive.correct_probability("response-A") == pytest.approx(0.90)
+    assert intensive.wrong_probability("response-A") == pytest.approx(0.01)
+    assert intensive.ambiguity_probability("response-A") == pytest.approx(0.09)
+    assert all(policy.verify("response-A") for policy in (conservative, intensive))
 
 
-def test_independent_policy_is_only_feasible_strict_contract():
-    policies = runpy.run_path(str(SCRIPT))["build_policies"]()
-    selected = cheapest_feasible_policy(policies, "decrease", 0.85, 0.04, 3.0)
+def test_cheapest_feasible_policy_uses_declared_risk_and_cost_contract():
+    policies = build_generic_policies()
+    selected = cheapest_feasible_policy(
+        policies,
+        "response-A",
+        minimum_correct=0.85,
+        maximum_wrong=0.02,
+        maximum_expected_cost=3.0,
+    )
     assert selected is not None
-    assert selected.name == "independent"
-    assert cheapest_feasible_policy(policies, "decrease", 0.95, 0.02, 3.0) is None
+    assert selected.name == "intensive"
+    assert cheapest_feasible_policy(
+        policies, "response-A", 0.95, 0.005, 3.0
+    ) is None
 
 
 def test_adaptive_policy_validates_tree_contract():
