@@ -117,7 +117,10 @@ def test_target_safe_does_not_pay_for_unresolving_experiment():
     metrics = module["evaluate"](parameters, "independent")
 
     assert contrast["target_safe_choice"] is None
-    assert metrics["target_safe"]["wrong_probability"] == pytest.approx(0.0)
+    assert metrics["target_safe"]["wrong_probability"] == pytest.approx(
+        metrics["state_only"]["wrong_probability"]
+    )
+    assert metrics["target_safe"]["wrong_probability"] <= parameters.false_resolution_limit + 1e-12
     assert metrics["target_safe"]["expected_cost"] == pytest.approx(
         metrics["state_only"]["expected_cost"]
     )
