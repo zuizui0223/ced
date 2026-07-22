@@ -6,18 +6,15 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "render_paper_b_figures.py"
 
 
-def test_figure_generator_uses_validated_schema_and_writes_expected_values(tmp_path):
+def test_figure_generator_uses_validated_schema_and_expected_values():
     module = runpy.run_path(str(SCRIPT))
-    module["OUT_DIR"] = tmp_path
-    module["OUT_CONTRAST"] = tmp_path / "contrast.tex"
-    module["OUT_OUTCOMES"] = tmp_path / "outcomes.tex"
+    benchmark = runpy.run_path(str(module["BENCHMARK"]))
+    report = benchmark["run_grid"]()
 
-    report = module["write_figures"]()
+    contrast = module["experiment_contrast_tex"](report)
+    outcomes = module["strategy_outcomes_tex"](report)
 
     assert report["schema_version"] == 5
-    contrast = (tmp_path / "contrast.tex").read_text(encoding="utf-8")
-    outcomes = (tmp_path / "outcomes.tex").read_text(encoding="utf-8")
-
     assert "0.713603" in contrast
     assert "2.000000" in contrast
     assert "Target-resolution probability" in contrast
