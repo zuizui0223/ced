@@ -13,6 +13,9 @@ def test_figure_generator_uses_validated_schema_and_expected_values():
 
     contrast = module["experiment_contrast_tex"](report)
     outcomes = module["strategy_outcomes_tex"](report)
+    compiled = module["compiled_manuscript_tex"](
+        module["MANUSCRIPT"].read_text(encoding="utf-8")
+    )
 
     assert report["schema_version"] == 5
     assert "0.713603" in contrast
@@ -22,3 +25,9 @@ def test_figure_generator_uses_validated_schema_and_expected_values():
     assert "Full-world EIG" in outcomes
     assert "0.994432" in outcomes
     assert "0.549931" in outcomes
+    assert r"\usepackage{pgfplots}" in compiled
+    assert r"\input{generated/paper_b_experiment_contrast.tex}" in compiled
+    assert r"\input{generated/paper_b_strategy_outcomes.tex}" in compiled
+    assert compiled.index(r"\label{fig:strategy-outcomes}") < compiled.index(
+        r"\subsection{Additional dimensions}"
+    )
