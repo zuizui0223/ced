@@ -133,20 +133,20 @@ The state screen resolves degradation but not recovery. The software exports com
 The benchmark contains 16 worlds crossing whether a management-relevant condition is absent or present, two possible response types, and a four-level latent attribute that is biologically observable but irrelevant to the declared prediction target. This nuisance dimension is included deliberately: it creates a distinction that is valuable for full-world identification but worthless for target reporting.
 
 \subsection{Compared strategies}
-\emph{State-only} stops after estimating the current condition. \emph{Full identification} measures both response type and the nuisance attribute. \emph{Full-world expected information gain} chooses the experiment with the greatest expected entropy reduction over all latent worlds. \emph{Target-safe risk-limited} chooses the least-cost experiment that can resolve the declared prediction under a false-resolution contract and otherwise retains ambiguity.
+All strategies begin from the same posterior after state screening and apply the same terminal false-resolution contract. \emph{State-only} stops after screening. \emph{Full identification} measures both response type and the nuisance attribute. \emph{Full-world expected information gain} selects the single experiment with the greatest exact mutual information about the 16-world latent state. \emph{Target-safe risk-limited} selects the least-cost experiment with positive probability of producing a contract-valid deterministic target report and otherwise stops with ambiguity.
 
 \subsection{Experiment-choice contrast}
 A perfect experiment on the four-level nuisance attribute yields
 \[
 \log_2 4=2
 \]
-bits of full-world information. With an equiprobable binary response and response-experiment accuracy $q=0.95$, the expected information gain is
+bits of full-world information. With an equiprobable binary response and response-experiment accuracy $q=0.95$, exact posterior enumeration gives
 \[
-1-H_2(0.95)=0.714
+I(W;X_{\mathrm{response}})=1-H_2(0.95)=0.714
 \]
-bits. Full-world information gain therefore selects the nuisance experiment even though it cannot change the target report. Target-safe design instead selects the response experiment.
+bits. Full-world information gain therefore selects the nuisance experiment, whose target-resolution probability is zero, whereas target-safe design selects the response experiment, whose target-resolution probability is one in the detected-state contrast.
 
-At state-detection sensitivity 0.95, response accuracy 0.99, three independent state observations, and no shared failure, target-safe design produces a correct deterministic prediction with probability 0.540, a wrong deterministic prediction with probability 0.005, and otherwise reports ambiguity. Full-world information gain produces no deterministic target resolution because it spends its experiment on the nuisance attribute. Full identification reaches the same target information as target-safe design but pays for the additional target-irrelevant measurement.
+At state-detection sensitivity 0.95, response accuracy 0.99, three independent state observations, and no common failure, target-safe design produces a correct deterministic prediction with probability 0.9944, a wrong deterministic prediction with probability 0.00557, and no ambiguous terminal report. Its expected cost is 4.129. Under the same posterior and reporting rule, full-world information gain spends its follow-up on the nuisance attribute and produces a correct deterministic prediction with probability 0.4500, a wrong deterministic prediction with probability 0.000069, and an ambiguous report with probability 0.5499, at expected cost 2.479. Full identification matches the target-safe reporting probabilities but has higher expected cost, 4.679, because it additionally measures the target-irrelevant attribute.
 
 \subsection{Additional dimensions}
 The complete grid varies state-observation sensitivity $\{0.60,0.80,0.95\}$, response accuracy $\{0.85,0.95,0.99\}$, common-failure probability $\{0,0.15,0.35\}$, and shared versus independent failure architectures. Primary metrics are correct deterministic reporting, wrong deterministic reporting, honest ambiguity, expected cost, and effort spent on target-irrelevant distinctions.
@@ -165,6 +165,10 @@ The framework remains conditional on the declared world set, actions, observatio
 For Ecological Modelling, the central claim is a reusable systems-modelling layer linking ecological state models to defensible prediction and preventing state certainty or full-world information from being mistaken for prediction certainty.
 
 \section{Methods and reproducibility}
-The quotient is constructed by grouping worlds with identical records. Target-safe minimization uses finite monotone refinement by observations, target reports under declared actions, and successor stability. Policy evaluation enumerates latent worlds and observation paths, classifies terminal reports as correct, wrong, or ambiguous, and accumulates cost. Expected information gain is computed over the full latent-world distribution, including target-irrelevant dimensions. Proofs and implementation details belong in the Supplement; the main text emphasizes ecological interpretation, comparative benchmarks, and model-design consequences.
+The quotient is constructed by grouping worlds with identical records. In the stochastic benchmark, state screening, response typing, and nuisance measurement are separate likelihood kernels. For a belief distribution $p(w)$ and experiment $e$ with outcome $x$, full-world information gain is computed exactly as
+\[
+I(W;X_e)=H(W)-\sum_x p(x\mid e)H(W\mid x,e).
+\]
+Every strategy receives the same posterior after screening and uses the same terminal rule: a deterministic target is reported only when its posterior error probability is at most the declared false-resolution limit; otherwise the report remains set-valued. Policy evaluation enumerates latent worlds, screening records, selected experiment outcomes, posterior updates, terminal reports, and accumulated cost. Shared-failure and operational all-negative paths that produce the same record are aggregated before posterior updating. The reproducibility workflow executes the complete test suite on Python 3.10--3.12 and regenerates schema-version-5 JSON, CSV, and LaTeX benchmark artifacts on Python 3.12.
 
 \end{document}
