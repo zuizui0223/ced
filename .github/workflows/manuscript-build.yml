@@ -26,21 +26,22 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Generate validated benchmark figures
+      - name: Generate validated benchmark figures and compiled source
         run: python scripts/render_paper_b_figures.py
       - name: Install LaTeX
         run: |
           sudo apt-get update
           sudo apt-get install -y latexmk texlive-latex-extra texlive-pictures
-      - name: Compile Paper B
+      - name: Compile Paper B with generated figures
         working-directory: manuscript
-        run: latexmk -pdf -interaction=nonstopmode -halt-on-error paper_b_main.tex
-      - name: Upload manuscript PDF, log, and generated figures
+        run: latexmk -pdf -interaction=nonstopmode -halt-on-error paper_b_compiled.tex
+      - name: Upload manuscript PDF, log, source, and generated figures
         uses: actions/upload-artifact@v4
         with:
           name: paper-b-manuscript
           path: |
-            manuscript/paper_b_main.pdf
-            manuscript/paper_b_main.log
+            manuscript/paper_b_compiled.pdf
+            manuscript/paper_b_compiled.log
+            manuscript/paper_b_compiled.tex
             manuscript/generated/paper_b_experiment_contrast.tex
             manuscript/generated/paper_b_strategy_outcomes.tex
