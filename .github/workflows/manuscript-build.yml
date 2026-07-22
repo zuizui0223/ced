@@ -4,11 +4,17 @@ on:
   pull_request:
     paths:
       - "manuscript/**"
+      - "scripts/render_paper_b_figures.py"
+      - "scripts/paper_b_benchmark_core.py"
+      - "scripts/simulate_paper_b_benchmark.py"
       - ".github/workflows/manuscript-build.yml"
   push:
     branches: [main]
     paths:
       - "manuscript/**"
+      - "scripts/render_paper_b_figures.py"
+      - "scripts/paper_b_benchmark_core.py"
+      - "scripts/simulate_paper_b_benchmark.py"
       - ".github/workflows/manuscript-build.yml"
   workflow_dispatch:
 
@@ -17,17 +23,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate validated benchmark figures
+        run: python scripts/render_paper_b_figures.py
       - name: Install LaTeX
         run: |
           sudo apt-get update
-          sudo apt-get install -y latexmk texlive-latex-extra
+          sudo apt-get install -y latexmk texlive-latex-extra texlive-pictures
       - name: Compile Paper B
         working-directory: manuscript
         run: latexmk -pdf -interaction=nonstopmode -halt-on-error paper_b_main.tex
-      - name: Upload manuscript PDF and log
+      - name: Upload manuscript PDF, log, and generated figures
         uses: actions/upload-artifact@v4
         with:
           name: paper-b-manuscript
           path: |
             manuscript/paper_b_main.pdf
             manuscript/paper_b_main.log
+            manuscript/generated/paper_b_experiment_contrast.tex
+            manuscript/generated/paper_b_strategy_outcomes.tex
