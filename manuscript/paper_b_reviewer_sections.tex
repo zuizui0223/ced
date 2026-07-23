@@ -1,0 +1,50 @@
+% Reviewer-facing sections included by the generated submission source.
+\subsection{Boundary with value of information and Bayesian design}
+Bayesian experimental design selects observations by expected utility, with information gain as one commonly used utility \cite{ChalonerVerdinelli1995}. Ecological value-of-information analysis instead values data through their expected improvement in management outcomes \cite{CanessaEtAl2015}. Target-safe design is compatible with that decision-theoretic tradition: its reporting rule and experiment cost can be embedded in a constrained utility or loss formulation. The contribution is therefore not a claim that value of information is incapable of targeting decisions. It is an explicit intermediate modelling layer for cases in which investigators can declare an ecological prediction, an admissible false-resolution rate, and a cost structure, but cannot defend a cardinal utility scale over all ecological outcomes.
+
+The distinction is operational. Full-world information gain rewards any reduction in uncertainty. Management VOI requires utilities for management consequences. Target-safe design asks whether a declared prediction can be reported within a stated error contract, permits abstention, and constructs the coarsest latent quotient preserving that report. These approaches may recommend the same experiment when their objectives align; the benchmark isolates a case in which untargeted information gain does not.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{p{0.20\linewidth}p{0.25\linewidth}p{0.45\linewidth}}
+\toprule
+Approach & Design objective & Relation to target-safe modelling \\
+\midrule
+Full-world information gain & Reduce entropy over the latent state & Can prioritize precisely measured distinctions that do not alter the declared prediction. \\
+Bayesian experimental design & Maximize a declared expected utility & General umbrella that can encode target-safe loss, but requires a defensible utility or loss specification. \\
+Management value of information & Improve expected management outcome & Directly decision-centred; target-safe reporting can precede it when utilities are unavailable or disputed. \\
+Target-safe design & Satisfy a prediction-reporting error contract at low cost & Makes abstention, set-valued reports, and target-preserving state reduction explicit. \\
+\bottomrule
+\end{tabular}
+\caption{The proposed framework is a reportability layer within, rather than a replacement for, decision-theoretic experimental design.}
+\label{tab:method-boundaries}
+\end{table}
+
+\subsection{Dependence on the declared prediction target}
+The target-safe quotient is intentionally target-relative. This is not a nuisance parameter of the method but the scientific question supplied by the analyst. Holding the 16 worlds, prior, costs, and likelihood kernels fixed, changing the target from management response to context classification reverses the selected experiment (Table~\ref{tab:target-switch}). Thus no experiment is intrinsically relevant or irrelevant; relevance is defined by whether it separates worlds with different values of the declared target.
+
+\begin{table}[ht]
+\centering
+\small
+\input{generated/paper_b_target_switch.tex}
+\caption{Probability that each experiment produces a contract-valid deterministic report under two declared targets. The same evidence model yields opposite target-safe choices.}
+\label{tab:target-switch}
+\end{table}
+
+\subsection{Sensitivity to the false-resolution contract}
+The 5\% limit is a baseline reporting contract, not a property hard-coded into the framework. Table~\ref{tab:threshold-sensitivity} varies the limit while holding state sensitivity at 0.95, response accuracy at 0.95, independent screening, and common-failure probability at zero. A stricter 1\% contract rejects the response experiment as insufficiently reliable and therefore retains more ambiguity and spends less. At 5\% and 10\%, the response experiment is admissible. This discontinuity is expected: the method treats the declared error limit as a constraint rather than as a smooth preference weight.
+
+\begin{table}[ht]
+\centering
+\small
+\input{generated/paper_b_threshold_sensitivity.tex}
+\caption{Target-safe terminal reports under alternative false-resolution limits. Wrong deterministic reporting remains below the declared limit, while ambiguity and cost respond to the contract.}
+\label{tab:threshold-sensitivity}
+\end{table}
+
+\subsection{Finite representation and continuous ecological models}
+The exact theorems apply to a declared finite world set. This limitation should not be hidden. Continuous-state occupancy, demographic, ecosystem, Bayesian, particle-filter, and ensemble models may supply a finite approximation through posterior draws, particles, scenarios, parameter bins, or representative model members. Target-safe conclusions are then exact for that finite representation and conditional on its support. Refining the representation can reveal target distinctions absent from a coarse approximation, so discretization adequacy must be checked against the prediction target. We do not claim a universal continuous-state convergence theorem.
+
+\subsection{Example of a changed ecological action}
+Consider an invasive population that has been detected. If the declared target is current occurrence, further response experiments are unnecessary. If the target is whether eradication is likely to succeed, worlds with equal occurrence but different demographic response must remain distinct, and an intervention-response experiment can be selected. If the target instead concerns source region for pathway regulation, a context or provenance measurement may become decisive. The framework therefore does not merely recommend ``more monitoring''; it changes which observation is justified by the management-facing prediction. This follows the broader principle that conservation monitoring should be embedded in scientific or management objectives rather than treated as stand-alone surveillance \cite{NicholsWilliams2006}.
