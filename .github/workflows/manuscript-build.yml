@@ -5,6 +5,7 @@ on:
     paths:
       - "manuscript/**"
       - "scripts/render_paper_b_figures.py"
+      - "scripts/analyze_paper_b_reviewer_robustness.py"
       - "scripts/paper_b_benchmark_core.py"
       - "scripts/simulate_paper_b_benchmark.py"
       - ".github/workflows/manuscript-build.yml"
@@ -13,6 +14,7 @@ on:
     paths:
       - "manuscript/**"
       - "scripts/render_paper_b_figures.py"
+      - "scripts/analyze_paper_b_reviewer_robustness.py"
       - "scripts/paper_b_benchmark_core.py"
       - "scripts/simulate_paper_b_benchmark.py"
       - ".github/workflows/manuscript-build.yml"
@@ -45,3 +47,6 @@ jobs:
             manuscript/paper_b_compiled.tex
             manuscript/generated/paper_b_experiment_contrast.tex
             manuscript/generated/paper_b_strategy_outcomes.tex
+            manuscript/generated/paper_b_target_switch.tex
+            manuscript/generated/paper_b_threshold_sensitivity.tex
+            artifacts/paper_b_reviewer_robustness.json
