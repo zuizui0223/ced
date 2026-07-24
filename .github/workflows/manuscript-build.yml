@@ -6,6 +6,7 @@ on:
       - "manuscript/**"
       - "scripts/render_paper_b_figures.py"
       - "scripts/analyze_paper_b_reviewer_robustness.py"
+      - "scripts/analyze_paper_b_posterior_bridge.py"
       - "scripts/paper_b_benchmark_core.py"
       - "scripts/simulate_paper_b_benchmark.py"
       - ".github/workflows/manuscript-build.yml"
@@ -15,6 +16,7 @@ on:
       - "manuscript/**"
       - "scripts/render_paper_b_figures.py"
       - "scripts/analyze_paper_b_reviewer_robustness.py"
+      - "scripts/analyze_paper_b_posterior_bridge.py"
       - "scripts/paper_b_benchmark_core.py"
       - "scripts/simulate_paper_b_benchmark.py"
       - ".github/workflows/manuscript-build.yml"
@@ -49,4 +51,6 @@ jobs:
             manuscript/generated/paper_b_strategy_outcomes.tex
             manuscript/generated/paper_b_target_switch.tex
             manuscript/generated/paper_b_threshold_sensitivity.tex
+            manuscript/generated/paper_b_posterior_bridge_table.tex
             artifacts/paper_b_reviewer_robustness.json
+            artifacts/paper_b_posterior_bridge.json
