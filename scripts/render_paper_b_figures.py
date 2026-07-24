@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BENCHMARK = ROOT / "scripts" / "simulate_paper_b_benchmark.py"
 ROBUSTNESS = ROOT / "scripts" / "analyze_paper_b_reviewer_robustness.py"
+POSTERIOR_BRIDGE = ROOT / "scripts" / "analyze_paper_b_posterior_bridge.py"
 MANUSCRIPT = ROOT / "manuscript" / "paper_b_main.tex"
 REVIEWER_SECTIONS = ROOT / "manuscript" / "paper_b_reviewer_sections.tex"
 COMPILED_MANUSCRIPT = ROOT / "manuscript" / "paper_b_compiled.tex"
@@ -156,8 +157,10 @@ def write_outputs() -> dict[str, object]:
     report = module["run_grid"]()
     if report["schema_version"] != 5:
         raise RuntimeError("figure generator requires benchmark schema version 5")
-    robustness = runpy.run_path(str(ROBUSTNESS))
-    robustness["run"]()
+    runpy.run_path(str(ROBUSTNESS))["run"]()
+    bridge_report = runpy.run_path(str(POSTERIOR_BRIDGE))["run"]()
+    if bridge_report["schema_version"] != 1:
+        raise RuntimeError("posterior bridge schema changed")
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     OUT_CONTRAST.write_text(experiment_contrast_tex(report), encoding="utf-8")
     OUT_OUTCOMES.write_text(strategy_outcomes_tex(report), encoding="utf-8")
