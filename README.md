@@ -37,6 +37,9 @@ relationship among CCOC/RACH, MLTR, CED, and MRM.
 
 ## Detailed theorem notes
 
+- [Non-substitution of evidence resources](docs/nonsubstitution_harvest.md) —
+  exact quantities showing that replication, failure-mode diversity, temporal
+  horizon, and representational capacity do not trade against one another.
 - [Delayed exposure and finite closure limits](docs/delayed_addressability.md)
 - [Experiment-induced ecological quotient](docs/experiment_induced_quotient_theorem.md)
 - [Imperfect detection](docs/imperfect_detection_theorem.md)
