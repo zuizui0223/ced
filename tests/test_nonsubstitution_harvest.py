@@ -7,13 +7,19 @@ machinery that would invalidate the manuscript argument fails here first.
 
 from __future__ import annotations
 
-from scripts.harvest_nonsubstitution import (
-    harvest_allocation,
-    harvest_horizon,
-    harvest_mode_floor,
-    harvest_saturation,
-    harvest_sharing,
-)
+import runpy
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPT = ROOT / "scripts" / "harvest_nonsubstitution.py"
+
+_harvest = runpy.run_path(str(SCRIPT))
+
+harvest_allocation = _harvest["harvest_allocation"]
+harvest_horizon = _harvest["harvest_horizon"]
+harvest_mode_floor = _harvest["harvest_mode_floor"]
+harvest_saturation = _harvest["harvest_saturation"]
+harvest_sharing = _harvest["harvest_sharing"]
 
 
 def test_reads_never_cross_the_availability_ceiling() -> None:
