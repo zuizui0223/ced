@@ -17,7 +17,7 @@ The theorem assumes that the mode partition, availability lower bound,
 sensitivity lower bound, zero-false-positive property, and independence claims
 are declared in advance. It does not infer them from data.
 
-## Theorem 1 — exact common-mode joint-detection frontier
+## Theorem 1 — exact worst-case joint-detection frontier
 
 Put
 
@@ -25,63 +25,77 @@ Put
 q_r = (1 - p)^r.
 ```
 
-For any chosen subset of `s` target coordinates, one declared mode leaves every
-coordinate in that subset undetected with probability at most
+Among all systems satisfying the declared lower-bound contract, the smallest
+joint-detection probability is attained when each mode availability equals `a`
+and each operating read sensitivity equals `p`. In that least-favourable case,
+for any chosen subset of `s` target coordinates, one declared mode leaves every
+coordinate in that subset undetected with probability
 
 ```text
 1 - a + a q_r^s.
 ```
 
-Consequently, the probability of detecting all `k` truly present coordinates at
-least once is bounded below by
+Consequently, the contract guarantees detection of all `k` truly present
+coordinates with probability at least
 
 ```text
 sum_{s=0}^k (-1)^s binom(k, s) [1 - a + a q_r^s]^m.
 ```
 
-When the mode availability and sensitivity equal their stated lower bounds, this
-is the exact probability. The formula follows by inclusion–exclusion over the
-set of coordinates still missing after all modes.
+The expression is exact when the availability and sensitivity lower bounds are
+attained. For larger actual availability or sensitivity, realized joint detection
+can be higher.
 
-## Theorem 2 — availability ceiling and necessary mode floor
+## Theorem 2 — worst-case guarantee ceiling and necessary mode floor
 
-No amount of repeat effort within the same `m` modes can remove the event that
-all modes fail. Therefore, for every finite `r`, and also in the limit as
-`r → infinity`,
+The lower-bound contract permits the least-favourable case in which every mode
+operates with probability exactly `a`. In that admissible case, no amount of
+within-mode repeat effort can remove the event that all `m` modes fail. Therefore
+no uniform guarantee valid over the entire declared contract can exceed
 
 ```text
-P(all k targets detected) <= 1 - (1 - a)^m.
+1 - (1 - a)^m.
 ```
 
-For `p > 0`, the right-hand side is the limiting value as within-mode repeat
-effort grows. Hence a target joint confidence `c` requires at least
+For `p > 0`, the guaranteed lower bound in Theorem 1 converges to this value as
+`r → infinity`. Thus a target joint confidence `c` can be certified uniformly
+only if
 
 ```text
 m >= ceil[ log(1 - c) / log(1 - a) ]
 ```
 
-independent modes when `0 < a < 1`. This **mode floor is necessary but not
-sufficient**: finite sensitivity can still require additional repeats within
-each selected mode.
+when `0 < a < 1`. This **mode floor is necessary but not sufficient**: finite
+sensitivity can still require additional repeats within each selected mode.
 
-If `0 < p < 1`, a confidence equal to the availability ceiling is approached but
-not attained by any finite `r`; the target must lie strictly below the ceiling.
-When `p = 1`, one read in an operating mode attains the ceiling.
+This quantity is a **worst-case guarantee ceiling implied by the availability
+lower bound**. It is an actual probability ceiling only when the true mode
+availabilities equal the stated bound (or when exact availabilities are otherwise
+specified). If true availabilities are higher than `a`, realized detection may
+exceed `1 - (1 - a)^m`.
+
+If `0 < p < 1`, a confidence equal to the worst-case guarantee ceiling is
+approached but not attained by any finite `r`; a finite-repeat certified target
+must lie strictly below it. When `p = 1`, one read in an operating mode attains
+the least-favourable ceiling.
 
 ## Example: same total effort, different failure diversity
 
 Let `k = 3`, `a = 0.8`, and `p = 0.6`.
 
-- With one failure mode and 10 repeated reads per coordinate, the joint detection
-  probability is approximately `0.799748`. It cannot exceed `0.8`, even with
-  arbitrarily many more within-mode reads.
+- With one failure mode and 10 repeated reads per coordinate, the guaranteed
+  joint detection probability is approximately `0.799748`. The worst-case
+  guarantee cannot exceed `0.8`, even with arbitrarily many more within-mode
+  reads.
 - With two independent failure modes and five reads per coordinate in each mode,
-  the joint detection probability is approximately `0.950069`. The availability
-  ceiling becomes `0.96`.
+  the guaranteed joint detection probability is approximately `0.950069`. The
+  worst-case guarantee ceiling becomes `0.96`.
 
 The second design uses 30 reads, whereas the first uses 30 reads as well. Their
 very different guarantees arise from how effort is distributed across failure
-modes, not from raw replicate count.
+modes, not from raw replicate count. If actual mode availability exceeds the
+lower bound, either realized probability may be higher than these guaranteed
+values.
 
 ## Relation to the CED core
 
@@ -95,6 +109,8 @@ diversity—but they are not interchangeable claims.
 
 This theorem does not cover false positives, unknown or estimated sensitivity,
 correlated mode failures, dependent within-mode reads, heterogeneous coordinates,
-non-reset monitoring, adaptive allocation, unobserved failure modes, or
-empirical inference of availability from the record. Those require separate
-models and evidence conditions.
+non-reset monitoring, adaptive allocation, unobserved failure modes, or empirical
+inference of availability from the record. A lower bound `a` does not imply an
+upper bound on realized detection probability; it supports a worst-case guarantee
+calculation. Exact probability ceilings require exact (or upper-bounded) failure
+probabilities.
