@@ -1,9 +1,9 @@
 % Reviewer-facing sections included by the generated submission source.
 \section{Robustness, scope, and method boundaries}
-\subsection{Boundary with value of information and Bayesian design}
-Bayesian experimental design selects observations by expected utility, with information gain as one commonly used utility \cite{ChalonerVerdinelli1995}. Ecological value-of-information analysis instead values data through their expected improvement in management outcomes \cite{CanessaEtAl2015}. Target-safe design is compatible with that decision-theoretic tradition: its reporting rule and experiment cost can be embedded in a constrained utility or loss formulation. The contribution is therefore not a claim that value of information is incapable of targeting decisions. It is an explicit intermediate modelling layer for cases in which investigators can declare an ecological prediction, an admissible false-resolution rate, and a cost structure, but cannot defend a cardinal utility scale over all ecological outcomes.
+\subsection{Boundary with value of information and goal-oriented design}
+Bayesian experimental design selects observations by expected utility, with information gain as one commonly used utility \cite{ChalonerVerdinelli1995}. Targeted and goal-oriented optimal experimental design already select experiments to reduce uncertainty in a specified prediction or quantity of interest rather than the full parameter/state \cite{VanlierEtAl2012,AttiaEtAl2018,ZhongEtAl2026}. Ecological value-of-information analysis values data through their expected improvement in management outcomes \cite{CanessaEtAl2015}. Target-safe design is compatible with all of these decision-theoretic traditions: its reporting rule and experiment cost can be embedded in a constrained utility or loss formulation. Its contribution is therefore not target orientation itself, nor a claim that value of information is incapable of targeting decisions. It is an explicit finite reportability layer linking compatible worlds, target-preserving abstraction, abstention, observation-failure architecture, and a false-resolution contract.
 
-The distinction is operational. Full-world information gain rewards any reduction in uncertainty. Management VOI requires utilities for management consequences. Target-safe design asks whether a declared prediction can be reported within a stated error contract, permits abstention, and constructs the coarsest latent quotient preserving that report. These approaches may recommend the same experiment when their objectives align; the benchmark isolates a case in which untargeted information gain does not.
+The distinction is operational. Full-world information gain rewards reduction anywhere in the latent state. Goal-oriented OED instead concentrates information on a predictive quantity of interest; management VOI values information through management consequences. Target-safe design may recommend the same experiment as either targeted approach. It additionally asks whether the realized record supports a singleton target within a stated error contract, permits a sharp set-valued report when it does not, and constructs the coarsest action-stable latent quotient preserving that report.
 
 \begin{table}[ht]
 \centering
@@ -13,17 +13,18 @@ The distinction is operational. Full-world information gain rewards any reductio
 Approach & Design objective & Relation to target-safe modelling \\
 \midrule
 Full-world information gain & Reduce entropy over the latent state & Can prioritize precisely measured distinctions that do not alter the declared prediction. \\
-Bayesian experimental design & Maximize a declared expected utility & General umbrella that can encode target-safe loss, but requires a defensible utility or loss specification. \\
-Management value of information & Improve expected management outcome & Directly decision-centred; target-safe reporting can precede it when utilities are unavailable or disputed. \\
-Target-safe design & Satisfy a prediction-reporting error contract at low cost & Makes abstention, set-valued reports, and target-preserving state reduction explicit. \\
+Goal-oriented / targeted OED & Reduce uncertainty or maximize information in a prediction/QoI & Already target-relevant; does not by itself define Paper B's compatible-world quotient, sharp abstention report, or failure-aware reporting contract. \\
+Bayesian experimental design & Maximize a declared expected utility & General umbrella that can encode target-safe loss and broader objectives. \\
+Management value of information & Improve expected management outcome & Directly decision-centred; can recommend the same information when management utilities are specified. \\
+Target-safe design & Satisfy a prediction-reporting error contract at low cost & Makes compatible worlds, set-valued abstention, target-preserving state reduction, and observation-failure constraints explicit. \\
 \bottomrule
 \end{tabular}
-\caption{The proposed framework is a reportability layer within, rather than a replacement for, decision-theoretic experimental design.}
+\caption{Target-safe modelling is positioned as a finite reportability layer alongside, rather than a replacement for, target-oriented and decision-theoretic experimental design.}
 \label{tab:method-boundaries}
 \end{table}
 
 \subsection{Dependence on the declared prediction target}
-The target-safe quotient is intentionally target-relative. This is not a nuisance parameter of the method but the scientific question supplied by the analyst. Holding the 16 worlds, prior, costs, and likelihood kernels fixed, changing the target from management response to context classification reverses the selected experiment (Table~\ref{tab:target-switch}). Thus no experiment is intrinsically relevant or irrelevant; relevance is defined by whether it separates worlds with different values of the declared target.
+The target-safe quotient is intentionally target-relative. This is not a nuisance parameter of the method but the scientific question supplied by the analyst. Holding the 16 worlds, prior, costs, and likelihood kernels fixed, changing the target from management response to context classification reverses the selected experiment (Table~\ref{tab:target-switch}). Thus no experiment is intrinsically relevant or irrelevant; relevance is defined by whether it separates worlds with different values of the declared target. This target dependence is consistent with targeted/goal-oriented OED; the additional Paper B question is what the resulting finite record can defensibly report.
 
 \begin{table}[ht]
 \centering
