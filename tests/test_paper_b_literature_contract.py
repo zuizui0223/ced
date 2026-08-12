@@ -16,8 +16,11 @@ def test_adjacent_literatures_are_explicitly_conceded_in_main_text():
         "Set-valued reporting is therefore not itself a novelty claim",
         "The framework does not claim that model averaging cannot represent structural uncertainty",
         "Paper B does not claim invention of equivalence classes or partition minimization",
-        "Target-safe design is therefore not offered as proof that these approaches cannot target decisions",
-        "The benchmark contrasts this contract with full-world entropy reduction, not with optimally specified management VOI",
+        "Target-safe design is therefore not offered as the first target-oriented experiment design",
+        "targeted experiment design can selectively reduce uncertainty in a prediction of interest",
+        "goal-oriented optimal experimental design can optimize uncertainty in an experiment end-goal or predictive quantity of interest",
+        "It does not establish novelty over targeted or goal-oriented OED",
+        "The practical shift is therefore not simply from full-state to target-oriented experimental design",
     )
     for phrase in required_phrases:
         assert phrase in text
@@ -33,6 +36,9 @@ def test_adjacent_literatures_are_explicitly_conceded_in_main_text():
         "LindenmayerLikens2009",
         "Williams2011",
         "ChalonerVerdinelli1995",
+        "VanlierEtAl2012",
+        "AttiaEtAl2018",
+        "ZhongEtAl2026",
         "CanessaEtAl2015",
         "GivanDeanGreig2003",
     )
@@ -55,6 +61,9 @@ def test_generated_bibliography_contains_every_boundary_reference():
         "LindenmayerLikens2009",
         "Williams2011",
         "ChalonerVerdinelli1995",
+        "VanlierEtAl2012",
+        "AttiaEtAl2018",
+        "ZhongEtAl2026",
         "CanessaEtAl2015",
         "GivanDeanGreig2003",
     )
@@ -69,4 +78,6 @@ def test_literature_audit_forbids_straw_man_novelty_claims():
     assert "question-driven monitoring is new" in text
     assert "set-valued reporting is novel" in text
     assert "equivalence classes, partition refinement" in text
+    assert "first method to choose experiments for a prediction rather than the full latent state" in text
+    assert "high parameter/state EIG need not imply high prediction/QoI EIG" in text
     assert "Paper B links a finite experiment-induced latent-world partition" in text
