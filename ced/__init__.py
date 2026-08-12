@@ -31,6 +31,7 @@ from .target_resolution import (
     TargetRecordOutcome,
     cheapest_feasible_target_resolution,
 )
+from .target_safe_quotient import TargetSafeQuotient, minimal_target_safe_quotient
 from .threshold_detection import ThresholdEvidenceDesign, binomial_tail
 
 __all__ = [
@@ -57,6 +58,8 @@ __all__ = [
     "RiskLimitedTargetResolution",
     "CostedTargetResolutionDesign",
     "cheapest_feasible_target_resolution",
+    "TargetSafeQuotient",
+    "minimal_target_safe_quotient",
     "HeterogeneousThresholdEvidencePanel",
     "ModeDiverseDetectionPanel",
     "MultipleThresholdEvidenceDesign",
