@@ -9,6 +9,8 @@ SCRIPT = ROOT / "scripts" / "verify_mode_detection.py"
 def test_mode_detection_replay_matches_declared_witness():
     report = runpy.run_path(str(SCRIPT))["build_report"]()
     assert report["schema_version"] == 1
+    assert "worst-case certified" in report["availability_ceiling_semantics"]
+    assert "not an upper bound on realized detection" in report["availability_ceiling_semantics"]
     assert report["one_mode_same_effort"] == {
         "mode_count": 1,
         "repetitions_per_mode": 10,
