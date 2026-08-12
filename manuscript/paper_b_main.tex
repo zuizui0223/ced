@@ -6,15 +6,26 @@
 \newtheorem{definition}{Definition}
 \lstset{basicstyle=\ttfamily\small,frame=single,breaklines=true}
 \title{From ecological states to distinguishable futures:\\Target-safe prediction from finite evidence}
-\author{Author names withheld for drafting}
+\author{Anonymous for double-anonymous review}
 \date{}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Ecological evidence can estimate a present state sharply while still failing to justify a unique claim about the future. We study \emph{finite reportability}: for a declared prediction target, what can a realized finite record honestly support? First, every experiment induces an exact quotient of latent worlds by complete record; a deterministic target report is justified exactly when the target is constant on the compatible class, and otherwise the sharp exact report is set-valued. Second, a unique coarsest target-safe quotient retains only distinctions required for target reports under declared future actions. Third, observation-failure architecture determines whether a nominally separating experiment can reliably realize that refinement; under lower-bound mode availability, within-mode repetition faces a non-removable worst-case guarantee ceiling. Fourth, adaptive policies are evaluated by correct deterministic reporting, false resolution, honest ambiguity, and expected cost. In a 16-world benchmark, full-world entropy reduction selects a perfectly measured four-level nuisance attribute over a less informative response experiment and consequently leaves the focal prediction unresolved, illustrating a gap between latent-state information and reportability. A posterior-sample demonstration connects the finite theory to continuous Bayesian model output. The central conclusion is that ecological monitoring should represent what finite evidence can report about possible futures, including when the honest conclusion remains a set.
+\begin{enumerate}
+\item Ecological evidence can estimate a present state sharply while still failing to justify a unique claim about the future. We study \emph{finite reportability}: for a declared ecological prediction target, what can a realized finite record honestly support?
+\item We represent a finite evidence problem by latent worlds, experiment records, declared future actions, observation-failure architecture, costs, and a target map. We derive the experiment-induced compatible-world quotient, the unique coarsest action-stable target-safe quotient, failure-aware guarantees for trustworthy refinement, and an adaptive false-resolution reporting contract.
+\item A 16-world exact benchmark shows that full-world entropy reduction can spend information on a precisely measured but target-irrelevant latent attribute and leave the focal prediction unresolved. Equal-effort detection designs also yield different certifiable target evidence when reads share versus diversify failure modes. All headline results are verified by finite enumeration, deterministic replay, and a formal Supplement; a posterior-sample demonstration connects the finite interface to continuous Bayesian model output.
+\item The method is not a replacement for occupancy models, goal-oriented experimental design, value of information, prediction sets, or state abstraction. Its contribution is to connect those adjacent ideas through one auditable reporting object: the target values still compatible with the realized evidence, the minimal latent distinctions needed to preserve them under future actions, and the observation/risk conditions required before a singleton prediction can be defended. Otherwise, the honest ecological prediction remains a set.
+\end{enumerate}
 \end{abstract}
+
+\section*{Data and code for peer review}
+All code required to reproduce the finite theorems, benchmark, sensitivity analyses, posterior-support demonstration, tables, and figures is provided in an anonymized review archive accompanying the submission. The archive includes the exact tested source and deterministic generated artifacts. No empirical dataset is required for the results reported here. A public version-of-record repository will be archived upon acceptance, subject to the journal's code-licensing requirements.
+
+\section*{Keywords}
+adaptive monitoring; ecological prediction; experimental design; finite evidence; imperfect detection; model uncertainty; state abstraction; uncertainty quantification
 
 \section{Introduction}
 Ecological modelling can answer a state question more confidently than a prediction question. A manager may know that a population is declining but not whether survival improvement, recruitment enhancement, or connectivity restoration will reverse that decline. A lake may be classified as degraded while competing mechanisms imply different recovery under intervention. An invasive species may be detected without evidence that eradication will succeed. Ecological forecasting has made future trajectories an explicit scientific object and emphasizes iterative confrontation of predictive uncertainty with new observations \cite{Dietze2017,DietzeEtAl2018}.
@@ -25,25 +36,64 @@ Targeted and goal-oriented optimal-design methods already recognize that experim
 
 We answer those questions through four linked results. An experiment-induced quotient describes exactly what a declared record distinguishes. A target-safe minimal quotient removes distinctions irrelevant to the declared future while preserving every distinction required by future actions. Failure architecture determines which required refinements are trustworthy under imperfect observation. Finally, adaptive monitoring chooses experiments and stopping decisions under an explicit false-resolution contract, allowing set-valued abstention when safe resolution is unavailable. The contribution is the coupling of these objects into one finite reportability interface, not the invention of imperfect-detection modelling, set-valued inference, state aggregation, or target-oriented experimental design in isolation.
 
-\section{Relationship to existing approaches}
-\subsection{Occupancy and imperfect detection}
-Occupancy models already separate latent occurrence from observation error, so nondetection need not imply absence \cite{MacKenzieEtAl2002}; generalized models also accommodate false-positive observations \cite{RoyleLink2006}. Paper B does not replace those estimators. Such models can instead supply candidate worlds or posterior mass, after which the reportability question is whether the remaining worlds imply one target value or several and what further evidence would separate the target-relevant alternatives.
+\subsection{Relationship to existing approaches}
+Occupancy models already separate latent occurrence from observation error, so nondetection need not imply absence \cite{MacKenzieEtAl2002}; generalized models also accommodate false-positive observations \cite{RoyleLink2006}. Partial-identification theory treats a feasible set as the appropriate inferential object when point identification fails \cite{Manski2003}, and risk-controlling prediction sets provide set-valued predictions under user-specified finite-sample risk control \cite{BatesEtAl2021}. Ecology has extensive methods for structural uncertainty, model averaging, predictive inference, and forecasting \cite{DormannEtAl2018,Dietze2017,DietzeEtAl2018}. State aggregation, behavioural equivalence, bisimulation, partition refinement, and minimal reduced models are established in stochastic planning and control \cite{GivanDeanGreig2003}. Question-driven monitoring and adaptive management are also well established \cite{NicholsWilliams2006,LindenmayerLikens2009,Williams2011}.
 
-\subsection{Set-valued inference and risk control}
-Partial-identification theory already treats a set of feasible values as the correct inferential object when point identification fails \cite{Manski2003}. Risk-controlling prediction sets likewise provide set-valued predictions with user-specified finite-sample risk control \cite{BatesEtAl2021}. Neither set-valued output nor risk control is therefore a novelty claim here. Paper B's exact target set is instead the image of the worlds compatible with a declared ecological record; in stochastic analyses, a separate posterior false-resolution contract governs when that set may be reduced to a singleton.
+Bayesian experimental design can optimize arbitrary expected utilities or losses \cite{ChalonerVerdinelli1995}; targeted and goal-oriented designs explicitly optimize selected predictions or quantities of interest \cite{VanlierEtAl2012,AttiaEtAl2018,ZhongEtAl2026}; and ecological value of information values new data through expected management benefit \cite{CanessaEtAl2015}. Target-safe design is compatible with these broader traditions and may choose the same experiment. Its distinct object is the finite reporting interface linking compatible worlds, target-preserving abstraction, observation failure, abstention, and a false-resolution contract.
 
-\subsection{Structural uncertainty, model averaging, and ecological prediction}
-Ecology already has extensive methods for structural uncertainty, model averaging, predictive inference, and forecasting \cite{DormannEtAl2018,Dietze2017,DietzeEtAl2018}. Target-safe modelling asks a narrower abstraction question: which retained model differences are necessary for one declared report? Biologically distinct worlds may be merged if their target reports and declared successors agree, but even a subtle difference must remain when it changes the future target.
+\section{Materials and Methods}
+\subsection{Finite evidence problem}
+A finite ecological evidence problem contains a latent-world set $W$, experiment family $\mathcal{D}$, observation contract, failure-factor architecture, action grammar, experiment costs, and target map $T:W\to Y$. For deterministic designs, complete experiment records partition $W$. For stochastic designs, the logical compatible set for realized record $x$ consists of worlds assigning positive likelihood to $x$; posterior probabilities are then used only by the separate risk-limited singleton-reporting rule.
 
-\subsection{State abstraction and model minimization}
-State aggregation, behavioural equivalence, bisimulation, partition refinement, and minimal reduced models are established ideas in stochastic planning and control \cite{GivanDeanGreig2003}. Paper B does not claim invention of those constructions. Its quotient begins from the distinctions supplied by a declared ecological record, preserves a declared target under future actions, and is then coupled to observation-failure and reporting-risk contracts.
+A target-safe quotient begins from the distinctions supplied by the current record and repeatedly refines worlds when their target values differ or when a declared action sends them to different current blocks. Because the world set is finite, refinement reaches a fixed point. Full proofs of existence, uniqueness, minimality, finite-action-word preservation, the failure guarantee, and finite policy existence are given in the Supplement.
 
-\subsection{Adaptive monitoring, Bayesian design, targeted OED, and value of information}
-Question-driven monitoring and adaptive management are established in ecology \cite{NicholsWilliams2006,LindenmayerLikens2009,Williams2011}. Bayesian experimental design can optimize arbitrary expected utilities or losses \cite{ChalonerVerdinelli1995}; targeted and goal-oriented designs explicitly optimize selected predictions or quantities of interest \cite{VanlierEtAl2012,AttiaEtAl2018,ZhongEtAl2026}; and ecological value of information values new data through expected management benefit \cite{CanessaEtAl2015}. Target-safe design is compatible with these broader traditions and may choose the same experiment. Its distinct object is the finite reporting interface linking compatible worlds, target-preserving abstraction, observation failure, abstention, and a false-resolution contract.
+\subsection{Observation-failure contract}
+One-sided detection separates per-read sensitivity from shared mode availability. Reads inside an operating mode may be repeated, but all reads in that mode share the same mode-level failure. When each of $m$ independent modes is operational with probability at least $a$, the analysis evaluates guarantees uniformly over the declared lower-bound contract rather than treating $a$ as an exact realized availability. Exact overlapping-factor models are evaluated separately when exact factor failure probabilities are declared.
 
-\section{Four linked results}
-A finite ecological evidence problem contains a latent-world set $W$, experiment family $\mathcal{D}$, observation contract, failure-factor architecture, action grammar, costs, and target map $T:W\to Y$.
+\subsection{Workflow and software implementation}
+The operational workflow is: declare worlds and target; declare observations, actions, and failure factors; construct compatible target classes; compare feasible experiment/stopping policies by error, ambiguity, and cost; then either report or experiment again.
 
+The implementation accepts ordinary finite world and record objects. For example, a state screen may identify degradation while leaving recovery unresolved:
+
+\begin{lstlisting}[language=Python]
+from ced.experiment_quotient import ExperimentInducedQuotient
+
+worlds = ((0, 0), (0, 1), (1, 0), (1, 1))
+
+def target(w):
+    degraded, recoverable = w
+    if not degraded:
+        return "stable"
+    return "recover" if recoverable else "persistent degradation"
+
+state_screen = ExperimentInducedQuotient.from_functions(
+    worlds,
+    lambda w: "degraded" if w[0] else "within threshold",
+    target,
+)
+
+print(state_screen.set_valued_report_for_record("degraded"))
+# {'recover', 'persistent degradation'}
+\end{lstlisting}
+
+The software exports compatible worlds, target sets, quotient refinements, failure witnesses, policy metrics, and deterministic JSON/CSV replay artifacts.
+
+\subsection{Comparative benchmark design}
+The exact benchmark contains 16 worlds crossing a management-relevant state, two possible response types, and a four-level latent attribute that is biologically observable but irrelevant to the focal target. All strategies receive the same posterior after state screening and use the same terminal false-resolution rule. \emph{State-only} stops after screening. \emph{Full identification} measures response type and nuisance attribute. \emph{Full-world expected information gain} selects the single experiment with greatest exact mutual information about the 16-world state. \emph{Target-safe risk-limited} selects the least-cost follow-up with positive probability of producing a contract-valid deterministic target report and otherwise stops with ambiguity.
+
+For belief distribution $p(w)$ and experiment $e$ with outcome $x$, full-world information gain is computed exactly as
+\[
+I(W;X_e)=H(W)-\sum_x p(x\mid e)H(W\mid x,e).
+\]
+Policy evaluation enumerates latent worlds, screening records, selected experiment outcomes, posterior updates, terminal reports, and accumulated cost. Shared-failure and operational all-negative paths producing the same record are aggregated before posterior updating.
+
+\subsection{Sensitivity analyses and posterior-support bridge}
+The benchmark grid varies state-observation sensitivity $\{0.60,0.80,0.95\}$, response accuracy $\{0.85,0.95,0.99\}$, common-failure probability $\{0,0.15,0.35\}$, and shared versus independent failure architectures. Additional reviewer-facing checks switch the declared target, vary the false-resolution limit, and treat deterministic posterior draws from a continuous invasion-control demonstration as finite worlds. The latter is a methodological bridge rather than empirical validation; conclusions remain conditional on the chosen finite support.
+
+\subsection{Reproducibility}
+The complete automated test suite runs on Python 3.10--3.12. Deterministic scripts regenerate the benchmark, reviewer robustness analyses, posterior-support demonstration, explanatory figures, tables, and manuscript artifacts. Detailed calibration, threshold, concentration, overlapping-failure, and adaptive risk-spending derivations are retained as supporting mathematics rather than separate headline results.
+
+\section{Results}
 \subsection{Result 1: experiment-induced quotient and honest reporting}
 For design $D$, let $\operatorname{record}_D(w)$ denote the complete record generated under world $w$.
 
@@ -65,16 +115,14 @@ The exact prediction report is $T(C_D(x))=\{T(w):w\in C_D(x)\}$.
 Every report computed only from the experiment record is constant on experiment-induced classes. A deterministic record-based report of $T$ is justified exactly when $T$ is constant on the relevant compatible class. Otherwise the sharp exact report is the corresponding set of compatible target values.
 \end{theorem}
 
-The result separates evidence from interpretation: a record may identify the present state while leaving several target values compatible. A sharper point prediction would then add information that the experiment did not supply.
+A record can therefore identify a present state while leaving several target values compatible. A sharper point prediction would add information the experiment did not supply.
 
 \subsection{Result 2: minimal resolution of future-relevant distinctions}
-Full experiment records can preserve biological distinctions that do not alter the prediction. The appropriate abstraction is therefore target-relative.
-
 \begin{theorem}[Unique coarsest target-safe quotient]
 For a declared finite evidence problem, there exists a unique coarsest equivalence relation that preserves current observations, preserves target reports under every declared future action, and is stable under action successors. Every other observation-preserving, action-stable quotient supporting the same target conclusions refines it.
 \end{theorem}
 
-The ecological interpretation is asymmetric: full latent-world identification is unnecessary when remaining differences imply the same future, but a small distinction must be retained when it can change the target. The fixed-point construction is a target-relative use of established partition-refinement logic rather than a claim that state minimization itself is new \cite{GivanDeanGreig2003}.
+The result is asymmetric: full latent-world identification is unnecessary when remaining differences imply the same future, but a small distinction must be retained when it can change the target. The construction is a target-relative application of established partition-refinement logic rather than a claim that state minimization itself is new \cite{GivanDeanGreig2003}.
 
 \subsection{Result 3: failure architecture determines trustworthy refinement}
 A nominal experiment can separate latent worlds in an ideal record model while failing to realize that split reliably in the field. Under one-sided imperfect detection, any finite all-negative record remains compatible with presence whenever sensitivity is below one. More importantly, replication cannot compensate for every form of failure dependence.
@@ -84,10 +132,10 @@ Suppose $m$ declared observation modes are independent and each is operational w
 \[
 1-(1-a)^m
 \]
-using within-mode repetition alone. For positive sensitivity, the guaranteed lower bound approaches this value as within-mode repetition grows. If the true mode availabilities equal $a$, this is also the realized replication ceiling; if true availabilities are higher, realized detection may exceed it.
+using within-mode repetition alone. For positive sensitivity, the guaranteed lower bound approaches this value as within-mode repetition grows. If true mode availabilities equal $a$, this is also the realized replication ceiling; if true availabilities are higher, realized detection may exceed it.
 \end{proposition}
 
-Thus repeated reads inside one shared weather, access, sensor, observer, or laboratory domain are not evidentially equivalent to independent failure opportunities. The relevant resource is the architecture through which target-relevant class splits can actually be observed. The ceiling above is a contract-level statement about what can be guaranteed from an availability lower bound, not a universal upper bound on realized detection.
+Thus repeated reads inside one shared weather, access, sensor, observer, or laboratory domain are not evidentially equivalent to independent failure opportunities. The relevant resource is the architecture through which target-relevant class splits can actually be observed.
 
 \subsection{Result 4: adaptive risk-limited target resolution}
 Once a target-relevant distinction remains unresolved, a policy may either stop with ambiguity or choose a follow-up experiment. Terminal reports are evaluated by correctness, false deterministic resolution, ambiguity, and cost.
@@ -98,59 +146,7 @@ For a finite policy family and declared bounds on false resolution, ambiguity, a
 
 The objective is not shortest full identification. Monitoring stops when the declared future is defensibly resolved under the reporting contract, even if target-irrelevant biological uncertainty remains; otherwise the terminal report remains set-valued.
 
-\section{Ecological scope}
-The same structure appears across distinct ecological problems. Degraded ecosystems can have a well-resolved present condition but competing recovery mechanisms; invasive populations can be detected while eradication response remains unresolved; declining populations can share an observed trend while differing in survival, recruitment, or dispersal limitation; and alternative-state models can agree on current regime membership while disagreeing about reversibility. In each case the relevant latent distinction is the one that changes the declared future.
-
-\section{User workflow}
-\begin{figure}[ht]
-\centering
-\fbox{\parbox{0.17\linewidth}{\centering 1. Declare worlds\\state, mechanism, context}}
-$\rightarrow$
-\fbox{\parbox{0.17\linewidth}{\centering 2. Declare observations\\actions and failures}}
-$\rightarrow$
-\fbox{\parbox{0.17\linewidth}{\centering 3. Build compatible\\target classes}}
-$\rightarrow$
-\fbox{\parbox{0.17\linewidth}{\centering 4. Compare policies\\error, ambiguity, cost}}
-$\rightarrow$
-\fbox{\parbox{0.11\linewidth}{\centering 5. Report\\or experiment}}
-\caption{Target-safe ecological modelling asks which distinctions among compatible worlds must be resolved for a declared future, then checks whether the observation architecture can support that resolution.}
-\label{fig:workflow}
-\end{figure}
-
-\section{Software implementation}
-The implementation accepts ordinary finite world and record objects. For example, a system can be within a management threshold or degraded, and degraded worlds can differ in recoverability:
-
-\begin{lstlisting}[language=Python]
-from ced.experiment_quotient import ExperimentInducedQuotient
-
-worlds = ((0, 0), (0, 1), (1, 0), (1, 1))
-
-def target(w):
-    degraded, recoverable = w
-    if not degraded:
-        return "stable"
-    return "recover" if recoverable else "persistent degradation"
-
-state_screen = ExperimentInducedQuotient.from_functions(
-    worlds,
-    lambda w: "degraded" if w[0] else "within threshold",
-    target,
-)
-
-print(state_screen.exact_report_for_record("degraded"))
-# {'recover', 'persistent degradation'}
-\end{lstlisting}
-
-The state screen resolves degradation but not recovery. The software exports compatible worlds, target sets, quotient refinements, failure witnesses, and policy metrics as auditable JSON and CSV outputs.
-
-\section{Comparative benchmark}
-\subsection{Latent structure}
-The benchmark contains 16 worlds crossing whether a management-relevant condition is absent or present, two possible response types, and a four-level latent attribute that is biologically observable but irrelevant to the declared prediction target. This nuisance dimension creates a distinction that is valuable for full-world identification but irrelevant to the focal report.
-
-\subsection{Compared strategies}
-All strategies begin from the same posterior after state screening and apply the same terminal false-resolution contract. \emph{State-only} stops after screening. \emph{Full identification} measures both response type and the nuisance attribute. \emph{Full-world expected information gain} selects the single experiment with the greatest exact mutual information about the 16-world latent state. \emph{Target-safe risk-limited} selects the least-cost experiment with positive probability of producing a contract-valid deterministic target report and otherwise stops with ambiguity.
-
-\subsection{Experiment-choice contrast}
+\subsection{Comparative benchmark}
 A perfect experiment on the four-level nuisance attribute yields
 \[
 \log_2 4=2
@@ -166,7 +162,10 @@ At state-detection sensitivity 0.95, response accuracy 0.99, three independent s
 The benchmark therefore motivates the reportability layer rather than establishing novelty for target-oriented design.
 
 \subsection{Additional dimensions}
-The complete grid varies state-observation sensitivity $\{0.60,0.80,0.95\}$, response accuracy $\{0.85,0.95,0.99\}$, common-failure probability $\{0,0.15,0.35\}$, and shared versus independent failure architectures. Primary metrics are correct deterministic reporting, wrong deterministic reporting, honest ambiguity, expected cost, and effort spent on target-irrelevant distinctions.
+Across the full parameter grid, primary outputs are correct deterministic reporting, wrong deterministic reporting, honest ambiguity, expected cost, and effort spent on target-irrelevant distinctions. Target-switch analysis confirms that relevance is defined by the declared target, while false-resolution sensitivity shows the expected transition between abstention and deterministic reporting as the admissible error threshold changes.
+
+\subsection{Ecological scope}
+The same reportability structure applies when degraded ecosystems have competing recovery mechanisms, invasive populations have uncertain eradication response, declining populations share an observed trend but differ in demographic limitation, or alternative-state models agree on current regime membership but disagree about reversibility. The relevant latent distinction is the one that changes the declared future, not a taxon-specific state descriptor.
 
 \section{Discussion}
 The central distinction is finite reportability, not target orientation by itself. Forecasting and goal-oriented design already focus on downstream predictions; Paper B instead represents a realized finite record by the target values that remain compatible, then asks which latent distinctions and observation guarantees are required before that report can become a defensible singleton.
@@ -177,14 +176,6 @@ Observation architecture is part of the same reporting logic. With exact failure
 
 The framework remains conditional on the declared world set, actions, observation models, targets, costs, and finite support. It does not infer missing mechanisms or failure factors, replace management utility, or provide a universal continuous-state convergence theorem. Its value is auditability: every singleton conclusion can be traced to the target-relevant worlds excluded by the evidence, and every retained target set to a future distinction that remains unresolved.
 
-\section{Methods and reproducibility}
-The quotient is constructed by grouping worlds with identical records. In the stochastic benchmark, state screening, response typing, and nuisance measurement are separate likelihood kernels. For a belief distribution $p(w)$ and experiment $e$ with outcome $x$, full-world information gain is computed exactly as
-\[
-I(W;X_e)=H(W)-\sum_x p(x\mid e)H(W\mid x,e).
-\]
-Every strategy receives the same posterior after screening and uses the same terminal rule: a deterministic target is reported only when its posterior error probability is at most the declared false-resolution limit; otherwise the report remains set-valued. Policy evaluation enumerates latent worlds, screening records, selected experiment outcomes, posterior updates, terminal reports, and accumulated cost. Shared-failure and operational all-negative paths that produce the same record are aggregated before posterior updating. Detailed detection frontiers, calibration bounds, heterogeneous thresholds, concentration bounds, and adaptive risk-spending formulas are supporting Methods or Supplement material rather than separate headline results. The reproducibility workflow executes the complete test suite on Python 3.10--3.12 and regenerates benchmark, robustness, posterior-bridge, figure, table, and manuscript artifacts.
-
-\section{Conclusion}
-Finite evidence should be judged by what it can report about a declared future, not only by how much uncertainty an experiment removes. Full latent-state identification can be unnecessary, while an informative record can still leave multiple target values compatible. Target-safe monitoring retains only the distinctions needed for the future, checks whether the observation architecture can support those distinctions, and reports a singleton only within an explicit false-resolution contract. Otherwise, the honest ecological prediction remains a set.
+Finite evidence should therefore be judged by what it can report about a declared future, not only by how much uncertainty an experiment removes. Target-safe monitoring retains only the distinctions needed for the future, checks whether the observation architecture can support them, and reports a singleton only within an explicit false-resolution contract. Otherwise, the honest ecological prediction remains a set.
 
 \end{document}
