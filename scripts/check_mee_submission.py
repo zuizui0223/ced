@@ -16,6 +16,7 @@ MANUSCRIPT = ROOT / "manuscript" / "paper_b_main.tex"
 REVIEWER_SECTIONS = ROOT / "manuscript" / "paper_b_reviewer_sections.tex"
 RENDER = ROOT / "scripts" / "render_paper_b_figures.py"
 PYPROJECT = ROOT / "pyproject.toml"
+OUT_REPORT = ROOT / "artifacts" / "mee_submission_check.json"
 
 IDENTITY_TOKENS = (
     "zuizui0223",
@@ -28,8 +29,16 @@ IDENTITY_TOKENS = (
 
 def _strip_latex(text: str) -> str:
     text = re.sub(r"%.*", " ", text)
-    text = re.sub(r"\\begin\{(?:equation|align\*?|lstlisting|tikzpicture)\}.*?\\end\{(?:equation|align\*?|lstlisting|tikzpicture)\}", " ", text, flags=re.S)
-    text = re.sub(r"\\(?:cite|ref|label|url|href)\{[^{}]*\}(?:\{[^{}]*\})?", " ", text)
+    text = re.sub(
+        r"\\begin\{(?:equation|align\*?|lstlisting|tikzpicture)\}.*?"
+        r"\\end\{(?:equation|align\*?|lstlisting|tikzpicture)\}",
+        " ",
+        text,
+        flags=re.S,
+    )
+    text = re.sub(
+        r"\\(?:cite|ref|label|url|href)\{[^{}]*\}(?:\{[^{}]*\})?", " ", text
+    )
     text = re.sub(r"\\[A-Za-z@]+\*?(?:\[[^\]]*\])?", " ", text)
     text = text.replace("{", " ").replace("}", " ").replace("$", " ")
     text = re.sub(r"[^A-Za-z0-9'\-]+", " ", text)
@@ -155,6 +164,10 @@ def build_report() -> dict[str, object]:
 
 def main() -> None:
     report = build_report()
+    OUT_REPORT.parent.mkdir(parents=True, exist_ok=True)
+    OUT_REPORT.write_text(
+        json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     print(json.dumps(report, indent=2, sort_keys=True))
 
 
