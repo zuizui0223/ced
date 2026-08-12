@@ -88,15 +88,17 @@ At the validated baseline used in the manuscript (state sensitivity 0.95, respon
 - full-world EIG: correct 0.4500, wrong 0.000069, ambiguity 0.5499, expected cost 2.479;
 - full identification: same target-report probabilities as target-safe, expected cost 4.679.
 
-The benchmark is a possibility/mechanism demonstration, not a universal claim that target-safe design dominates EIG or management VOI.
+**Interpretation boundary:** this benchmark is a counterexample to one untargeted objective—full-world entropy reduction. It is not a novelty proof against Bayesian experimental design, targeted/goal-oriented OED, or management VOI. Targeted and goal-oriented OED already optimize experiments for selected predictions or quantities of interest.
 
 ### Reviewer robustness
 
-The manuscript already includes:
+The manuscript includes:
 
 - a target-switch analysis showing the same worlds/priors/likelihoods select different experiments when the declared target changes;
 - false-resolution sensitivity at 1%, 5%, and 10%;
 - explicit positioning inside the broader Bayesian decision-theoretic/VOI tradition.
+
+The target-switch analysis demonstrates the framework's target relativity; it is not evidence that target-relative design is itself novel.
 
 ### Posterior-sample bridge
 
@@ -109,8 +111,8 @@ This is **not empirical validation**. It demonstrates how posterior draws, parti
 ### Introduction
 
 1. A present ecological state can be well estimated while several compatible worlds imply different futures.
-2. More data can sharpen target-irrelevant details without improving the declared prediction.
-3. A useful finite evidence layer must identify what the experiment distinguishes, which distinctions matter for the target, whether the observation architecture can support those distinctions, and whether a deterministic report is safe.
+2. Target-oriented experiment design is already established; the additional problem is what a finite realized record can defensibly report about the target.
+3. A finite evidence layer must identify what the experiment distinguishes, which distinctions matter for the target, whether the observation architecture can support those distinctions, and whether a deterministic report is safe.
 4. The four Results answer those questions in order.
 
 ### Results order
@@ -122,30 +124,40 @@ This is **not empirical validation**. It demonstrates how posterior draws, parti
 
 ### Discussion / conclusion
 
-Do not end with “we provide a framework.” End with the ecological shift:
+Do not end with “we provide a framework” or “we target predictions rather than states.” Targeted prediction/QoI design already exists. End with the narrower ecological-reporting shift:
 
-> move from resolving the ecological state as a whole to resolving only the distinctions that separate possible futures.
+> represent what finite evidence can report about a declared future, including when the honest report remains a set, and connect that reportability to the minimal latent distinctions and failure architecture required to support it.
 
 ## Relationship to adjacent literatures
 
-The final literature review must position Paper B against primary sources in at least these areas:
+The primary-source nearest-neighbour audit is maintained in `docs/paper_b_literature_boundary_audit.md` and is now part of the merge gate. It covers at least:
 
-- occupancy and imperfect detection, including false-positive detection where relevant;
-- structural uncertainty and multimodel inference;
-- Bayesian experimental design and active learning;
-- ecological value of information and decision analysis;
-- adaptive monitoring;
+- occupancy and imperfect detection, including false positives;
 - partial identification / set-valued inference;
-- state abstraction, bisimulation, or partition refinement where mathematically relevant;
-- ecological forecasting and limits of predictive inference.
+- structural uncertainty, model averaging, and ecological forecasting;
+- Bayesian experimental design;
+- targeted and goal-oriented optimal experimental design;
+- ecological value of information;
+- adaptive monitoring and adaptive management;
+- state abstraction, bisimulation, and partition refinement.
 
-The paper must not claim that VOI is unable to target decisions, that partition refinement itself is new, or that standard concentration/calibration inequalities are novel.
+Particularly important nearest neighbours are:
+
+- Vanlier et al. (2012): targeted reduction of uncertainty in predictions of interest;
+- Attia et al. (2018): goal-oriented design for end-goal / QoI uncertainty;
+- Zhong et al. (2026): predictive-QoI EIG for nonlinear models.
+
+Paper B must not claim novelty for target-oriented experiment selection, the parameter/state-versus-QoI distinction, partition refinement, set-valued inference, imperfect detection, or decision-centred monitoring in isolation.
+
+The safe residual novelty statement is:
+
+> Paper B links the finite compatible-world structure induced by a realized ecological record to a sharp target set, a coarsest action-stable target-preserving quotient, failure-aware trust in the required refinement, and an explicit false-resolution/stopping contract.
 
 ## Ecological examples: current role
 
 The main text uses several short ecological interpretations and a concrete invasion-management example. The posterior bridge also uses invasion-control language because it naturally distinguishes current occurrence, management response, and source pathway.
 
-A real public dataset or published posterior output would strengthen the paper, but it is **not currently part of the theorem validity claim** and should not be fabricated or inserted merely to make the paper look empirical. If added, it should demonstrate a management-facing experiment choice that changes because of the declared target or failure architecture.
+A real public dataset or published posterior output would strengthen the paper, but it is **not currently part of the theorem validity claim** and should not be fabricated or inserted merely to make the paper look empirical. If added, it should demonstrate a management-facing reportability or failure-architecture consequence that is not already supplied by standard targeted OED alone.
 
 The old requirement that every figure use a rare plant–pollinator witness is retired. Plant–pollinator systems may be used later only if they provide a genuinely better empirical demonstration.
 
@@ -159,12 +171,12 @@ Already generated from validated computation:
 4. target-switch and threshold-sensitivity tables;
 5. posterior-sample bridge table.
 
-Still useful before submission:
+Next visual work:
 
-- one compact schematic of the full record partition versus the coarser target-safe quotient;
-- one failure-architecture figure comparing equal nominal effort across shared versus independent modes, with wording explicitly distinguishing worst-case guarantee ceilings from realized-probability ceilings.
+- one compact schematic of the current record partition, target-safe quotient, and full latent identity;
+- one failure-architecture figure comparing equal nominal effort across shared versus independent modes, explicitly distinguishing worst-case guarantee ceilings from realized-probability ceilings.
 
-These figures should explain Results 2 and 3, not introduce new mathematics.
+These figures explain Results 2 and 3; they must not be framed as new theorem families.
 
 ## Supporting mathematics: do not re-promote
 
@@ -192,35 +204,34 @@ Completed:
 - main manuscript compiles in CI;
 - standalone formal Supplement compiles in CI;
 - Python 3.10, 3.11, and 3.12 test matrices pass;
-- schema-v5 benchmark, reviewer robustness, figures, tables, and posterior bridge regenerate deterministically.
+- schema-v5 benchmark, reviewer robustness, figures, tables, and posterior bridge regenerate deterministically;
+- primary-source nearest-neighbour audit now includes targeted/goal-oriented OED, the closest design-literature neighbour.
 
 ## Remaining submission tasks, in priority order
 
-### 1. Primary-source literature and novelty-boundary audit
+### 1. Results 2–3 explanatory figures
 
-Expand the current sparse bibliography and write a claim-by-claim related-work boundary. This is now the largest reviewer-facing weakness.
+Generate the target-safe quotient figure and failure-architecture guarantee figure directly from tested deterministic witnesses.
 
-### 2. Results 2–3 explanatory figures
+### 2. Editorial compression
 
-Generate one target-safe quotient figure and one failure-architecture guarantee figure directly from deterministic witnesses.
+Remove duplicate explanation between the canonical manuscript and injected robustness sections. Ensure Abstract, Introduction, four Results, Robustness section, Discussion, and Conclusion use one terminology set. In particular, do not repeat the GO-OED/VOI boundary in three different places.
 
-### 3. Editorial compression
+### 3. Empirical strengthening, only if a defensible dataset is available
 
-Remove duplicate explanation between the canonical manuscript and injected reviewer sections. Ensure Abstract, Introduction, four Results, Robustness section, Discussion, and Conclusion use one terminology set.
+Prefer a public dataset or already-published posterior/model output that can be reproduced without extensive new inference. Treat this as external validation/illustration, not theorem evidence. The empirical example should add something beyond “a target-specific experiment is useful,” since that is already established in GO-OED.
 
-### 4. Empirical strengthening, only if a defensible dataset is available
+### 4. Journal-format submission package
 
-Prefer a public dataset or already-published posterior/model output that can be reproduced without extensive new inference. Treat this as external validation/illustration, not as theorem evidence.
-
-### 5. Journal-format submission package
-
-Tune title/keywords/length/references for the selected journal, produce final main/Supplement PDFs, archive the deterministic artifacts, and create a stable release/tag.
+Tune title/keywords/length/references for the selected journal, produce final main/Supplement PDFs, archive deterministic artifacts, and create a stable release/tag.
 
 ## Submission gate
 
 Paper B should not be submitted until:
 
-- the primary-source literature review is complete enough that every novelty claim has an explicit nearest-neighbour boundary;
+- every novelty claim has an explicit primary-source nearest-neighbour boundary;
+- targeted/goal-oriented OED is acknowledged as established prediction/QoI-focused design;
+- the full-world-EIG benchmark is not presented as novelty evidence against predictive OED;
 - the target-safe quotient theorem is described as a target-relative refinement/minimality result rather than invention of equivalence relations;
 - Result 3 consistently distinguishes lower-bound guarantee ceilings from realized-probability ceilings;
 - VOI/Bayesian design are represented as compatible broader decision-theoretic frameworks, not straw-man alternatives;
