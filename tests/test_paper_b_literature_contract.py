@@ -82,4 +82,4 @@ def test_literature_audit_forbids_straw_man_novelty_claims():
     assert "equivalence classes, partition refinement" in text
     assert "first method to choose experiments for a prediction rather than the full latent state" in text
     assert "high parameter/state EIG need not imply high prediction/QoI EIG" in text
-    assert "Paper B links a finite experiment-induced latent-world partition" in text
+    assert "Paper B links a finite experiment-induced compatible-world structure" in text
