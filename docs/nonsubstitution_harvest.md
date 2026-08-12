@@ -123,12 +123,69 @@ s = 3 -> 4   costs 0.16000
 The last mode to join the shared factor costs 125 times what the first one
 costs. Ecologically this is the useful form of the result: **substantial overlap
 between observation modes is nearly free, and complete overlap is
-catastrophic.** Retaining a single mode that does not depend on the shared factor
-avoids roughly four fifths of the total loss. A monitoring programme does not
-need fully independent replication; it needs at least one genuinely independent
-mode.
+catastrophic.** A monitoring programme does not need fully independent
+replication; it needs at least one genuinely independent mode.
 
-## Harvest 5 — horizon and memory are independent
+That prescription is not specific to these parameters. Writing `rho_p` for the
+private failure probability and `rho_s` for the shared one, the closed form for
+total failure at sharing degree `s` is
+
+```text
+P(all modes fail | s) = rho_s * rho_p^(m - s) + (1 - rho_s) * rho_p^m,
+```
+
+so the fraction of the total sharing loss that remains when one mode is spared is
+
+```text
+(rho_p - rho_p^m) / (1 - rho_p^m)   ->   rho_p   as m grows,
+```
+
+which **does not depend on `rho_s` at all**. Sparing one mode therefore recovers a
+fraction of the loss equal to that mode's own availability `1 - rho_p`, whatever
+the shared factor's failure probability. The 0.801 figure above is the `m = 4`,
+`rho_p = 0.2` instance of this identity, verified exactly across a grid of `m`,
+`rho_p`, and `rho_s` in `tests/test_nonsubstitution_harvest.py`.
+
+## Harvest 5 — what actually governs the ceiling
+
+The sweep above varies one shared factor. With several shared factors the
+obvious summary statistic fails: **counting them does not order the designs.**
+At `m = 5` with every factor at `rho = 0.2`:
+
+| configuration | shared factors | covers every mode | min hitting set | P(all fail) | `rho^k` |
+|---|---:|---|---:|---|---|
+| one shared factor over all modes | 1 | yes | 1 | 0.20025600 | 0.20000000 |
+| two shared factors covering all | 2 | yes | 2 | 0.04788480 | 0.04000000 |
+| three shared factors covering all | 3 | yes | 3 | 0.01937664 | 0.00800000 |
+| two shared factors, one mode spared | 2 | no | 3 | 0.01076480 | 0.00800000 |
+| three shared factors, one mode spared | 3 | no | 4 | 0.00601344 | 0.00160000 |
+| no shared factors | 0 | no | 5 | 0.00032000 | 0.00032000 |
+
+Three shared factors covering every mode is **worse** than two shared factors
+that leave one mode alone. More sharing, safer design.
+
+The quantity that orders them is the **minimum hitting set**: the fewest factors
+whose simultaneous failure disables every mode. A set of factors disables all
+modes exactly when it meets every mode's factor set, and the event that precisely
+those factors fail is one disjoint contribution to total failure, so with a
+common failure probability
+
+```text
+P(all modes fail) >= rho ** minimum_hitting_set_size.
+```
+
+This is the probabilistic counterpart of the mode cover number already used for
+the deterministic panels in `ced.robustness`, and it subsumes the earlier
+harvests. Adding modes helps only insofar as it raises the minimum hitting set;
+replication never touches it; and "spare one mode from the shared factor" is
+exactly the instruction to force one extra private failure into every
+transversal.
+
+The bound is not tight — several near-minimal hitting sets contribute — so the
+harvest records both the exact probability and the bound rather than claiming
+the bound is the value.
+
+## Harvest 6 — horizon and memory are independent
 
 The same question for a second resource pair. In the delayed-exposure family,
 increasing the delay moves the revealing horizon without moving the interface
@@ -165,5 +222,6 @@ decision to be taken deliberately, not by drift.
 
 The current Proposition (failure-controlled refinement) states the qualitative
 claim only. Harvests 1, 2, and 4 are theorem-level and belong in the main text;
-harvest 3 is the figure; harvest 5 belongs with the delayed-exposure material,
+harvest 3 is the figure; harvest 5 is the structural statement that unifies them;
+harvest 6 belongs with the delayed-exposure material,
 which is presently absent from the manuscript entirely.

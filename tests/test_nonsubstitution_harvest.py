@@ -10,16 +10,20 @@ from __future__ import annotations
 import runpy
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "harvest_nonsubstitution.py"
 
 _harvest = runpy.run_path(str(SCRIPT))
 
 harvest_allocation = _harvest["harvest_allocation"]
+harvest_hitting_set = _harvest["harvest_hitting_set"]
 harvest_horizon = _harvest["harvest_horizon"]
 harvest_mode_floor = _harvest["harvest_mode_floor"]
 harvest_saturation = _harvest["harvest_saturation"]
 harvest_sharing = _harvest["harvest_sharing"]
+minimum_hitting_set_size = _harvest["minimum_hitting_set_size"]
 
 
 def test_reads_never_cross_the_availability_ceiling() -> None:
@@ -93,3 +97,62 @@ def test_horizon_and_memory_gap_are_independent_resources() -> None:
         assert len({row["revealing_horizon"] for row in group}) == len(group)
     for row in rows:
         assert row["blind_through_prior_horizon"] is True
+
+
+def test_minimum_hitting_set_size_is_the_transversal() -> None:
+    # One factor shared by every mode is disabled by that factor alone.
+    assert minimum_hitting_set_size((frozenset({0, 9}), frozenset({1, 9})), 10) == 1
+    # Without a shared factor every mode must be knocked out separately.
+    assert minimum_hitting_set_size((frozenset({0}), frozenset({1}), frozenset({2})), 3) == 3
+
+
+def test_hitting_set_lower_bounds_total_failure() -> None:
+    for row in harvest_hitting_set():
+        assert row["all_modes_failed_probability"] >= row["hitting_set_lower_bound"]
+
+
+def test_counting_shared_factors_does_not_predict_the_ceiling() -> None:
+    rows = {row["configuration"]: row for row in harvest_hitting_set()}
+    three_covering = rows["three shared factors covering all"]
+    two_sparing = rows["two shared factors, one mode spared"]
+    # The design with MORE shared factors is the safer one, so the count of shared
+    # factors cannot be the quantity that orders these designs.
+    assert three_covering["shared_factor_count"] > two_sparing["shared_factor_count"]
+    assert three_covering["availability_ceiling"] < two_sparing["availability_ceiling"]
+
+
+def test_sparing_one_mode_raises_the_minimum_hitting_set() -> None:
+    rows = {row["configuration"]: row for row in harvest_hitting_set()}
+    covering = rows["two shared factors covering all"]
+    sparing = rows["two shared factors, one mode spared"]
+    assert covering["covers_every_mode"] is True
+    assert sparing["covers_every_mode"] is False
+    # Leaving one mode off every shared factor forces an extra private failure.
+    assert sparing["minimum_hitting_set_size"] == covering["minimum_hitting_set_size"] + 1
+    assert sparing["availability_ceiling"] > covering["availability_ceiling"]
+
+
+def test_sparing_one_mode_recovers_that_modes_own_availability() -> None:
+    """The spared-mode identity is general, and independent of the shared factor.
+
+    P(all fail | s) = rho_s * rho_p^(m - s) + (1 - rho_s) * rho_p^m, so the share
+    of the total sharing loss still remaining when one mode is spared is
+    (rho_p - rho_p^m) / (1 - rho_p^m), which contains no rho_s term at all.
+    """
+    sharing_panel = _harvest["_sharing_panel"]
+    for mode_count in (3, 4, 6):
+        for private in (0.1, 0.2, 0.5):
+            remaining_by_shared = set()
+            for shared in (0.05, 0.2, 0.6):
+                ceiling = {
+                    degree: sharing_panel(mode_count, degree, 2, private, shared).availability_ceiling
+                    for degree in (0, mode_count - 1, mode_count)
+                }
+                total_loss = ceiling[0] - ceiling[mode_count]
+                spared_loss = ceiling[0] - ceiling[mode_count - 1]
+                remaining = spared_loss / total_loss
+                predicted = (private - private**mode_count) / (1.0 - private**mode_count)
+                assert remaining == pytest.approx(predicted, abs=1e-12)
+                remaining_by_shared.add(round(remaining, 12))
+            # Identical across every shared-factor probability.
+            assert len(remaining_by_shared) == 1

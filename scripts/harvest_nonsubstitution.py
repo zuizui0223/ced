@@ -41,6 +41,7 @@ conditional read-independence contracts. Nothing here is inferred from data.
 from __future__ import annotations
 
 import json
+from itertools import combinations
 from pathlib import Path
 
 from ced.delayed import DelayedExposureFamily
@@ -178,6 +179,91 @@ def harvest_sharing(
     return rows
 
 
+def minimum_hitting_set_size(mode_factor_sets: tuple[frozenset[int], ...], factor_count: int) -> int:
+    """Fewest factors whose simultaneous failure disables every mode.
+
+    A set of factors disables all modes exactly when it meets every mode's factor
+    set, so this is the minimum hitting set (transversal) of the declared factor
+    structure. Enumerated exactly; the declared designs are small by contract.
+    """
+    for size in range(1, factor_count + 1):
+        for candidate in combinations(range(factor_count), size):
+            chosen = set(candidate)
+            if all(chosen & factors for factors in mode_factor_sets):
+                return size
+    raise ValueError("no factor set disables every mode")
+
+
+def _grouped_panel(
+    mode_count: int,
+    groups: tuple[frozenset[int], ...],
+    private_failure: float,
+    shared_failure: float,
+) -> OverlappingFailureModePanel:
+    """Each mode carries a private factor; each group adds one shared factor."""
+    probabilities = tuple(
+        [private_failure] * mode_count + [shared_failure] * len(groups)
+    )
+    mode_factor_sets = tuple(
+        frozenset(
+            {mode}
+            | {mode_count + index for index, group in enumerate(groups) if mode in group}
+        )
+        for mode in range(mode_count)
+    )
+    return OverlappingFailureModePanel(
+        coordinate_count=COORDINATE_COUNT,
+        repetitions_per_coordinate_per_mode=2,
+        sensitivity_lower_bound=SENSITIVITY,
+        factor_failure_probabilities=probabilities,
+        mode_factor_sets=mode_factor_sets,
+    )
+
+
+def harvest_hitting_set(
+    mode_count: int = 5,
+    failure_probability: float = 0.2,
+) -> list[dict[str, object]]:
+    """What governs the ceiling is the cheapest way to disable every mode.
+
+    Counting shared factors does not predict the ceiling: configurations with more
+    shared factors can be safer than configurations with fewer. The quantity that
+    orders them is the minimum hitting set, because the event that exactly those
+    factors fail is one disjoint contribution to total failure, giving the bound
+
+        P(all modes fail) >= rho ** minimum_hitting_set_size
+
+    when every factor carries the same failure probability. This is the
+    probabilistic counterpart of the mode cover number already used for the
+    deterministic panels in ``ced.robustness``.
+    """
+    configurations: tuple[tuple[str, tuple[frozenset[int], ...]], ...] = (
+        ("one shared factor over all modes", (frozenset({0, 1, 2, 3, 4}),)),
+        ("two shared factors covering all", (frozenset({0, 1, 2}), frozenset({3, 4}))),
+        ("three shared factors covering all", (frozenset({0, 1}), frozenset({2, 3}), frozenset({4}))),
+        ("two shared factors, one mode spared", (frozenset({0, 1}), frozenset({2, 3}))),
+        ("three shared factors, one mode spared", (frozenset({0, 1}), frozenset({2}), frozenset({3}))),
+        ("no shared factors", ()),
+    )
+    rows: list[dict[str, object]] = []
+    for label, groups in configurations:
+        panel = _grouped_panel(mode_count, groups, failure_probability, failure_probability)
+        covered: set[int] = set().union(*groups) if groups else set()
+        hitting = minimum_hitting_set_size(panel.mode_factor_sets, panel.factor_count)
+        rows.append(
+            {
+                "configuration": label,
+                "shared_factor_count": len(groups),
+                "covers_every_mode": covered == set(range(mode_count)),
+                "minimum_hitting_set_size": hitting,
+                "all_modes_failed_probability": panel.all_modes_failed_probability,
+                "hitting_set_lower_bound": failure_probability**hitting,
+                "availability_ceiling": panel.availability_ceiling,
+            }
+        )
+    return rows
+
+
 def harvest_horizon() -> list[dict[str, object]]:
     """Interface memory and revealing horizon move independently.
 
@@ -213,6 +299,7 @@ def main() -> dict[str, object]:
     mode_floor = harvest_mode_floor()
     allocation = harvest_allocation()
     sharing = harvest_sharing()
+    hitting = harvest_hitting_set()
     horizon = harvest_horizon()
 
     independent = sharing[0]
@@ -235,6 +322,7 @@ def main() -> dict[str, object]:
         "mode_floor": mode_floor,
         "allocation": allocation,
         "sharing": sharing,
+        "hitting_set": hitting,
         "horizon": horizon,
         "findings": {
             "ceiling_loss_from_full_sharing": ceiling_loss,
