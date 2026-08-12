@@ -88,7 +88,61 @@ def strategy_outcomes_tex(report: dict[str, object]) -> str:
 
 def bibliography_tex() -> str:
     return r"""
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
+\bibitem{MacKenzieEtAl2002}
+MacKenzie, D.I., Nichols, J.D., Lachman, G.B., Droege, S., Royle, J.A., and Langtimm, C.A. (2002).
+Estimating site occupancy rates when detection probabilities are less than one.
+\emph{Ecology}, 83, 2248--2255.
+\url{https://doi.org/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2}
+
+\bibitem{RoyleLink2006}
+Royle, J.A. and Link, W.A. (2006).
+Generalized site occupancy models allowing for false positive and false negative errors.
+\emph{Ecology}, 87, 835--841.
+\url{https://doi.org/10.1890/0012-9658(2006)87[835:GSOMAF]2.0.CO;2}
+
+\bibitem{Manski2003}
+Manski, C.F. (2003).
+\emph{Partial Identification of Probability Distributions}.
+Springer.
+\url{https://doi.org/10.1007/b97478}
+
+\bibitem{DormannEtAl2018}
+Dormann, C.F. et al. (2018).
+Model averaging in ecology: a review of Bayesian, information-theoretic, and tactical approaches for predictive inference.
+\emph{Ecological Monographs}, 88, 485--504.
+\url{https://doi.org/10.1002/ecm.1309}
+
+\bibitem{Dietze2017}
+Dietze, M.C. (2017).
+Prediction in ecology: a first-principles framework.
+\emph{Ecological Applications}, 27, 2048--2060.
+\url{https://doi.org/10.1002/eap.1589}
+
+\bibitem{DietzeEtAl2018}
+Dietze, M.C. et al. (2018).
+Iterative near-term ecological forecasting: Needs, opportunities, and challenges.
+\emph{Proceedings of the National Academy of Sciences USA}, 115, 1424--1432.
+\url{https://doi.org/10.1073/pnas.1710231115}
+
+\bibitem{NicholsWilliams2006}
+Nichols, J.D. and Williams, B.K. (2006).
+Monitoring for conservation.
+\emph{Trends in Ecology \& Evolution}, 21, 668--673.
+\url{https://doi.org/10.1016/j.tree.2006.08.007}
+
+\bibitem{LindenmayerLikens2009}
+Lindenmayer, D.B. and Likens, G.E. (2009).
+Adaptive monitoring: a new paradigm for long-term research and monitoring.
+\emph{Trends in Ecology \& Evolution}, 24, 482--486.
+\url{https://doi.org/10.1016/j.tree.2009.03.005}
+
+\bibitem{Williams2011}
+Williams, B.K. (2011).
+Adaptive management of natural resources---framework and issues.
+\emph{Journal of Environmental Management}, 92, 1346--1353.
+\url{https://doi.org/10.1016/j.jenvman.2010.10.041}
+
 \bibitem{ChalonerVerdinelli1995}
 Chaloner, K. and Verdinelli, I. (1995).
 Bayesian experimental design: A review.
@@ -101,17 +155,11 @@ When do we need more data? A primer on calculating the value of information for 
 \emph{Methods in Ecology and Evolution}, 6, 1219--1228.
 \url{https://doi.org/10.1111/2041-210X.12423}
 
-\bibitem{NicholsWilliams2006}
-Nichols, J.D. and Williams, B.K. (2006).
-Monitoring for conservation.
-\emph{Trends in Ecology \& Evolution}, 21, 668--673.
-\url{https://doi.org/10.1016/j.tree.2006.08.007}
-
-\bibitem{Manski2003}
-Manski, C.F. (2003).
-\emph{Partial Identification of Probability Distributions}.
-Springer.
-\url{https://doi.org/10.1007/b97478}
+\bibitem{GivanDeanGreig2003}
+Givan, R., Dean, T., and Greig, M. (2003).
+Equivalence notions and model minimization in Markov decision processes.
+\emph{Artificial Intelligence}, 147, 163--223.
+\url{https://doi.org/10.1016/S0004-3702(02)00376-4}
 \end{thebibliography}
 """
 
