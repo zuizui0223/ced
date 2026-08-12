@@ -78,7 +78,7 @@ def test_literature_audit_forbids_straw_man_novelty_claims():
     assert "VOI rewards information irrespective of management relevance" in text
     assert "question-driven monitoring is new" in text
     assert "set-valued reporting is novel" in text
-    assert "finite-sample/user-specified risk control for a prediction set" in text
+    assert "user-specified finite-sample risk control for prediction sets is new" in text
     assert "equivalence classes, partition refinement" in text
     assert "first method to choose experiments for a prediction rather than the full latent state" in text
     assert "high parameter/state EIG need not imply high prediction/QoI EIG" in text
