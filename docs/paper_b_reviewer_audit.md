@@ -1,6 +1,21 @@
 # Paper B reviewer audit
 
-This document records the strongest likely reviewer objections and the repository evidence that answers them. It is not manuscript prose and should be updated whenever a claim, benchmark contract, or generated artifact changes.
+This document records the strongest likely reviewer objections and the repository evidence that answers them. It is not manuscript prose and should be updated whenever a claim, benchmark contract, theorem placement, or generated artifact changes.
+
+## 0. "This is a collection of methods without one ecological conclusion"
+
+**Answer:** the main text is frozen around four linked results, not around the full repository theorem inventory:
+
+1. experiment-induced ecological quotient + honest report criterion;
+2. unique coarsest target-safe quotient;
+3. failure architecture as the constraint on trustworthy refinement;
+4. adaptive risk-limited target resolution.
+
+The ecological conclusion is that monitoring should resolve distinctions among possible futures rather than maximize latent-state resolution as such. Full identification can be unnecessary when remaining distinctions do not change the target, and additional information can be insufficient when it is target-irrelevant or collected under a shared failure architecture.
+
+**Repository authority:** `docs/paper_b_theorem_consolidation.md` and `docs/publication_completion_spine.md` define the combined-paper hierarchy. The older `docs/manuscript_architecture.md` remains provenance for standalone CED and must not be used to re-promote the delayed-closure, calibration, threshold, or multiple-testing theorem families into equal-weight Paper B Results.
+
+**Story gate:** a new submission-facing section must state which of the four results it strengthens. If it does not strengthen one of them or close a reviewer-visible logical gap, it belongs in Supplement, future work, or a companion paper.
 
 ## 1. "This is only value of information with another utility"
 
@@ -34,6 +49,8 @@ This document records the strongest likely reviewer objections and the repositor
 
 **Answer:** posterior draws, particles, scenarios, parameter bins, or ensemble members can supply that representation. The manuscript explicitly avoids claiming a universal continuous-state convergence theorem and requires discretization adequacy to be checked against the target.
 
+**Repository evidence:** `scripts/analyze_paper_b_posterior_bridge.py` demonstrates the finite-support bridge while explicitly disclaiming empirical status.
+
 **Language to avoid:** "applies directly to arbitrary continuous models" or "guarantees are unchanged under discretization."
 
 ## 5. "The benchmark changes reporting rules between methods"
@@ -42,22 +59,32 @@ This document records the strongest likely reviewer objections and the repositor
 
 ## 6. "The ecological consequence is unclear"
 
-**Answer:** the invasion example distinguishes occurrence, eradication response, and source-pathway targets. Each target justifies a different observation, showing a changed management-facing experiment rather than a generic recommendation for more monitoring.
+**Answer:** the invasion example distinguishes occurrence, eradication response, and source-pathway targets. Each target justifies a different observation, showing a changed management-facing experiment rather than a generic recommendation for more monitoring. The manuscript conclusion states the corresponding general principle explicitly: measure distinctions that separate possible futures, not latent state for its own sake.
 
-## 7. Claims that remain conditional
+## 7. "Why is the closure/imperfect-detection/calibration mathematics not a fifth or sixth main result?"
+
+**Answer:** those theorem families remain valid repository mathematics, but the combined Paper B has a different explanatory hierarchy. Delayed exposure motivates the finite-evidence boundary; imperfect detection and calibration justify observation contracts; threshold, concentration, and adaptive-spending results support failure-aware refinement. They do not each define an additional ecological conclusion beyond the four-result spine.
+
+**Language to avoid:** describing demoted results as discarded, obsolete, or unimportant. They are supporting mathematics and theorem provenance.
+
+## 8. Claims that remain conditional
 
 - The world set may omit relevant mechanisms.
 - Priors and likelihood kernels may be misspecified.
 - A finite approximation may hide target-relevant distinctions.
+- Failure-mode partitions, independence, sensitivity, and calibration representativeness are declared assumptions unless separately estimated.
 - Target-safe design does not replace management utility when utilities are available and defensible.
 - The current benchmark demonstrates a possibility and mechanism, not universal dominance over EIG or VOI.
+- The posterior-sample bridge is a methodological demonstration, not an empirical validation.
 
 ## Merge gate
 
 Before any submission-facing merge:
 
 1. Python 3.10--3.12 tests pass.
-2. Deterministic benchmark and reviewer-robustness artifacts regenerate.
-3. `paper_b_compiled.tex` compiles.
+2. Deterministic benchmark, reviewer-robustness, and posterior-bridge artifacts regenerate.
+3. `paper_b_compiled.tex` compiles with figures, tables, reviewer sections, and bibliography.
 4. Generated tables match the JSON source.
-5. No prose claims universal superiority over VOI, EIG, or continuous-state methods.
+5. The title, abstract, Introduction contribution hierarchy, Result headings, Discussion, and Conclusion all express the same four-result spine.
+6. No prose claims universal superiority over VOI, EIG, or continuous-state methods.
+7. No new theorem family is promoted to main text without identifying which of the four headline conclusions it changes or which reviewer-visible logical gap it closes.
