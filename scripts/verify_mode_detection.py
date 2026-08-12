@@ -38,8 +38,9 @@ def build_report() -> dict[str, object]:
         raise AssertionError("common-mode detection witness failed verification")
     return {
         "schema_version": 1,
-        "scope": "declared independent common-mode availability with zero false positives, bounded sensitivity, and resettable conditionally independent reads inside operating modes",
-        "non_claim": "the replay does not infer independent modes, availability, sensitivity, or absence from a negative record",
+        "scope": "declared independent common-mode availability lower bounds with zero false positives, bounded sensitivity, and resettable conditionally independent reads inside operating modes",
+        "availability_ceiling_semantics": "supremum of the worst-case certified joint-detection lower bound under the declared availability lower bound; not an upper bound on realized detection when true availability is higher",
+        "non_claim": "the replay does not infer independent modes, true availability, sensitivity, or absence from a negative record",
         "one_mode_same_effort": {
             "mode_count": one_mode.mode_count,
             "repetitions_per_mode": one_mode.repetitions_per_mode,

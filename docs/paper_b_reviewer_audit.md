@@ -67,12 +67,27 @@ The ecological conclusion is that monitoring should resolve distinctions among p
 
 **Language to avoid:** describing demoted results as discarded, obsolete, or unimportant. They are supporting mathematics and theorem provenance.
 
-## 8. Claims that remain conditional
+## 8. "The shared-mode ceiling has the probability inequality backwards"
+
+**Concede the distinction:** a declared mode availability of **at least** `a` is a lower bound, so `1-(1-a)^m` cannot be an upper bound on the realized detection probability of every admissible system. A system with true availability above `a` may detect more often.
+
+**Correct claim:** the least-favourable admissible system has availability exactly `a`. Therefore `1-(1-a)^m` is the supremum of the joint-detection guarantee that can be certified uniformly over the lower-bound contract using arbitrarily many within-mode repeats. It becomes an actual realized ceiling only when the true availability is exactly the stated value (or exact failure probabilities are separately specified).
+
+**Repository evidence:**
+
+- `docs/mode_diverse_detection_theorem.md` states the least-favourable theorem and exact-bound case;
+- `ced/mode_detection.py` computes `joint_detection_lower_bound` and labels `availability_ceiling` as a worst-case guarantee ceiling for backward API compatibility;
+- `ced/overlapping_modes.py` uses exact factor failure probabilities, so its availability ceiling is an actual probability ceiling under that separate contract.
+
+**Language to avoid:** "availability at least `a` implies actual detection cannot exceed `1-(1-a)^m`."
+
+## 9. Claims that remain conditional
 
 - The world set may omit relevant mechanisms.
 - Priors and likelihood kernels may be misspecified.
 - A finite approximation may hide target-relevant distinctions.
 - Failure-mode partitions, independence, sensitivity, and calibration representativeness are declared assumptions unless separately estimated.
+- Lower-bound availability parameters support worst-case guarantees, not upper bounds on realized detection.
 - Target-safe design does not replace management utility when utilities are available and defensible.
 - The current benchmark demonstrates a possibility and mechanism, not universal dominance over EIG or VOI.
 - The posterior-sample bridge is a methodological demonstration, not an empirical validation.
@@ -87,4 +102,5 @@ Before any submission-facing merge:
 4. Generated tables match the JSON source.
 5. The title, abstract, Introduction contribution hierarchy, Result headings, Discussion, and Conclusion all express the same four-result spine.
 6. No prose claims universal superiority over VOI, EIG, or continuous-state methods.
-7. No new theorem family is promoted to main text without identifying which of the four headline conclusions it changes or which reviewer-visible logical gap it closes.
+7. No lower-bound observation parameter is described as an upper bound on realized performance unless an exact or upper-bounded failure contract justifies that direction.
+8. No new theorem family is promoted to main text without identifying which of the four headline conclusions it changes or which reviewer-visible logical gap it closes.

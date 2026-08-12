@@ -3,8 +3,8 @@
 A mode is a shared exposure domain such as a camera-power-weather combination,
 a sampling date, or an observer route. If a mode fails, every coordinate and
 repeat assigned to that mode is negative together. Repeats within an operating
-mode improve sensitivity, but only additional independent modes reduce the
-probability that every assigned observation is lost together.
+mode improve sensitivity, but only additional independent modes improve the
+worst-case guarantee against losing every assigned observation together.
 """
 
 from __future__ import annotations
@@ -59,7 +59,10 @@ class ModeDiverseDetectionPanel:
 
     The closed form is exact when both lower bounds are attained. With lower
     bounds it is a valid lower bound on the probability of detecting every truly
-    present coordinate at least once.
+    present coordinate at least once. Quantities named ``availability_ceiling``
+    below refer to the supremum of this worst-case certified lower bound, not an
+    upper bound on realized detection when actual availability exceeds the declared
+    lower bound.
     """
 
     coordinate_count: int
@@ -91,22 +94,25 @@ class ModeDiverseDetectionPanel:
 
     @property
     def availability_ceiling(self) -> float:
-        """Supremum obtainable by unlimited within-mode replication.
+        """Supremum of the worst-case certified lower bound under unlimited repeats.
 
-        If every mode fails, no coordinate can be detected. Hence even perfect
-        within-mode sensing cannot exceed the probability that at least one
-        independent mode operates.
+        The contract only states that each independent mode operates with
+        probability at least ``availability_lower_bound``. The least-favourable
+        admissible system attains that bound, so no guarantee valid uniformly over
+        the whole contract can exceed the probability that at least one such mode
+        operates. If true availability is higher, realized detection may exceed
+        this value.
         """
         return 1.0 - (1.0 - self.availability_lower_bound) ** self.mode_count
 
     @property
     def joint_detection_lower_bound(self) -> float:
-        """Probability lower bound that all present coordinates are detected.
+        """Worst-case lower bound that all present coordinates are detected.
 
-        Inclusion-exclusion is over the coordinates still missing at the end. For
-        a specified set of ``s`` coordinates, one mode misses all of them with
-        probability at most ``1-a + a*q**s``, where ``a`` is mode availability and
-        ``q`` is the within-mode all-negative probability of one coordinate.
+        The formula is exact when mode availability and read sensitivity equal
+        their declared lower bounds. Monotonicity of the detection event means
+        larger actual availability or sensitivity can only improve realized joint
+        detection.
         """
         a = self.availability_lower_bound
         q = self.within_mode_miss_probability_upper_bound
@@ -120,7 +126,7 @@ class ModeDiverseDetectionPanel:
 
     @property
     def all_negative_probability_if_all_present_upper_bound(self) -> float:
-        """Probability upper bound of a fully negative panel under all presence."""
+        """Worst-case upper bound of a fully negative panel under all presence."""
         a = self.availability_lower_bound
         p = self.detector.sensitivity_lower_bound
         reads_in_mode = self.coordinate_count * self.repetitions_per_mode
@@ -136,11 +142,13 @@ class ModeDiverseDetectionPanel:
     def minimum_mode_count_for_availability_ceiling(
         cls, availability_lower_bound: float, confidence: float
     ) -> int:
-        """Necessary number of independent modes for a target confidence.
+        """Necessary mode count for certifying confidence uniformly under the contract.
 
-        This only clears the common-mode availability ceiling. It is not
-        sufficient: finite within-mode sensitivity can require still more modes or
-        repeated reads within the selected modes.
+        This only clears the worst-case guarantee ceiling implied by the declared
+        availability lower bound. It is not sufficient: finite within-mode
+        sensitivity can require still more modes or repeated reads within the
+        selected modes. It is not a statement about the number of modes required
+        in a system whose true availability is known to be higher.
         """
         availability = _unit_interval_closed(
             "availability_lower_bound", availability_lower_bound
@@ -156,23 +164,24 @@ class ModeDiverseDetectionPanel:
         return modes
 
     def can_reach_joint_confidence(self, confidence: float) -> bool:
-        """Whether some finite within-mode repetition count can reach confidence."""
+        """Whether the certified lower bound can reach confidence with finite repeats."""
         confidence = _open_unit_interval("confidence", confidence)
         if self.detector.sensitivity_lower_bound == 1.0:
             return confidence <= self.availability_ceiling
         return confidence < self.availability_ceiling
 
     def minimum_repetitions_for_joint_confidence(self, confidence: float) -> int:
-        """Least nonzero within-mode repeat count meeting the joint target.
+        """Least nonzero repeat count whose certified lower bound meets the target.
 
         The mode count and coordinate count are held fixed. If the target meets
-        or exceeds the strict availability ceiling under imperfect sensitivity, no
-        finite number of within-mode repeats can reach it.
+        or exceeds the strict worst-case guarantee ceiling under imperfect
+        sensitivity, no finite number of within-mode repeats can certify it from
+        this lower-bound contract alone.
         """
         confidence = _open_unit_interval("confidence", confidence)
         if not self.can_reach_joint_confidence(confidence):
             raise ValueError(
-                "target confidence cannot be reached with this mode count because of the common-mode availability ceiling"
+                "target confidence cannot be certified with this mode count because it meets or exceeds the worst-case availability guarantee ceiling"
             )
         repeats = 1
         while ModeDiverseDetectionPanel(

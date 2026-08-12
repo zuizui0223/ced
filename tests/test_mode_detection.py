@@ -4,7 +4,7 @@ from ced.detection import OneSidedDetector
 from ced.mode_detection import ModeDiverseDetectionPanel
 
 
-def test_common_mode_ceiling_cannot_be_bought_with_within_mode_repeats():
+def test_common_mode_guarantee_ceiling_cannot_be_bought_with_within_mode_repeats():
     detector = OneSidedDetector(0.6)
     one_mode = ModeDiverseDetectionPanel(3, 1, 10, 0.8, detector)
     two_modes = ModeDiverseDetectionPanel(3, 2, 5, 0.8, detector)
@@ -15,7 +15,18 @@ def test_common_mode_ceiling_cannot_be_bought_with_within_mode_repeats():
     assert two_modes.joint_detection_lower_bound == pytest.approx(0.9500686142165017)
 
 
-def test_mode_floor_and_repeat_frontier_are_minimal():
+def test_availability_lower_bound_ceiling_is_not_an_upper_bound_on_realized_detection():
+    panel = ModeDiverseDetectionPanel(1, 1, 1, 0.8, OneSidedDetector(1.0))
+    actual_availability = 0.95
+    realized_detection_with_perfect_read = 1.0 - (1.0 - actual_availability) ** panel.mode_count
+
+    assert panel.availability_ceiling == pytest.approx(0.8)
+    assert realized_detection_with_perfect_read == pytest.approx(0.95)
+    assert realized_detection_with_perfect_read > panel.availability_ceiling
+    assert "worst-case" in ModeDiverseDetectionPanel.availability_ceiling.__doc__.lower()
+
+
+def test_mode_floor_and_repeat_frontier_are_minimal_for_uniform_guarantee():
     detector = OneSidedDetector(0.6)
     assert ModeDiverseDetectionPanel.minimum_mode_count_for_availability_ceiling(0.8, 0.95) == 2
     one_mode = ModeDiverseDetectionPanel(3, 1, 1, 0.8, detector)
