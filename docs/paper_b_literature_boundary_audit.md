@@ -90,7 +90,30 @@ Bayesian experimental design is decision-theoretic. An experiment can be optimiz
 
 The framework makes a specific reportability contract primitive: a declared target, an admissible false-resolution rate, explicit abstention/set-valued output, observation failure structure, and experiment cost. These objects can be embedded in a broader loss formulation, but Paper B gives them an auditable finite quotient interpretation without requiring a cardinal utility over all management outcomes.
 
-## 5. Ecological value of information
+## 5. Targeted and goal-oriented optimal experimental design
+
+### Primary neighbours
+
+- Vanlier, Tiemann, Hilbers & van Riel (2012), *Bioinformatics*, “A Bayesian approach to targeted experiment design.” DOI: `10.1093/bioinformatics/bts092`.
+- Attia, Alexanderian & Saibaba (2018), *Inverse Problems*, “Goal-oriented optimal design of experiments for large-scale Bayesian linear inverse problems.” DOI: `10.1088/1361-6420/aad210`.
+- Zhong, Shen, Catanach & Huan (2026), *SIAM/ASA Journal on Uncertainty Quantification*, “Goal-Oriented Bayesian Optimal Experimental Design for Nonlinear Models Using Markov Chain Monte Carlo.” DOI: `10.1137/24M1649344`.
+
+### Already established
+
+Targeting the downstream prediction or quantity of interest rather than the full parameter/state is established experimental-design methodology. Vanlier et al. explicitly target reduction of uncertainty in a selected prediction of interest. Attia et al. seek designs that reduce posterior uncertainty in the experiment end-goal or quantity of interest and motivate the approach partly by avoiding wasted experimental resources. Zhong et al. extend predictive goal-oriented OED to nonlinear models by maximizing expected information gain on predictive quantities of interest rather than on model parameters.
+
+### Do not claim
+
+- that Paper B is the first method to choose experiments for a prediction rather than the full latent state;
+- that the observation “high parameter/state EIG need not imply high prediction/QoI EIG” is novel;
+- that avoiding target-irrelevant data collection is unique to Paper B;
+- that the 16-world full-state-EIG counterexample establishes novelty over targeted or goal-oriented OED.
+
+### Paper B addition
+
+Paper B addresses a different finite interface around targeted prediction. It starts with the equivalence/compatible-world structure induced by the declared ecological record, returns a sharp set-valued target when deterministic reporting is unsupported, computes the coarsest action-stable target-preserving quotient, and asks whether observation failure permits the required quotient refinement to be trusted under an explicit false-resolution contract. Targeted/goal-oriented OED and Paper B may select the same experiment; the additional Paper B object is the reportability-and-abstraction contract, not target orientation itself.
+
+## 6. Ecological value of information
 
 ### Primary neighbour
 
@@ -108,9 +131,9 @@ Ecological VOI evaluates whether additional information is worthwhile through it
 
 ### Paper B addition
 
-The benchmark contrasts target-safe design specifically with *full-world entropy reduction*, not with an optimally specified management-VOI objective. Target-safe reporting is most distinct when investigators can defend the target and an error contract but cannot or do not wish to assign a cardinal utility to every ecological/management consequence.
+The benchmark contrasts target-safe design specifically with *full-world entropy reduction*, not with an optimally specified management-VOI or goal-oriented OED objective. Target-safe reporting is most distinct when investigators can defend the target and an error contract but cannot or do not wish to assign a cardinal utility to every ecological/management consequence.
 
-## 6. Monitoring, adaptive monitoring, and adaptive management
+## 7. Monitoring, adaptive monitoring, and adaptive management
 
 ### Primary neighbours
 
@@ -132,7 +155,7 @@ Monitoring should be linked to scientific or management objectives rather than t
 
 Paper B supplies an exact finite object for one particular design question: the quotient of latent worlds produced by the experiment, the coarsest quotient still sufficient for the declared future, the failure-aware reliability of the necessary split, and a terminal correct/wrong/ambiguous report contract.
 
-## 7. State abstraction, bisimulation, and model minimization
+## 8. State abstraction, bisimulation, and model minimization
 
 ### Primary neighbour
 
@@ -151,7 +174,7 @@ State aggregation, behavioural equivalence/bisimulation, partition refinement, a
 
 The target-safe quotient is an experiment- and target-relative ecological interface: it begins with the partition induced by a declared finite observation record, preserves a declared target under future actions, admits sharp set-valued fallback when that target is unresolved, and is coupled to observation-failure and false-resolution contracts. The mathematical novelty claim must be limited to this combined object and its role in finite ecological evidence design.
 
-## 8. Nearest-neighbour claim map
+## 9. Nearest-neighbour claim map
 
 | Paper B claim | Nearest established literature | Safe novelty wording |
 |---|---|---|
@@ -159,12 +182,13 @@ The target-safe quotient is an experiment- and target-relative ecological interf
 | compatible uncertainty may be set-valued | partial identification | target set tied to experiment/action quotient |
 | several mechanisms can imply different predictions | structural uncertainty / forecasting | characterize which distinctions are target-necessary |
 | choose informative experiments | Bayesian design | explicit finite reportability/risk contract |
+| choose experiments for prediction/QoI rather than full state | targeted / goal-oriented OED | not novelty; add compatible-world quotient, abstention, action stability, failure contract |
 | collect data for management value | ecological VOI | do not use VOI as entropy straw man |
 | monitoring should answer declared questions | adaptive monitoring/management | exact target-compatible stopping/refinement object |
 | minimize state descriptions | bisimulation/model minimization | experiment-induced + target-relative + failure-aware ecological quotient |
-| information gain can select irrelevant latent detail | information-theoretic design objective | benchmark is a counterexample to full-world EIG, not to all optimal design |
+| information gain can select irrelevant latent detail | goal-oriented OED already recognizes analogous parameter-vs-QoI issue | benchmark is only a counterexample to full-world EIG, not a novelty proof |
 
-## 9. Manuscript language gate
+## 10. Manuscript language gate
 
 The manuscript should explicitly contain the following concessions:
 
@@ -172,16 +196,18 @@ The manuscript should explicitly contain the following concessions:
 2. partial identification already legitimizes set-valued conclusions;
 3. model averaging and forecasting already address structural/predictive uncertainty;
 4. Bayesian design and VOI can be target/decision specific;
-5. adaptive monitoring is already question driven;
-6. bisimulation/model minimization already provides state-partition machinery.
+5. targeted/goal-oriented OED already selects experiments for predictions or quantities of interest rather than full parameter/state uncertainty;
+6. adaptive monitoring is already question driven;
+7. bisimulation/model minimization already provides state-partition machinery.
 
 The paper's contribution should then be stated positively rather than by denying those capabilities:
 
-> Paper B links a finite experiment-induced latent-world partition to a declared ecological target, computes the coarsest action-stable target-preserving refinement, checks whether observation failure permits that refinement to be trusted, and evaluates adaptive stopping/experiment choices under an explicit false-resolution contract.
+> Paper B links a finite experiment-induced latent-world partition to a declared ecological target, computes the coarsest action-stable target-preserving refinement, exposes a sharp set-valued report when the target is unresolved, checks whether observation failure permits that refinement to be trusted, and evaluates adaptive stopping/experiment choices under an explicit false-resolution contract.
 
-## 10. Remaining literature checks before submission
+## 11. Remaining literature checks before submission
 
 - verify final journal-specific citation style and exact page/volume metadata;
 - consider one focused reference on false-positive occupancy if Royle & Link (2006) is insufficient for the chosen ecological example;
 - consider one primary source on robust decision making only if Discussion expands beyond reportability into management choice;
+- monitor fast-moving goal-oriented/decision-focused OED literature only for claims that overlap the finite reportability interface, not simply because a paper is recent;
 - avoid expanding the bibliography simply for breadth: each added source must bound one manuscript claim.
