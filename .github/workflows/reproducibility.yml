@@ -46,6 +46,7 @@ jobs:
           python scripts/analyze_paper_b_reviewer_robustness.py
           python scripts/analyze_paper_b_posterior_bridge.py
           python scripts/check_mee_submission.py
+          python scripts/build_mee_review_archive.py
       - name: Upload replay artifacts
         if: matrix.python-version == '3.12'
         uses: actions/upload-artifact@v4
@@ -73,3 +74,4 @@ jobs:
             artifacts/paper_b_reviewer_robustness.json
             artifacts/paper_b_posterior_bridge.json
             artifacts/mee_submission_check.json
+            artifacts/paper_b_mee_review_archive_check.json
