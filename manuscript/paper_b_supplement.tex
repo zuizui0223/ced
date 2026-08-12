@@ -1,0 +1,223 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Pcal}{\mathcal{P}}
+\newcommand{\Qcal}{\mathcal{Q}}
+\title{Supplementary proofs for\\From ecological states to distinguishable futures}
+\author{Author names withheld for drafting}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Finite latent worlds and partition order}
+Let $\W$ be a finite nonempty set of latent worlds. A partition $\Pcal$ of $\W$ is a collection of nonempty disjoint blocks whose union is $\W$. We write
+\[
+\Qcal \preceq \Pcal
+\]
+when every block of $\Qcal$ is contained in a block of $\Pcal$; thus $\Qcal$ is a refinement of $\Pcal$ and may contain more blocks. For $w\in\W$, $[w]_{\Pcal}$ denotes its block in $\Pcal$.
+
+A declared target is a map $T:\W\to Y$ with finite image. A declared action set $\A$ is finite, and each action $a\in\A$ has a deterministic successor map $\tau_a:\W\to\W$.
+
+\section{Result 1: experiment-induced information and honest reporting}
+
+\subsection{Deterministic records}
+Let a deterministic experiment be represented by a record map $r:\W\to X$. Define
+\[
+w\sim_r w' \quad\Longleftrightarrow\quad r(w)=r(w').
+\]
+Let $\Pcal_r$ be the corresponding partition.
+
+\begin{theorem}[Record factorization and deterministic report criterion]
+Every deterministic statistic or report $g$ computed only from the record is constant on every block of $\Pcal_r$. Moreover, there exists a deterministic record-based target report $h:X\to Y$ satisfying
+\[
+h(r(w))=T(w)\qquad\text{for every }w\in\W
+\]
+if and only if $T$ is constant on every block of $\Pcal_r$.
+\end{theorem}
+
+\begin{proof}
+If $w\sim_r w'$, then $r(w)=r(w')$, so any record-based quantity has
+$g(r(w))=g(r(w'))$. This proves the factorization claim.
+
+Suppose first that $h$ exists. If $w\sim_r w'$, then
+\[
+T(w)=h(r(w))=h(r(w'))=T(w'),
+\]
+so $T$ is constant on each record block.
+
+Conversely, suppose $T$ is constant on each record block. For every record value $x$ in the image of $r$, choose any world $w$ with $r(w)=x$ and define $h(x)=T(w)$. Constancy of $T$ on the record block makes this definition independent of the chosen representative. Values of $h$ outside the image of $r$ may be assigned arbitrarily. Then $h(r(w))=T(w)$ for all $w$.
+\end{proof}
+
+\begin{corollary}[Sharp set-valued exact report]
+For an observed record $x$ in the image of $r$, define
+\[
+C_r(x)=\{w\in\W:r(w)=x\}.
+\]
+If $T$ is not constant on $C_r(x)$, no deterministic report based only on $x$ can be correct for every compatible world. The set
+\[
+T(C_r(x))=\{T(w):w\in C_r(x)\}
+\]
+is the sharp exact report in the sense that every listed target is attained by a compatible world and no unlisted target is compatible with the record.
+\end{corollary}
+
+\begin{proof}
+The impossibility of a uniformly correct singleton report follows from the theorem restricted to the observed record class. The two sharpness statements follow directly from the definition of the image $T(C_r(x))$.
+\end{proof}
+
+\subsection{Stochastic observation kernels}
+The benchmark uses stochastic likelihood kernels rather than one deterministic record per world. Let $K(x\mid w)$ be the probability of record $x$ under world $w$ and define the support-compatible class
+\[
+C_K(x)=\{w\in\W:K(x\mid w)>0\}.
+\]
+
+\begin{proposition}[Support-level honest report criterion]
+A singleton target report after observing $x$ is correct for every world that could have generated $x$ if and only if $T$ is constant on $C_K(x)$. Otherwise $T(C_K(x))$ is the sharp support-compatible set-valued report.
+\end{proposition}
+
+\begin{proof}
+The proof is identical to the deterministic record-class argument after replacing the equality class $C_r(x)$ by the positive-likelihood class $C_K(x)$. If two positive-likelihood worlds have different target values, the same observed $x$ cannot logically distinguish which target generated the record. Conversely, if all positive-likelihood worlds agree on the target, that common value is valid for every compatible world.
+\end{proof}
+
+This support-level statement is distinct from posterior risk-limited reporting. A posterior rule may permit a singleton even when a small amount of positive-likelihood mass remains on another target, provided the declared false-resolution contract allows that risk.
+
+\section{Result 2: unique coarsest target-safe quotient}
+Let $\Pcal_0$ be the initial observation or experiment-induced partition. A partition $\Pcal$ is called \emph{target-safe} relative to $(\Pcal_0,T,\{\tau_a\}_{a\in\A})$ when:
+\begin{enumerate}
+\item $\Pcal\preceq\Pcal_0$ (it preserves the initial record);
+\item $T$ is constant on every block of $\Pcal$; and
+\item for every $a\in\A$, if $w$ and $w'$ lie in the same block of $\Pcal$, then $\tau_a(w)$ and $\tau_a(w')$ lie in the same block of $\Pcal$.
+\end{enumerate}
+The third condition makes each declared action induce a deterministic successor map on quotient states.
+
+For any partition $\Pcal$, define $F(\Pcal)$ by grouping worlds that have the same signature
+\[
+\sigma_{\Pcal}(w)=
+\left(
+[w]_{\Pcal},\;T(w),\;([\tau_a(w)]_{\Pcal})_{a\in\A}
+\right).
+\]
+Equivalently, $F(\Pcal)$ is the common refinement of $\Pcal$, the target partition, and the pullbacks of $\Pcal$ under all declared successor maps.
+
+\begin{lemma}[Monotone finite refinement]
+$F(\Pcal)\preceq\Pcal$. Starting with $\Pcal_0$ and setting
+\[
+\Pcal_{n+1}=F(\Pcal_n),
+\]
+the sequence stabilizes after finitely many strict refinements.
+\end{lemma}
+
+\begin{proof}
+The first component of $\sigma_{\Pcal}(w)$ is $[w]_{\Pcal}$, so worlds from distinct blocks of $\Pcal$ cannot be merged by $F$; hence $F(\Pcal)\preceq\Pcal$. Every strict refinement increases the number of blocks by at least one, while a partition of $\W$ has at most $|\W|$ blocks. Therefore only finitely many strict refinements are possible.
+\end{proof}
+
+Let $\Pcal_*$ be the first fixed point.
+
+\begin{theorem}[Unique coarsest target-safe quotient]
+$\Pcal_*$ is target-safe. Moreover, for every target-safe partition $\Qcal$,
+\[
+\Qcal\preceq\Pcal_*.
+\]
+Thus $\Pcal_*$ is the unique coarsest target-safe refinement of $\Pcal_0$.
+\end{theorem}
+
+\begin{proof}
+Because every iterate refines its predecessor, $\Pcal_*\preceq\Pcal_0$. At the fixed point, two worlds in the same block of $\Pcal_*$ also lie in the same block of $F(\Pcal_*)$. Equality of their fixed-point signatures implies equality of their target values and equality of the $\Pcal_*$-blocks of their successors under every action. Hence $\Pcal_*$ is target-constant and action-stable, so it is target-safe.
+
+For minimality, let $\Qcal$ be any target-safe partition. We prove by induction that
+\[
+\Qcal\preceq\Pcal_n
+\]
+for every $n$. The base case holds because target-safety requires $\Qcal\preceq\Pcal_0$. Assume $\Qcal\preceq\Pcal_n$ and take $w,w'$ in the same block of $\Qcal$. Then they lie in the same block of $\Pcal_n$. Because $\Qcal$ is target-safe, $T(w)=T(w')$. Also, for every action $a$, the successors $\tau_a(w)$ and $\tau_a(w')$ lie in the same block of $\Qcal$; by the induction hypothesis they therefore lie in the same block of $\Pcal_n$. Thus $\sigma_{\Pcal_n}(w)=\sigma_{\Pcal_n}(w')$, so $w$ and $w'$ remain together in $F(\Pcal_n)=\Pcal_{n+1}$. Hence $\Qcal\preceq\Pcal_{n+1}$.
+
+The induction gives $\Qcal\preceq\Pcal_*$ at stabilization. Therefore every valid target-safe interface refines $\Pcal_*$. This proves coarseness. If two distinct coarsest target-safe partitions existed, each would refine the other and they would contain the same blocks, proving uniqueness.
+\end{proof}
+
+\begin{corollary}[Preservation under every finite declared action word]
+If $w$ and $w'$ belong to the same block of $\Pcal_*$, then for every finite action word $a_1\cdots a_t$, the iterated successors of $w$ and $w'$ lie in the same block of $\Pcal_*$. Consequently their target reports agree after every finite declared action word.
+\end{corollary}
+
+\begin{proof}
+Induct on word length. Length zero is immediate. If the result holds after $t$ actions, action stability of $\Pcal_*$ sends the two worlds reached after those actions into the same successor block under $a_{t+1}$. Target constancy on every block then gives equality of the corresponding reports.
+\end{proof}
+
+\subsection{Executable construction}
+The repository function \texttt{minimal\_target\_safe\_quotient} implements the fixed-point iteration above. Its oracle test enumerates every set partition of a finite five-world witness and verifies that every valid target-safe partition refines the returned fixed point. This finite exhaustive check is not the proof of the theorem; it is an implementation-level guard that the code matches the proved refinement order and minimality claim.
+
+\section{Result 3: lower-bound failure contracts and worst-case guarantee ceilings}
+We formalize the probability direction used in the main text. Consider $k$ truly present coordinates, $m$ independent observation modes, and $r$ reads per coordinate within each mode. Suppose every mode operates with probability at least $a>0$. Conditional on operation, every read has sensitivity at least $p>0$, reads are independent across coordinates and repetitions, and false positives are excluded. A mode failure makes every read assigned to that mode negative.
+
+Let
+\[
+q=(1-p)^r.
+\]
+In the least-favourable admissible model, every availability equals $a$ and every sensitivity equals $p$.
+
+\begin{proposition}[Exact least-favourable joint-detection frontier]
+Under the least-favourable model, the probability of detecting all $k$ coordinates at least once is
+\[
+G_{k,m,r}(a,p)=
+\sum_{s=0}^{k}(-1)^s {k\choose s}
+\left(1-a+a q^s\right)^m.
+\]
+For every model satisfying the declared lower bounds, the realized joint-detection probability is at least $G_{k,m,r}(a,p)$.
+\end{proposition}
+
+\begin{proof}
+For a subset $S$ of $s$ coordinates, one mode leaves every coordinate in $S$ undetected either when the mode fails, with probability $1-a$, or when it operates and all $rs$ corresponding reads miss, with probability $a q^s$. Independence across modes gives
+\[
+\Pr\!\left(\bigcap_{i\in S}E_i\right)=
+(1-a+a q^s)^m,
+\]
+where $E_i$ is the event that coordinate $i$ is never detected. Inclusion--exclusion over the events $E_1,\ldots,E_k$ gives the displayed formula.
+
+For the lower-bound statement, couple any admissible model to the least-favourable one using common uniform random variables for mode operation and read success. Raising a mode availability or read sensitivity can turn failures into successes but cannot turn a successful detection event into a failure. The event that all coordinates are detected is therefore monotone in all availability and sensitivity parameters, so its probability is minimized when every lower bound is attained.
+\end{proof}
+
+\begin{corollary}[Worst-case uniform guarantee ceiling]
+For $p>0$,
+\[
+\lim_{r\to\infty}G_{k,m,r}(a,p)=1-(1-a)^m.
+\]
+No guarantee valid uniformly over every model satisfying only the lower-bound contract can exceed this value using within-mode repetition alone.
+\end{corollary}
+
+\begin{proof}
+As $r\to\infty$, $q\to0$. For every $s\ge1$, $(1-a+a q^s)^m\to(1-a)^m$. Hence
+\[
+\lim_{r\to\infty}G_{k,m,r}(a,p)
+=1+(1-a)^m\sum_{s=1}^{k}(-1)^s{k\choose s}
+=1-(1-a)^m,
+\]
+using $\sum_{s=0}^{k}(-1)^s{k\choose s}=0$. The model in which every actual availability equals $a$ is allowed by the contract, so a uniform guarantee larger than its limiting detection probability is impossible.
+\end{proof}
+
+The last value is a ceiling on what the \emph{contract can guarantee}, not on what every admissible system can realize. If true availability is larger than $a$, realized detection may exceed $1-(1-a)^m$. Under an exact-availability contract, by contrast, the same expression is the realized infinite-repetition ceiling.
+
+\section{Result 4: finite risk-limited policy existence}
+Let $\Pi$ be a finite declared policy family. For each $\pi\in\Pi$, exact finite enumeration yields four real quantities: correct deterministic-report probability $c(\pi)$, wrong deterministic-report probability $e(\pi)$, ambiguity probability $u(\pi)$, and expected cost $C(\pi)$. The three terminal-report probabilities partition the declared terminal outcomes, so
+\[
+c(\pi)+e(\pi)+u(\pi)=1.
+\]
+
+\begin{theorem}[Least-cost feasible finite policy]
+Fix declared bounds $e(\pi)\le\epsilon$, $u(\pi)\le\delta$, and any additional finite feasibility constraints. If the feasible subset $\Pi_{\mathrm{feas}}\subseteq\Pi$ is nonempty, then at least one least-cost feasible policy exists.
+\end{theorem}
+
+\begin{proof}
+$\Pi_{\mathrm{feas}}$ is a nonempty finite set, so the finite set of real numbers $\{C(\pi):\pi\in\Pi_{\mathrm{feas}}\}$ has a minimum. Any feasible policy attaining that minimum is least-cost.
+\end{proof}
+
+The substantive reporting convention is separate from this elementary existence argument: terminal records that do not satisfy the singleton error contract remain set-valued rather than being forced into a deterministic report. The schema-v5 benchmark evaluates all strategies under the same terminal rule, so the comparison is driven by experiment choice rather than by different reporting semantics.
+
+\section{Scope of the proofs}
+All exact quotient and policy results above are conditional on a declared finite world set, finite target image, finite action set, and specified observation model. Posterior draws, particles, scenarios, or model members may supply a finite support, but the proofs do not establish convergence from an arbitrary continuous latent model as the support is refined. The failure-architecture guarantee is likewise conditional on the declared independence, availability, sensitivity, resetability, and false-positive assumptions. These contracts are assumptions of the theorem unless separately estimated or calibrated.
+
+\end{document}
