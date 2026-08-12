@@ -19,12 +19,8 @@ Target = Hashable
 Action = Hashable
 
 
-def _hashable_tuple(name: str, values: Iterable[Hashable], *, nonempty: bool = True) -> tuple[Hashable, ...]:
+def _require_hashable(name: str, values: Iterable[Hashable]) -> tuple[Hashable, ...]:
     result = tuple(values)
-    if nonempty and not result:
-        raise ValueError(f"{name} must be nonempty")
-    if len(set(result)) != len(result):
-        raise ValueError(f"{name} values must be unique")
     for value in result:
         try:
             hash(value)
@@ -33,11 +29,24 @@ def _hashable_tuple(name: str, values: Iterable[Hashable], *, nonempty: bool = T
     return result
 
 
+def _hashable_tuple(name: str, values: Iterable[Hashable], *, nonempty: bool = True) -> tuple[Hashable, ...]:
+    result = _require_hashable(name, values)
+    if nonempty and not result:
+        raise ValueError(f"{name} must be nonempty")
+    if len(set(result)) != len(result):
+        raise ValueError(f"{name} values must be unique")
+    return result
+
+
 def _canonical(signatures: Iterable[Hashable]) -> tuple[int, ...]:
     labels: dict[Hashable, int] = {}
     result: list[int] = []
     for signature in signatures:
-        if signature not in labels:
+        try:
+            known = signature in labels
+        except TypeError as error:
+            raise ValueError("partition signatures must be hashable") from error
+        if not known:
             labels[signature] = len(labels)
         result.append(labels[signature])
     return tuple(result)
@@ -57,8 +66,8 @@ class TargetSafeQuotient:
     def __post_init__(self) -> None:
         worlds = _hashable_tuple("worlds", self.worlds)
         actions = _hashable_tuple("actions", self.actions, nonempty=False)
-        records = tuple(self.records)
-        targets = tuple(self.targets)
+        records = _require_hashable("records", self.records)
+        targets = _require_hashable("targets", self.targets)
         successors = tuple(tuple(row) for row in self.successors)
         labels = tuple(self.class_labels)
 
@@ -166,8 +175,12 @@ def minimal_target_safe_quotient(
 
     world_tuple = _hashable_tuple("worlds", worlds)
     action_tuple = _hashable_tuple("actions", actions, nonempty=False)
-    records = tuple(record_function(world) for world in world_tuple)
-    targets = tuple(target_function(world) for world in world_tuple)
+    records = _require_hashable(
+        "records", (record_function(world) for world in world_tuple)
+    )
+    targets = _require_hashable(
+        "targets", (target_function(world) for world in world_tuple)
+    )
     world_index = {world: index for index, world in enumerate(world_tuple)}
     successors = tuple(
         tuple(successor_function(world, action) for action in action_tuple)
