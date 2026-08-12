@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "manuscript/**"
+      - "ced/detection.py"
+      - "ced/mode_detection.py"
       - "ced/target_safe_quotient.py"
       - "scripts/render_paper_b_figures.py"
       - "scripts/analyze_paper_b_reviewer_robustness.py"
@@ -15,6 +17,8 @@ on:
     branches: [main]
     paths:
       - "manuscript/**"
+      - "ced/detection.py"
+      - "ced/mode_detection.py"
       - "ced/target_safe_quotient.py"
       - "scripts/render_paper_b_figures.py"
       - "scripts/analyze_paper_b_reviewer_robustness.py"
@@ -55,6 +59,8 @@ jobs:
             manuscript/paper_b_supplement.pdf
             manuscript/paper_b_supplement.log
             manuscript/paper_b_supplement.tex
+            manuscript/generated/paper_b_target_safe_quotient.tex
+            manuscript/generated/paper_b_failure_architecture.tex
             manuscript/generated/paper_b_experiment_contrast.tex
             manuscript/generated/paper_b_strategy_outcomes.tex
             manuscript/generated/paper_b_target_switch.tex
