@@ -112,3 +112,21 @@ def test_successor_function_must_remain_inside_declared_world_set():
             actions=("a",),
             successor_function=lambda world, action: 2,
         )
+
+
+@pytest.mark.parametrize(
+    "record_function,target_function",
+    [
+        (lambda world: [world], lambda world: 0),
+        (lambda world: 0, lambda world: [world]),
+    ],
+)
+def test_record_and_target_values_must_be_hashable(record_function, target_function):
+    with pytest.raises(ValueError, match="must be hashable"):
+        minimal_target_safe_quotient(
+            worlds=(0, 1),
+            record_function=record_function,
+            target_function=target_function,
+            actions=(),
+            successor_function=lambda world, action: world,
+        )
