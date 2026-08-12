@@ -27,7 +27,8 @@ The ecological conclusion is that monitoring should resolve distinctions among p
 
 - `manuscript/paper_b_reviewer_sections.tex`, method-boundary subsection and comparison table;
 - `scripts/analyze_paper_b_reviewer_robustness.py`, target-switch analysis;
-- `tests/test_paper_b_reviewer_robustness.py`, experiment-choice reversal under a changed target.
+- `tests/test_paper_b_reviewer_robustness.py`, experiment-choice reversal under a changed target;
+- `docs/paper_b_literature_boundary_audit.md`, primary-source boundary with Bayesian design and ecological VOI.
 
 **Language to avoid:** "VOI cannot target decisions" or "target-safe design is outside decision theory."
 
@@ -81,7 +82,27 @@ The ecological conclusion is that monitoring should resolve distinctions among p
 
 **Language to avoid:** "availability at least `a` implies actual detection cannot exceed `1-(1-a)^m`."
 
-## 9. Claims that remain conditional
+## 9. "The paper relabels established ideas as novelty"
+
+**Answer:** the nearest-neighbour audit explicitly concedes the established ingredients and restricts novelty to their combined ecological reportability role.
+
+**Primary boundaries that must remain explicit:**
+
+- occupancy and generalized occupancy already model imperfect detection, including false positives;
+- partial-identification theory already legitimizes sharp set-valued conclusions;
+- model averaging and ecological forecasting already address structural and predictive uncertainty;
+- Bayesian experimental design already permits target-specific utilities and losses;
+- ecological VOI already values data through management consequences;
+- adaptive monitoring/management are already question-driven and iterative;
+- bisimulation and model minimization already provide state aggregation and partition-refinement machinery.
+
+**Repository authority:** `docs/paper_b_literature_boundary_audit.md` and `tests/test_paper_b_literature_contract.py`.
+
+**Safe novelty statement:** Paper B links a finite experiment-induced latent-world partition to a declared ecological target, computes the coarsest action-stable target-preserving refinement, checks whether observation failure permits that refinement to be trusted, and evaluates adaptive stopping/experiment choices under an explicit false-resolution contract.
+
+**Language to avoid:** any novelty claim attached to equivalence classes, partition refinement, set-valued inference, imperfect detection, question-driven monitoring, Bayesian utility design, or VOI in isolation.
+
+## 10. Claims that remain conditional
 
 - The world set may omit relevant mechanisms.
 - Priors and likelihood kernels may be misspecified.
@@ -103,4 +124,5 @@ Before any submission-facing merge:
 5. The title, abstract, Introduction contribution hierarchy, Result headings, Discussion, and Conclusion all express the same four-result spine.
 6. No prose claims universal superiority over VOI, EIG, or continuous-state methods.
 7. No lower-bound observation parameter is described as an upper bound on realized performance unless an exact or upper-bounded failure contract justifies that direction.
-8. No new theorem family is promoted to main text without identifying which of the four headline conclusions it changes or which reviewer-visible logical gap it closes.
+8. Every submission-facing novelty claim has a nearest-neighbour boundary in `docs/paper_b_literature_boundary_audit.md` and does not attribute novelty to an established ingredient in isolation.
+9. No new theorem family is promoted to main text without identifying which of the four headline conclusions it changes or which reviewer-visible logical gap it closes.
