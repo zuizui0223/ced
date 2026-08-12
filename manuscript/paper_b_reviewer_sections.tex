@@ -1,7 +1,7 @@
-% Reviewer-facing sections included by the generated submission source.
-\section{Robustness, scope, and method boundaries}
-\subsection{Boundary with goal-oriented design and value of information}
-The detailed literature boundary is established above. In brief, target-oriented experimental design is not unique to this framework: targeted and goal-oriented OED optimize predictions or quantities of interest \cite{VanlierEtAl2012,AttiaEtAl2018,ZhongEtAl2026}, and ecological VOI values information through management consequences \cite{CanessaEtAl2015}. Table~\ref{tab:method-boundaries} therefore locates target-safe modelling as a finite reportability layer rather than as a replacement for those objectives.
+% Reviewer-facing sensitivity and scope material included inside Results.
+\subsection{Sensitivity analyses and practical scope}
+\subsubsection{Boundary with goal-oriented design and value of information}
+The detailed literature boundary is established in the Introduction. In brief, target-oriented experimental design is not unique to this framework: targeted and goal-oriented OED optimize predictions or quantities of interest \cite{VanlierEtAl2012,AttiaEtAl2018,ZhongEtAl2026}, and ecological VOI values information through management consequences \cite{CanessaEtAl2015}. Table~\ref{tab:method-boundaries} therefore locates target-safe modelling as a finite reportability layer rather than as a replacement for those objectives.
 
 \begin{table}[ht]
 \centering
@@ -21,7 +21,7 @@ Target-safe design & Satisfy a finite prediction-reporting error contract at low
 \label{tab:method-boundaries}
 \end{table}
 
-\subsection{Dependence on the declared target}
+\subsubsection{Dependence on the declared target}
 Holding worlds, priors, costs, and likelihood kernels fixed, changing the target from management response to context classification reverses the selected experiment (Table~\ref{tab:target-switch}). This demonstrates target relativity of the reportability calculation, not novelty of target-oriented design.
 
 \begin{table}[ht]
@@ -32,7 +32,7 @@ Holding worlds, priors, costs, and likelihood kernels fixed, changing the target
 \label{tab:target-switch}
 \end{table}
 
-\subsection{Sensitivity to the false-resolution contract}
+\subsubsection{Sensitivity to the false-resolution contract}
 The 5\% limit is an input contract. With state sensitivity 0.95, response accuracy 0.95, independent screening, and no common failure, a 1\% contract retains ambiguity whereas 5\% and 10\% admit the response experiment (Table~\ref{tab:threshold-sensitivity}).
 
 \begin{table}[ht]
@@ -43,10 +43,10 @@ The 5\% limit is an input contract. With state sensitivity 0.95, response accura
 \label{tab:threshold-sensitivity}
 \end{table}
 
-\subsection{Finite representation and posterior-sample bridge}
+\subsubsection{Finite representation and posterior-sample bridge}
 The exact theorems are conditional on a declared finite world set; no universal continuous-state convergence theorem is claimed. Posterior draws, particles, scenarios, or ensemble members can supply a finite support, but refinement of that support may reveal target distinctions absent from a coarser approximation. The deterministic invasion-control bridge demonstrates this interface rather than empirical validation: across 500, 2,000, and 10,000 posterior draws, the response assay remains selected for the eradication-versus-containment target while source tracing does not resolve that target (Table~\ref{tab:posterior-bridge}).
 
 \input{generated/paper_b_posterior_bridge_table.tex}
 
-\subsection{Example of a changed ecological action}
+\subsubsection{Example of a changed ecological action}
 For a detected invasive population, current occurrence, eradication success, and source pathway are different targets. The first may require no further response experiment, the second can require an intervention-response assay, and the third can make provenance measurement decisive. The framework therefore changes which observation is reportability-relevant rather than merely recommending more monitoring, consistent with objective-driven conservation monitoring \cite{NicholsWilliams2006}.
