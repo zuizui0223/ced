@@ -88,18 +88,42 @@ def strategy_outcomes_tex(report: dict[str, object]) -> str:
 
 def bibliography_tex() -> str:
     return r"""
-\begin{thebibliography}{9}
-\bibitem{ChalonerVerdinelli1995}
-Chaloner, K. and Verdinelli, I. (1995).
-Bayesian experimental design: A review.
-\emph{Statistical Science}, 10, 273--304.
-\url{https://doi.org/10.1214/ss/1177009939}
+\begin{thebibliography}{99}
+\bibitem{MacKenzieEtAl2002}
+MacKenzie, D.I., Nichols, J.D., Lachman, G.B., Droege, S., Royle, J.A., and Langtimm, C.A. (2002).
+Estimating site occupancy rates when detection probabilities are less than one.
+\emph{Ecology}, 83, 2248--2255.
+\url{https://doi.org/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2}
 
-\bibitem{CanessaEtAl2015}
-Canessa, S., Guillera-Arroita, G., Lahoz-Monfort, J.J., Southwell, D.M., Armstrong, D.P., Chad\`es, I., Lacy, R.C., and Converse, S.J. (2015).
-When do we need more data? A primer on calculating the value of information for applied ecologists.
-\emph{Methods in Ecology and Evolution}, 6, 1219--1228.
-\url{https://doi.org/10.1111/2041-210X.12423}
+\bibitem{RoyleLink2006}
+Royle, J.A. and Link, W.A. (2006).
+Generalized site occupancy models allowing for false positive and false negative errors.
+\emph{Ecology}, 87, 835--841.
+\url{https://doi.org/10.1890/0012-9658(2006)87[835:GSOMAF]2.0.CO;2}
+
+\bibitem{Manski2003}
+Manski, C.F. (2003).
+\emph{Partial Identification of Probability Distributions}.
+Springer.
+\url{https://doi.org/10.1007/b97478}
+
+\bibitem{DormannEtAl2018}
+Dormann, C.F. et al. (2018).
+Model averaging in ecology: a review of Bayesian, information-theoretic, and tactical approaches for predictive inference.
+\emph{Ecological Monographs}, 88, 485--504.
+\url{https://doi.org/10.1002/ecm.1309}
+
+\bibitem{Dietze2017}
+Dietze, M.C. (2017).
+Prediction in ecology: a first-principles framework.
+\emph{Ecological Applications}, 27, 2048--2060.
+\url{https://doi.org/10.1002/eap.1589}
+
+\bibitem{DietzeEtAl2018}
+Dietze, M.C. et al. (2018).
+Iterative near-term ecological forecasting: Needs, opportunities, and challenges.
+\emph{Proceedings of the National Academy of Sciences USA}, 115, 1424--1432.
+\url{https://doi.org/10.1073/pnas.1710231115}
 
 \bibitem{NicholsWilliams2006}
 Nichols, J.D. and Williams, B.K. (2006).
@@ -107,11 +131,53 @@ Monitoring for conservation.
 \emph{Trends in Ecology \& Evolution}, 21, 668--673.
 \url{https://doi.org/10.1016/j.tree.2006.08.007}
 
-\bibitem{Manski2003}
-Manski, C.F. (2003).
-\emph{Partial Identification of Probability Distributions}.
-Springer.
-\url{https://doi.org/10.1007/b97478}
+\bibitem{LindenmayerLikens2009}
+Lindenmayer, D.B. and Likens, G.E. (2009).
+Adaptive monitoring: a new paradigm for long-term research and monitoring.
+\emph{Trends in Ecology \& Evolution}, 24, 482--486.
+\url{https://doi.org/10.1016/j.tree.2009.03.005}
+
+\bibitem{Williams2011}
+Williams, B.K. (2011).
+Adaptive management of natural resources---framework and issues.
+\emph{Journal of Environmental Management}, 92, 1346--1353.
+\url{https://doi.org/10.1016/j.jenvman.2010.10.041}
+
+\bibitem{ChalonerVerdinelli1995}
+Chaloner, K. and Verdinelli, I. (1995).
+Bayesian experimental design: A review.
+\emph{Statistical Science}, 10, 273--304.
+\url{https://doi.org/10.1214/ss/1177009939}
+
+\bibitem{VanlierEtAl2012}
+Vanlier, J., Tiemann, C.A., Hilbers, P.A.J., and van Riel, N.A.W. (2012).
+A Bayesian approach to targeted experiment design.
+\emph{Bioinformatics}, 28, 1136--1142.
+\url{https://doi.org/10.1093/bioinformatics/bts092}
+
+\bibitem{AttiaEtAl2018}
+Attia, A., Alexanderian, A., and Saibaba, A.K. (2018).
+Goal-oriented optimal design of experiments for large-scale Bayesian linear inverse problems.
+\emph{Inverse Problems}, 34, 095009.
+\url{https://doi.org/10.1088/1361-6420/aad210}
+
+\bibitem{ZhongEtAl2026}
+Zhong, S., Shen, W., Catanach, T., and Huan, X. (2026).
+Goal-Oriented Bayesian Optimal Experimental Design for Nonlinear Models Using Markov Chain Monte Carlo.
+\emph{SIAM/ASA Journal on Uncertainty Quantification}, 14, 19--47.
+\url{https://doi.org/10.1137/24M1649344}
+
+\bibitem{CanessaEtAl2015}
+Canessa, S., Guillera-Arroita, G., Lahoz-Monfort, J.J., Southwell, D.M., Armstrong, D.P., Chad\`es, I., Lacy, R.C., and Converse, S.J. (2015).
+When do we need more data? A primer on calculating the value of information for applied ecologists.
+\emph{Methods in Ecology and Evolution}, 6, 1219--1228.
+\url{https://doi.org/10.1111/2041-210X.12423}
+
+\bibitem{GivanDeanGreig2003}
+Givan, R., Dean, T., and Greig, M. (2003).
+Equivalence notions and model minimization in Markov decision processes.
+\emph{Artificial Intelligence}, 147, 163--223.
+\url{https://doi.org/10.1016/S0004-3702(02)00376-4}
 \end{thebibliography}
 """
 

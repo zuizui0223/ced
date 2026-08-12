@@ -16,7 +16,7 @@ def test_main_manuscript_uses_four_result_spine_and_future_focused_conclusion():
         r"\subsection{Result 3: failure architecture determines trustworthy refinement}",
         r"\subsection{Result 4: adaptive risk-limited target resolution}",
         r"\section{Conclusion}",
-        "measure the distinctions that separate possible futures",
+        "represent what the evidence can report about the future",
     )
     for marker in required:
         assert marker in text
@@ -25,6 +25,7 @@ def test_main_manuscript_uses_four_result_spine_and_future_focused_conclusion():
     assert text.index(required[1]) < text.index(required[2]) < text.index(required[3]) < text.index(required[4])
     assert text.index(required[4]) < text.index(r"\section{Comparative benchmark}")
     assert text.index(r"\section{Discussion}") < text.index(r"\section{Conclusion}")
+    assert "not simply from full-state to target-oriented experimental design" in text
 
 
 def test_consolidation_demotes_supporting_theorem_families_instead_of_deleting_them():

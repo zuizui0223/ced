@@ -1,9 +1,7 @@
 % Reviewer-facing sections included by the generated submission source.
 \section{Robustness, scope, and method boundaries}
-\subsection{Boundary with value of information and Bayesian design}
-Bayesian experimental design selects observations by expected utility, with information gain as one commonly used utility \cite{ChalonerVerdinelli1995}. Ecological value-of-information analysis instead values data through their expected improvement in management outcomes \cite{CanessaEtAl2015}. Target-safe design is compatible with that decision-theoretic tradition: its reporting rule and experiment cost can be embedded in a constrained utility or loss formulation. The contribution is therefore not a claim that value of information is incapable of targeting decisions. It is an explicit intermediate modelling layer for cases in which investigators can declare an ecological prediction, an admissible false-resolution rate, and a cost structure, but cannot defend a cardinal utility scale over all ecological outcomes.
-
-The distinction is operational. Full-world information gain rewards any reduction in uncertainty. Management VOI requires utilities for management consequences. Target-safe design asks whether a declared prediction can be reported within a stated error contract, permits abstention, and constructs the coarsest latent quotient preserving that report. These approaches may recommend the same experiment when their objectives align; the benchmark isolates a case in which untargeted information gain does not.
+\subsection{Boundary with goal-oriented design and value of information}
+The detailed literature boundary is established above. In brief, target-oriented experimental design is not unique to this framework: targeted and goal-oriented OED optimize predictions or quantities of interest \cite{VanlierEtAl2012,AttiaEtAl2018,ZhongEtAl2026}, and ecological VOI values information through management consequences \cite{CanessaEtAl2015}. Table~\ref{tab:method-boundaries} therefore locates target-safe modelling as a finite reportability layer rather than as a replacement for those objectives.
 
 \begin{table}[ht]
 \centering
@@ -12,18 +10,19 @@ The distinction is operational. Full-world information gain rewards any reductio
 \toprule
 Approach & Design objective & Relation to target-safe modelling \\
 \midrule
-Full-world information gain & Reduce entropy over the latent state & Can prioritize precisely measured distinctions that do not alter the declared prediction. \\
-Bayesian experimental design & Maximize a declared expected utility & General umbrella that can encode target-safe loss, but requires a defensible utility or loss specification. \\
-Management value of information & Improve expected management outcome & Directly decision-centred; target-safe reporting can precede it when utilities are unavailable or disputed. \\
-Target-safe design & Satisfy a prediction-reporting error contract at low cost & Makes abstention, set-valued reports, and target-preserving state reduction explicit. \\
+Full-world information gain & Reduce entropy over the latent state & Can prioritize distinctions that do not alter the declared prediction. \\
+Goal-oriented / targeted OED & Reduce uncertainty or maximize information in a prediction/QoI & Already target-relevant; does not itself define the compatible-world quotient, sharp fallback report, or failure-aware reporting contract used here. \\
+Bayesian experimental design & Maximize a declared expected utility & General umbrella that can encode target-safe loss and broader objectives. \\
+Management value of information & Improve expected management outcome & Directly decision-centred and may recommend the same information when utilities are specified. \\
+Target-safe design & Satisfy a finite prediction-reporting error contract at low cost & Makes compatible worlds, set-valued fallback, target-preserving abstraction, and observation-failure constraints explicit. \\
 \bottomrule
 \end{tabular}
-\caption{The proposed framework is a reportability layer within, rather than a replacement for, decision-theoretic experimental design.}
+\caption{Target-safe modelling is positioned as a finite reportability layer alongside target-oriented and decision-theoretic experimental design.}
 \label{tab:method-boundaries}
 \end{table}
 
-\subsection{Dependence on the declared prediction target}
-The target-safe quotient is intentionally target-relative. This is not a nuisance parameter of the method but the scientific question supplied by the analyst. Holding the 16 worlds, prior, costs, and likelihood kernels fixed, changing the target from management response to context classification reverses the selected experiment (Table~\ref{tab:target-switch}). Thus no experiment is intrinsically relevant or irrelevant; relevance is defined by whether it separates worlds with different values of the declared target.
+\subsection{Dependence on the declared target}
+Holding worlds, priors, costs, and likelihood kernels fixed, changing the target from management response to context classification reverses the selected experiment (Table~\ref{tab:target-switch}). This demonstrates target relativity of the reportability calculation, not novelty of target-oriented design.
 
 \begin{table}[ht]
 \centering
@@ -34,7 +33,7 @@ The target-safe quotient is intentionally target-relative. This is not a nuisanc
 \end{table}
 
 \subsection{Sensitivity to the false-resolution contract}
-The 5\% limit is a baseline reporting contract, not a property hard-coded into the framework. Table~\ref{tab:threshold-sensitivity} varies the limit while holding state sensitivity at 0.95, response accuracy at 0.95, independent screening, and common-failure probability at zero. A stricter 1\% contract rejects the response experiment as insufficiently reliable and therefore retains more ambiguity and spends less. At 5\% and 10\%, the response experiment is admissible. This discontinuity is expected: the method treats the declared error limit as a constraint rather than as a smooth preference weight.
+The 5\% limit is an input contract. With state sensitivity 0.95, response accuracy 0.95, independent screening, and no common failure, a 1\% contract retains ambiguity whereas 5\% and 10\% admit the response experiment (Table~\ref{tab:threshold-sensitivity}).
 
 \begin{table}[ht]
 \centering
@@ -44,13 +43,10 @@ The 5\% limit is a baseline reporting contract, not a property hard-coded into t
 \label{tab:threshold-sensitivity}
 \end{table}
 
-\subsection{Finite representation and continuous ecological models}
-The exact theorems apply to a declared finite world set. This limitation should not be hidden. Continuous-state occupancy, demographic, ecosystem, Bayesian, particle-filter, and ensemble models may supply a finite approximation through posterior draws, particles, scenarios, parameter bins, or representative model members. Target-safe conclusions are then exact for that finite representation and conditional on its support. Refining the representation can reveal target distinctions absent from a coarse approximation, so discretization adequacy must be checked against the prediction target. We do not claim a universal continuous-state convergence theorem.
-
-\subsection{Posterior-sample bridge demonstration}
-To make that connection executable, we generated deterministic posterior draws from a continuous invasion-control model with uncertain control effect, spread rate, and source pathway. This is a methodological demonstration rather than an empirical dataset. Each posterior draw is treated as a finite world, and the prediction target is whether eradication or containment is supported. A response assay depends on the continuous control-effect and spread parameters, whereas source tracing identifies a four-level pathway variable that does not alter the management target. Across 500, 2,000, and 10,000 posterior draws, target-safe design consistently selects the response assay; the source-tracing experiment never produces a contract-valid management report (Table~\ref{tab:posterior-bridge}). The selected experiment is therefore stable as the posterior support is refined in this example, while the conclusion remains explicitly conditional on the generated posterior and target definition.
+\subsection{Finite representation and posterior-sample bridge}
+The exact theorems are conditional on a declared finite world set; no universal continuous-state convergence theorem is claimed. Posterior draws, particles, scenarios, or ensemble members can supply a finite support, but refinement of that support may reveal target distinctions absent from a coarser approximation. The deterministic invasion-control bridge demonstrates this interface rather than empirical validation: across 500, 2,000, and 10,000 posterior draws, the response assay remains selected for the eradication-versus-containment target while source tracing does not resolve that target (Table~\ref{tab:posterior-bridge}).
 
 \input{generated/paper_b_posterior_bridge_table.tex}
 
 \subsection{Example of a changed ecological action}
-Consider an invasive population that has been detected. If the declared target is current occurrence, further response experiments are unnecessary. If the target is whether eradication is likely to succeed, worlds with equal occurrence but different demographic response must remain distinct, and an intervention-response experiment can be selected. If the target instead concerns source region for pathway regulation, a context or provenance measurement may become decisive. The framework therefore does not merely recommend ``more monitoring''; it changes which observation is justified by the management-facing prediction. This follows the broader principle that conservation monitoring should be embedded in scientific or management objectives rather than treated as stand-alone surveillance \cite{NicholsWilliams2006}.
+For a detected invasive population, current occurrence, eradication success, and source pathway are different targets. The first may require no further response experiment, the second can require an intervention-response assay, and the third can make provenance measurement decisive. The framework therefore changes which observation is reportability-relevant rather than merely recommending more monitoring, consistent with objective-driven conservation monitoring \cite{NicholsWilliams2006}.
