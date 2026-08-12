@@ -32,10 +32,11 @@ def test_figure_generator_uses_validated_schema_and_expected_values():
     assert r"\input{generated/paper_b_target_switch.tex}" in compiled
     assert r"\input{generated/paper_b_threshold_sensitivity.tex}" in compiled
     assert r"\bibitem{CanessaEtAl2015}" in compiled
-    assert "We do not claim a universal continuous-state convergence theorem" in compiled
+    assert r"\bibitem{AttiaEtAl2018}" in compiled
+    assert "no universal continuous-state convergence theorem is claimed" in compiled
     assert compiled.index(r"\label{fig:strategy-outcomes}") < compiled.index(
         r"\subsection{Additional dimensions}"
     )
-    assert compiled.index(r"\subsection{Boundary with value of information") < compiled.index(
+    assert compiled.index(r"\subsection{Boundary with goal-oriented design") < compiled.index(
         r"\section{Discussion}"
     )
