@@ -37,6 +37,6 @@ def test_figure_generator_uses_validated_schema_and_expected_values():
     assert compiled.index(r"\label{fig:strategy-outcomes}") < compiled.index(
         r"\subsection{Additional dimensions}"
     )
-    assert compiled.index(r"\subsection{Boundary with goal-oriented design") < compiled.index(
+    assert compiled.index(r"\subsubsection{Boundary with goal-oriented design") < compiled.index(
         r"\section{Discussion}"
     )
