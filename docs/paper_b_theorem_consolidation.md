@@ -70,8 +70,9 @@ A nominal experiment may separate two worlds in an ideal record model yet fail t
 Main-text claims:
 
 - finite negative evidence does not become deductive absence under imperfect sensitivity;
-- shared failure produces an availability ceiling that arbitrarily many within-mode repeats cannot remove;
-- equal nominal effort allocated across independent modes can support a strictly stronger target-relevant refinement.
+- when mode availability is known only through a lower bound `a`, the contract has a worst-case guarantee ceiling `1-(1-a)^m` that arbitrarily many within-mode repeats cannot raise;
+- this quantity is not an upper bound on realized detection when true availability exceeds `a`;
+- equal nominal effort allocated across independent modes can support a strictly stronger worst-case target-relevant guarantee.
 
 Provenance:
 
@@ -79,7 +80,7 @@ Provenance:
 - `docs/mode_diverse_detection_theorem.md`
 - overlapping/dependent-repeat theorem notes and deterministic replay
 
-Main text should show the structural ceiling and one equal-effort contrast. Detailed inclusion–exclusion, heterogeneous thresholds, Markov/Chernoff/Poisson-binomial bounds, and calibration algebra belong in Methods or Supplement.
+Main text should show the structural worst-case guarantee ceiling and one equal-effort contrast. Detailed inclusion–exclusion, heterogeneous thresholds, Markov/Chernoff/Poisson-binomial bounds, and calibration algebra belong in Methods or Supplement.
 
 ### Result 4 — Adaptive risk-limited target resolution
 
@@ -144,7 +145,7 @@ Role:
 
 1. **What did the experiment actually distinguish?** — experiment-induced quotient.
 2. **Which of those distinctions matter for the future being asked about?** — target-safe quotient.
-3. **Can the observation architecture reliably support that split?** — failure architecture.
+3. **Can the observation architecture reliably support that split?** — failure architecture and worst-case guarantee under the declared observation contract.
 4. **What should be measured next, and when should monitoring stop?** — risk-limited adaptive design.
 
 ### Discussion / conclusion
@@ -161,7 +162,7 @@ The final conclusion should not be “we provide a framework.” It should be:
 | honest set-valued reporting | theorem criterion | edge cases |
 | unique target-safe quotient | theorem + minimality interpretation | full proof |
 | imperfect finite non-detection | one boundary statement | exact repeat frontier |
-| shared-mode availability ceiling | theorem/corollary + equal-effort example | inclusion–exclusion derivation |
+| shared-mode worst-case guarantee ceiling | theorem/corollary + equal-effort example | inclusion–exclusion derivation and exact-availability case |
 | overlapping/dependent failures | concise assumption ladder | complete bounds |
 | calibration bounds | short contract provenance | derivation and numerical details |
 | multiple/heterogeneous thresholds | no | supplement |
@@ -177,7 +178,7 @@ No additional theorem family should be added during submission preparation unles
 
 1. the experiment quotient is not exact;
 2. target-safe minimality is not proved;
-3. failure architecture is not linked to trustworthy refinement;
+3. failure architecture is not linked to trustworthy refinement with correctly oriented probability guarantees;
 4. the adaptive reporting contract does not control false resolution.
 
 Everything else should be prose consolidation, proof completion, figure generation, literature positioning, or empirical demonstration.
