@@ -208,6 +208,12 @@ Manski, C.F. (2003).
 Springer.
 \url{https://doi.org/10.1007/b97478}
 
+\bibitem{BatesEtAl2021}
+Bates, S., Angelopoulos, A., Lei, L., Malik, J., and Jordan, M.I. (2021).
+Distribution-free, risk-controlling prediction sets.
+\emph{Journal of the ACM}, 68(6), 43:1--43:34.
+\url{https://doi.org/10.1145/3478535}
+
 \bibitem{DormannEtAl2018}
 Dormann, C.F. et al. (2018).
 Model averaging in ecology: a review of Bayesian, information-theoretic, and tactical approaches for predictive inference.

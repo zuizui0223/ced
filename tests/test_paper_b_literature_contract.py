@@ -13,14 +13,13 @@ def test_adjacent_literatures_are_explicitly_conceded_in_main_text():
 
     required_phrases = (
         "Occupancy models already separate latent occurrence from observation error",
-        "Set-valued reporting is therefore not itself a novelty claim",
-        "The framework does not claim that model averaging cannot represent structural uncertainty",
-        "Paper B does not claim invention of equivalence classes or partition minimization",
-        "Target-safe design is therefore not offered as the first target-oriented experiment design",
-        "targeted experiment design can selectively reduce uncertainty in a prediction of interest",
-        "goal-oriented optimal experimental design can optimize uncertainty in an experiment end-goal or predictive quantity of interest",
-        "It does not establish novelty over targeted or goal-oriented OED",
-        "The practical shift is therefore not simply from full-state to target-oriented experimental design",
+        "Risk-controlling prediction sets likewise provide set-valued predictions",
+        "Neither set-valued output nor risk control is therefore a novelty claim here",
+        "Paper B does not claim invention of those constructions",
+        "Targeted and goal-oriented optimal-design methods already recognize",
+        "Target-safe design is compatible with these broader traditions and may choose the same experiment",
+        "This is a failure witness for full-world entropy reduction only",
+        "The central distinction is finite reportability, not target orientation by itself",
     )
     for phrase in required_phrases:
         assert phrase in text
@@ -29,6 +28,7 @@ def test_adjacent_literatures_are_explicitly_conceded_in_main_text():
         "MacKenzieEtAl2002",
         "RoyleLink2006",
         "Manski2003",
+        "BatesEtAl2021",
         "DormannEtAl2018",
         "Dietze2017",
         "DietzeEtAl2018",
@@ -54,6 +54,7 @@ def test_generated_bibliography_contains_every_boundary_reference():
         "MacKenzieEtAl2002",
         "RoyleLink2006",
         "Manski2003",
+        "BatesEtAl2021",
         "DormannEtAl2018",
         "Dietze2017",
         "DietzeEtAl2018",
@@ -77,7 +78,8 @@ def test_literature_audit_forbids_straw_man_novelty_claims():
     assert "VOI rewards information irrespective of management relevance" in text
     assert "question-driven monitoring is new" in text
     assert "set-valued reporting is novel" in text
+    assert "user-specified finite-sample risk control for prediction sets is new" in text
     assert "equivalence classes, partition refinement" in text
     assert "first method to choose experiments for a prediction rather than the full latent state" in text
     assert "high parameter/state EIG need not imply high prediction/QoI EIG" in text
-    assert "Paper B links a finite experiment-induced latent-world partition" in text
+    assert "Paper B links a finite experiment-induced compatible-world structure" in text
