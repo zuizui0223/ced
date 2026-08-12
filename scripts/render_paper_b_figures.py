@@ -149,6 +149,24 @@ Bayesian experimental design: A review.
 \emph{Statistical Science}, 10, 273--304.
 \url{https://doi.org/10.1214/ss/1177009939}
 
+\bibitem{VanlierEtAl2012}
+Vanlier, J., Tiemann, C.A., Hilbers, P.A.J., and van Riel, N.A.W. (2012).
+A Bayesian approach to targeted experiment design.
+\emph{Bioinformatics}, 28, 1136--1142.
+\url{https://doi.org/10.1093/bioinformatics/bts092}
+
+\bibitem{AttiaEtAl2018}
+Attia, A., Alexanderian, A., and Saibaba, A.K. (2018).
+Goal-oriented optimal design of experiments for large-scale Bayesian linear inverse problems.
+\emph{Inverse Problems}, 34, 095009.
+\url{https://doi.org/10.1088/1361-6420/aad210}
+
+\bibitem{ZhongEtAl2026}
+Zhong, S., Shen, W., Catanach, T., and Huan, X. (2026).
+Goal-Oriented Bayesian Optimal Experimental Design for Nonlinear Models Using Markov Chain Monte Carlo.
+\emph{SIAM/ASA Journal on Uncertainty Quantification}, 14, 19--47.
+\url{https://doi.org/10.1137/24M1649344}
+
 \bibitem{CanessaEtAl2015}
 Canessa, S., Guillera-Arroita, G., Lahoz-Monfort, J.J., Southwell, D.M., Armstrong, D.P., Chad\`es, I., Lacy, R.C., and Converse, S.J. (2015).
 When do we need more data? A primer on calculating the value of information for applied ecologists.
