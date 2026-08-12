@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "manuscript/**"
+      - "ced/detection.py"
+      - "ced/mode_detection.py"
       - "ced/target_safe_quotient.py"
       - "scripts/render_paper_b_figures.py"
       - "scripts/analyze_paper_b_reviewer_robustness.py"
@@ -15,6 +17,8 @@ on:
     branches: [main]
     paths:
       - "manuscript/**"
+      - "ced/detection.py"
+      - "ced/mode_detection.py"
       - "ced/target_safe_quotient.py"
       - "scripts/render_paper_b_figures.py"
       - "scripts/analyze_paper_b_reviewer_robustness.py"
