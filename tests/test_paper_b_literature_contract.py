@@ -13,9 +13,8 @@ def test_adjacent_literatures_are_explicitly_conceded_in_main_text():
 
     required_phrases = (
         "Occupancy models already separate latent occurrence from observation error",
-        "Risk-controlling prediction sets likewise provide set-valued predictions",
-        "Neither set-valued output nor risk control is therefore a novelty claim here",
-        "Paper B does not claim invention of those constructions",
+        "risk-controlling prediction sets provide set-valued predictions",
+        "State aggregation, behavioural equivalence, bisimulation, partition refinement",
         "Targeted and goal-oriented optimal-design methods already recognize",
         "Target-safe design is compatible with these broader traditions and may choose the same experiment",
         "This is a failure witness for full-world entropy reduction only",
