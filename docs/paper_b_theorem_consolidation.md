@@ -41,6 +41,7 @@ Provenance:
 - `docs/experiment_induced_quotient_theorem.md`
 - `ced/experiment_quotient.py`
 - `scripts/verify_experiment_quotient.py`
+- `manuscript/paper_b_supplement.tex`, deterministic and stochastic-support proofs
 
 Do not oversell the equivalence relation itself as novel. The contribution is its coupling to target reporting, observation error, future actions, and risk-limited experiment design.
 
@@ -56,8 +57,10 @@ This is the result that turns the paper from generic identifiability into target
 
 Provenance:
 
-- combined CED–MRM theorem package described in `docs/publication_completion_spine.md`
-- target-safe implementation and tests in the current Paper B code path
+- neutral fixed-point proof originally developed in the combined CED–MRM theorem package;
+- `ced/target_safe_quotient.py`, generic finite partition-refinement implementation;
+- `tests/test_target_safe_quotient.py`, target-relativity and exhaustive all-partition minimality oracle;
+- `manuscript/paper_b_supplement.tex`, complete existence, uniqueness, minimality, termination, and finite-action-word preservation proofs.
 
 The deterministic report criterion belongs adjacent to Results 1–2 and should not compete as a separate headline theorem.
 
@@ -78,9 +81,11 @@ Provenance:
 
 - `docs/imperfect_detection_theorem.md`
 - `docs/mode_diverse_detection_theorem.md`
+- `ced/mode_detection.py`
+- `manuscript/paper_b_supplement.tex`, least-favourable frontier and guarantee-ceiling proof
 - overlapping/dependent-repeat theorem notes and deterministic replay
 
-Main text should show the structural worst-case guarantee ceiling and one equal-effort contrast. Detailed inclusion–exclusion, heterogeneous thresholds, Markov/Chernoff/Poisson-binomial bounds, and calibration algebra belong in Methods or Supplement.
+Main text should show the structural worst-case guarantee ceiling and one equal-effort contrast. Detailed heterogeneous thresholds, Markov/Chernoff/Poisson-binomial bounds, and calibration algebra belong in Methods or Supplement.
 
 ### Result 4 — Adaptive risk-limited target resolution
 
@@ -97,7 +102,7 @@ Main-text claim:
 
 The schema-v5 benchmark is the decisive counterexample: full-world information gain selects a target-irrelevant measurement because it supplies more entropy reduction, whereas target-safe design selects the experiment that resolves the declared prediction.
 
-The target-switch and threshold-sensitivity analyses are robustness checks for this result, not separate theorem families.
+The target-switch and threshold-sensitivity analyses are robustness checks for this result, not separate theorem families. The finite least-cost existence argument is formalized in `manuscript/paper_b_supplement.tex`; the substantive content remains the shared terminal reporting contract and experiment-choice comparison.
 
 ## Supporting mathematics: keep, but do not promote to equal-weight Results
 
@@ -158,15 +163,16 @@ The final conclusion should not be “we provide a framework.” It should be:
 
 | Mathematical component | Main text | Methods/Supplement |
 |---|---|---|
-| experiment-induced quotient | theorem + ecological witness | exhaustive finite verification |
-| honest set-valued reporting | theorem criterion | edge cases |
-| unique target-safe quotient | theorem + minimality interpretation | full proof |
+| experiment-induced quotient | theorem + ecological witness | deterministic factorization proof + stochastic-support extension |
+| honest set-valued reporting | theorem criterion | sharpness proof and support-level distinction |
+| unique target-safe quotient | theorem + minimality interpretation | fixed-point existence/uniqueness proof + finite-action-word corollary |
 | imperfect finite non-detection | one boundary statement | exact repeat frontier |
-| shared-mode worst-case guarantee ceiling | theorem/corollary + equal-effort example | inclusion–exclusion derivation and exact-availability case |
+| shared-mode worst-case guarantee ceiling | theorem/corollary + equal-effort example | least-favourable formula, monotonic coupling, limit proof |
 | overlapping/dependent failures | concise assumption ladder | complete bounds |
 | calibration bounds | short contract provenance | derivation and numerical details |
 | multiple/heterogeneous thresholds | no | supplement |
 | adaptive risk spending | one sentence if needed for implementation | detailed theorem notes |
+| finite policy existence | theorem statement | finite minimization proof |
 | full-world EIG benchmark | main result figure | full grid |
 | target-switch sensitivity | robustness table | JSON/grid |
 | posterior-sample bridge | short practical demonstration | generator details |
@@ -177,7 +183,7 @@ The final conclusion should not be “we provide a framework.” It should be:
 No additional theorem family should be added during submission preparation unless it closes one of these four reviewer-visible logical gaps:
 
 1. the experiment quotient is not exact;
-2. target-safe minimality is not proved;
+2. target-safe minimality is not proved or not matched by the generic implementation;
 3. failure architecture is not linked to trustworthy refinement with correctly oriented probability guarantees;
 4. the adaptive reporting contract does not control false resolution.
 
