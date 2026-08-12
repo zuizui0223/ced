@@ -3,7 +3,7 @@
 The builder is intentionally strict about software licensing. It will not create the
 final review ZIP until an open-source license file exists. Author metadata is never
 inferred. The archive is built from a curated allow-list rather than from ``git
-archive`` so Git metadata and unrelated submission notes are excluded.
+archive`` so Git metadata and unrelated submission tooling are excluded.
 """
 from __future__ import annotations
 
@@ -27,6 +27,18 @@ IDENTITY_TOKENS = (
 LICENSE_NAMES = ("LICENSE", "LICENSE.txt", "LICENSE.md", "COPYING", "COPYING.txt")
 TEXT_SUFFIXES = {".py", ".toml", ".md", ".txt", ".tex", ".yml", ".yaml", ".json", ".csv"}
 
+# These files are submission-control machinery rather than scientific reproduction
+# material. They intentionally contain private identity tokens or journal-specific
+# policy checks, so including them would make an otherwise anonymous bundle
+# self-identify and would add tests whose dependencies are intentionally omitted.
+ARCHIVE_EXCLUDES = {
+    "scripts/build_mee_review_archive.py",
+    "scripts/check_mee_submission.py",
+    "tests/test_mee_review_archive.py",
+    "tests/test_mee_submission_checker.py",
+    "tests/test_paper_b_mee_submission_contract.py",
+}
+
 ANONYMOUS_README = """# Paper B — anonymous code archive for peer review
 
 This archive accompanies the manuscript "From ecological states to distinguishable
@@ -46,7 +58,6 @@ python scripts/simulate_paper_b_benchmark.py
 python scripts/analyze_paper_b_reviewer_robustness.py
 python scripts/analyze_paper_b_posterior_bridge.py
 python scripts/render_paper_b_figures.py
-python scripts/check_mee_submission.py
 ```
 
 The repository is theorem-first: tests and deterministic replays are part of the
@@ -65,7 +76,13 @@ def _allowed_files() -> list[Path]:
         files.extend(path for path in directory.rglob("*") if path.is_file())
     files.append(ROOT / "pyproject.toml")
     files.extend(_license_files())
-    return sorted(set(files))
+    return sorted(
+        {
+            path
+            for path in files
+            if path.relative_to(ROOT).as_posix() not in ARCHIVE_EXCLUDES
+        }
+    )
 
 
 def _identity_hits(path: Path) -> list[str]:
@@ -99,6 +116,7 @@ def preflight() -> dict[str, object]:
         "identity_hits": hits,
         "identity_scan_pass": not hits,
         "curated_file_count": len(files),
+        "excluded_submission_control_files": sorted(ARCHIVE_EXCLUDES),
         "archive_ready": bool(licenses) and not hits,
         "archive_path": str(OUT_ZIP.relative_to(ROOT)),
     }
