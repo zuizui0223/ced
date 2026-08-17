@@ -16,6 +16,8 @@ The submission-facing manuscript is organized around one four-result reportabili
 3. **Failure architecture and trustworthy refinement.** A nominal record split is not automatically trustworthy under imperfect observation. Repeats inside one shared failure domain, independent modes, overlapping failures, and resetability support different guarantees; the observation architecture constrains which target-relevant refinement may be credited.
 4. **Adaptive risk-limited target resolution.** Experiment choice and stopping are evaluated by correct deterministic reporting, wrong deterministic reporting, honest ambiguity, and cost under an explicit false-resolution contract. The objective is defensible target resolution, not maximum latent-world information for its own sake.
 
+**Evidence boundary for Result 2.** The target-safe quotient is a **required refinement**, not a claim that the current record has already identified its refined blocks. If the current compatible record class intersects more than one target-safe block and the evidence contract has not resolved which block contains the true world, Result 1 still governs the honest output: retain ambiguity or report the compatible target set. Results 3–4 ask when additional observation architecture can justifiably earn that refinement.
+
 Finite passive closure non-certifiability remains an important motivating/supporting result, not a fifth headline Paper B theorem. Calibration, multiple-testing, heterogeneous-threshold, concentration, and related probability machinery remain Methods/Supplement support rather than equal-weight novelty claims.
 
 See [the current Paper B theorem consolidation](docs/paper_b_theorem_consolidation.md),
