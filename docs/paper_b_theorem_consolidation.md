@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document resolves the tension between the older standalone-CED manuscript architecture and the current combined Paper B. It is a submission-facing architecture decision, not a new theorem family.
+This document resolves the tension between the older standalone-CED manuscript architecture and the current submission-facing Paper B. It is a submission-facing architecture decision, not a new theorem family.
 
 ## Authoritative paper identity
 
@@ -57,10 +57,12 @@ This is the result that turns the paper from generic identifiability into target
 
 Provenance:
 
-- neutral fixed-point proof originally developed in the combined CED–MRM theorem package;
-- `ced/target_safe_quotient.py`, generic finite partition-refinement implementation;
+- neutral finite target/action-stable refinement developed in the earlier CED–MRM bridge work, now treated under CREST as **shared classical substrate rather than a combined theorem claim**;
+- `ced/target_safe_quotient.py`, generic finite partition-refinement implementation initialized from the CED evidence/record partition;
 - `tests/test_target_safe_quotient.py`, target-relativity and exhaustive all-partition minimality oracle;
 - `manuscript/paper_b_supplement.tex`, complete existence, uniqueness, minimality, termination, and finite-action-word preservation proofs.
+
+CREST firewall: MRM's minimal candidate-safe quotient is the mechanism-relative specialization in which latent worlds are observable-state × response-type pairs and the scientific output is mechanism-safe prediction. CED's Result 2 begins from an evidence-induced partition and asks what target-relevant refinement the evidence architecture must support. Generic finite partition refinement is not claimed as independent novelty by either repository.
 
 The deterministic report criterion belongs adjacent to Results 1–2 and should not compete as a separate headline theorem.
 
@@ -115,7 +117,7 @@ Role in Paper B:
 - one motivating paragraph or Supplement proposition illustrating why finite passive non-detection cannot generally certify that all future-relevant distinctions have been exhausted;
 - provenance for the broader finite-evidence philosophy.
 
-Do **not** make this a fifth main result in the combined Paper B. Its primary object is ecological closure, whereas Paper B's central object is target reportability.
+Do **not** make this a fifth main result in Paper B. Its primary object is ecological closure, whereas Paper B's central object is target reportability.
 
 ### Calibration and threshold theorem family
 
