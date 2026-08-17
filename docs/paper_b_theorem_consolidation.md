@@ -47,13 +47,15 @@ Do not oversell the equivalence relation itself as novel. The contribution is it
 
 ### Result 2 — Unique coarsest target-safe quotient
 
-The full experiment-induced quotient may preserve biological distinctions that are irrelevant to the declared prediction. Paper B therefore retains the unique coarsest observation-preserving, action-stable quotient that preserves all declared target reports.
+The full experiment-induced quotient may preserve biological distinctions that are irrelevant to the declared prediction. Paper B therefore constructs the unique coarsest record-preserving, target-constant, action-stable refinement of the evidence-induced partition.
 
 Main-text interpretation:
 
 > resolve only latent distinctions that can imply different ecological futures.
 
-This is the result that turns the paper from generic identifiability into target-relative ecological prediction.
+**Critical evidence boundary.** This quotient is the **minimum refinement that would be sufficient** for deterministic target-safe state tracking; it is not a claim that the current record already identifies which refined block contains the true world. If one current compatible record class contains multiple target-safe blocks and the observation contract has not resolved them, the honest current report remains the set of compatible target values from Result 1. Result 2 therefore supplies a target-relative **resolution requirement** for subsequent experiment design, while Results 3–4 determine when additional evidence can credibly satisfy that requirement.
+
+This is the result that turns the paper from generic identifiability into target-relative ecological prediction without confusing required distinctions with already observed distinctions.
 
 Provenance:
 
@@ -77,7 +79,7 @@ Main-text claims:
 - finite negative evidence does not become deductive absence under imperfect sensitivity;
 - when mode availability is known only through a lower bound `a`, the contract has a worst-case guarantee ceiling `1-(1-a)^m` that arbitrarily many within-mode repeats cannot raise;
 - this quantity is not an upper bound on realized detection when true availability exceeds `a`;
-- equal nominal effort allocated across independent modes can support a strictly stronger worst-case target-relevant guarantee.
+- the equal-effort witness shows that allocating effort across independent modes can support a substantially stronger worst-case guarantee than concentrating the same raw replicate count inside one shared mode.
 
 Provenance:
 
@@ -100,11 +102,11 @@ A policy maps observed records to a next experiment or stopping decision. Termin
 
 Main-text claim:
 
-> the scientific objective is least-cost defensible target resolution under an explicit false-resolution contract, not full latent-world identification.
+> within a declared finite policy family, the scientific objective is least-cost defensible target resolution under an explicit false-resolution contract, not full latent-world identification.
 
 The schema-v5 benchmark is the decisive counterexample: full-world information gain selects a target-irrelevant measurement because it supplies more entropy reduction, whereas target-safe design selects the experiment that resolves the declared prediction.
 
-The target-switch and threshold-sensitivity analyses are robustness checks for this result, not separate theorem families. The finite least-cost existence argument is formalized in `manuscript/paper_b_supplement.tex`; the substantive content remains the shared terminal reporting contract and experiment-choice comparison.
+The target-switch and threshold-sensitivity analyses are robustness checks for this result, not separate theorem families. The finite least-cost existence argument is formalized in `manuscript/paper_b_supplement.tex`; the substantive content remains the shared terminal reporting contract and experiment-choice comparison. No claim is made here of a globally optimal policy over an undeclared infinite policy space.
 
 ## Supporting mathematics: keep, but do not promote to equal-weight Results
 
@@ -146,12 +148,12 @@ Role:
 1. Ecologists can know a present state while remaining unable to distinguish futures.
 2. More data can resolve target-irrelevant details and still leave the prediction ambiguous.
 3. A finite evidence framework therefore needs to say both what the experiment identifies and what it is justified to report.
-4. Paper B contributes four linked results: exact experiment quotient, minimal target-safe quotient, failure-aware reliable refinement, and risk-limited adaptive design.
+4. Paper B contributes four linked results: exact experiment quotient, minimal target-safe resolution requirement, failure-aware reliable refinement, and risk-limited adaptive design.
 
 ### Results
 
 1. **What did the experiment actually distinguish?** — experiment-induced quotient.
-2. **Which of those distinctions matter for the future being asked about?** — target-safe quotient.
+2. **Which additional distinctions would be sufficient for the future being asked about?** — target-safe quotient as required refinement.
 3. **Can the observation architecture reliably support that split?** — failure architecture and worst-case guarantee under the declared observation contract.
 4. **What should be measured next, and when should monitoring stop?** — risk-limited adaptive design.
 
@@ -167,7 +169,7 @@ The final conclusion should not be “we provide a framework.” It should be:
 |---|---|---|
 | experiment-induced quotient | theorem + ecological witness | deterministic factorization proof + stochastic-support extension |
 | honest set-valued reporting | theorem criterion | sharpness proof and support-level distinction |
-| unique target-safe quotient | theorem + minimality interpretation | fixed-point existence/uniqueness proof + finite-action-word corollary |
+| unique target-safe quotient | theorem + required-resolution interpretation | fixed-point existence/uniqueness proof + finite-action-word corollary |
 | imperfect finite non-detection | one boundary statement | exact repeat frontier |
 | shared-mode worst-case guarantee ceiling | theorem/corollary + equal-effort example | least-favourable formula, monotonic coupling, limit proof |
 | overlapping/dependent failures | concise assumption ladder | complete bounds |
