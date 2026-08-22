@@ -1,7 +1,6 @@
 # CED — Closure Evidence Design
 
-CED is a theorem-first mathematical-ecology repository for one finite evidence
-question:
+CED is a theorem-first mathematical-ecology repository for one finite evidence question:
 
 > Which distinctions among possible ecological futures can a finite experiment and observation contract honestly resolve and report, and what should be measured next when the declared target remains unresolved?
 
@@ -20,17 +19,35 @@ The submission-facing manuscript is organized around one four-result reportabili
 
 Finite passive closure non-certifiability remains an important motivating/supporting result, not a fifth headline Paper B theorem. Calibration, multiple-testing, heterogeneous-threshold, concentration, and related probability machinery remain Methods/Supplement support rather than equal-weight novelty claims.
 
-See [the current Paper B theorem consolidation](docs/paper_b_theorem_consolidation.md),
-[the experiment-induced quotient theorem](docs/experiment_induced_quotient_theorem.md), and
-[the MEE submission package](docs/mee_submission_package.md).
+See [the current Paper B theorem consolidation](docs/paper_b_theorem_consolidation.md), [the experiment-induced quotient theorem](docs/experiment_induced_quotient_theorem.md), and [the MEE submission package](docs/mee_submission_package.md).
 
-## CREST role and claim firewall
+## CREST role: evidence licensing after state adequacy
 
-At program level, CED is the **evidential-licensing audit** of Contract-Relative Ecological State Theory (CREST): it asks which distinctions a declared experiment, observation, failure, calibration, and risk contract can justify reporting for a requested ecological target.
+The canonical synthesis lives in the dedicated [CREST repository](https://github.com/zuizui0223/crest), with the current hierarchy in the [trajectory-first program architecture](https://github.com/zuizui0223/crest/blob/main/docs/trajectory_first_program_architecture_2026-08-22.md).
 
-The canonical four-audit synthesis is maintained in MRM at [Contract-Relative Ecological State Theory (CREST)](https://github.com/zuizui0223/mrm/blob/main/docs/contract_relative_ecological_state_theory.md). The local [program synthesis audit](docs/program_synthesis_audit.md) records the CED-facing version of the same firewall.
+CREST now starts from temporally extended ecological worlds, asks whether a present snapshot is sufficient, and uses CCOC, MLTR, and MRM as three structural reasons that a present merge can fail. **CED is intentionally downstream of that structural question.**
 
-Companion ownership is distinct:
+CED asks:
+
+> Once a scientific contract requires a distinction among ecological worlds, does the current experiment and observation architecture actually identify enough of that distinction to license the requested report?
+
+Thus CED separates
+
+\[
+\boxed{
+\text{required state}
+\neq
+\text{identified state}
+\neq
+\text{reportable target}
+}
+\]
+
+in general.
+
+A CED failure does not mean that nature contains no required distinction. It means the current evidence contract does not justify collapsing the compatible latent worlds to one deterministic state or target value.
+
+Companion ownership remains distinct:
 
 - future-composition / open-grammar interface complexity → **CCOC**;
 - inherited source-law transport and least semantic repair → **MLTR**;
@@ -39,7 +56,7 @@ Companion ownership is distinct:
 
 CED and MRM share a neutral finite target/action-stable refinement lemma, but not one novelty claim. In CED the initial class is induced by evidence records and the output is an evidentially licensed target report. In MRM the latent worlds specialize to observable-state × response-type worlds and the output is a mechanism-safe state/report. Generic partition refinement is common substrate.
 
-Passing the CED audit does not prove that the state is future-sufficient under every opened grammar, semantically coherent after structural replacement, or robust to retained mechanism alternatives.
+Passing the CED audit does not prove that a proposed state merge is future-sufficient, semantically coherent after structural replacement, or robust to retained mechanism alternatives. It certifies only what the declared evidence architecture licenses about the required distinctions.
 
 ## Detailed theorem notes
 
@@ -59,10 +76,7 @@ Passing the CED audit does not prove that the state is future-sufficient under e
 
 ## Verification
 
-`pytest` checks theorem witnesses, finite oracles, exact outcome enumerations,
-sharpness constructions, target-safe minimality, calibration coverage, adaptive policy
-trees, overlapping failure-factor states, independent false-discovery tails, story/literature
-contracts, and the submission-facing reportability artifacts.
+`pytest` checks theorem witnesses, finite oracles, exact outcome enumerations, sharpness constructions, target-safe minimality, calibration coverage, adaptive policy trees, overlapping failure-factor states, independent false-discovery tails, story/literature contracts, and the submission-facing reportability artifacts.
 
 ```bash
 python -m pip install -e '.[dev]'
@@ -84,7 +98,4 @@ python scripts/verify_experiment_quotient.py
 
 ## Scope
 
-CED concerns declared finite latent worlds, action grammars, intervention panels,
-failure-mode families, observation contracts, report targets, calibration contracts,
-and explicit risk/cost rules. It does not infer those objects from field data. It
-provides exact or risk-limited reporting guarantees once they are declared.
+CED concerns declared finite latent worlds, action grammars, intervention panels, failure-mode families, observation contracts, report targets, calibration contracts, and explicit risk/cost rules. It does not infer those objects from field data. It provides exact or risk-limited reporting guarantees once they are declared.
