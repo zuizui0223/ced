@@ -1,47 +1,56 @@
-# CED-facing CREST program synthesis audit — 2026-08-17
+# CED-facing CREST program synthesis audit — updated 2026-08-22
 
-> **Status:** current program-control document. This supersedes the earlier pre-CREST four-paper synthesis audit. The older assessment remains recoverable in Git history.
+> **Status:** current CED-facing program-control document after the trajectory-first CREST reorganization. The 2026-08-17 four-co-level-audit ordering is historical provenance and is superseded where it conflicts with this document.
 
 ## Decision summary
 
-CCOC, MLTR, MRM, and CED form one coherent **Contract-Relative Ecological State Theory (CREST)** research program while remaining separate theorem and provenance units.
+CREST now starts from **temporally extended ecological worlds** and asks when they may be compressed into a finite scientific state for a declared responsibility.
 
-The canonical program-level statement is maintained in MRM at:
+The canonical program-level statement is maintained in the dedicated CREST repository:
 
-- https://github.com/zuizui0223/mrm/blob/main/docs/contract_relative_ecological_state_theory.md
+- https://github.com/zuizui0223/crest
+- https://github.com/zuizui0223/crest/blob/main/docs/trajectory_first_program_architecture_2026-08-22.md
 
-CREST does not assert that the four repositories share one equivalence relation, one minimization problem, one state space, one manuscript, or one universal audit order.
+The current hierarchy is:
 
-## Four audit axes
+```text
+temporally extended ecological worlds
+        ↓
+observation / intervention context
+        ↓
+snapshot-sufficiency question
+        ↓
+structural insufficiency layers
+    CCOC — future/composition
+    MLTR — inherited history/semantics
+    MRM  — retained mechanisms
+        ↓
+finite required state on an admissible carrier
+        ↓
+CED — evidence licensing
+        ↓
+deterministic / target-only / set-valued report
+```
 
-| CREST audit | Repository | Central question | Characteristic failure | Main output |
-|---|---|---|---|---|
-| future sufficiency | CCOC | What distinctions can a jointly opened future grammar make necessary even when each closed future is individually compressible? | future insufficiency | minimum exact open-interface lower bound + bounded-local sharpness |
-| semantic coherence | MLTR | Does one inherited source macro-law keep its meaning after declared structural replacement, and if not what least exact repair preserves it? | semantic non-portability | unchanged transport or unique coarsest source-relative repair + defect/history |
-| mechanism robustness | MRM | What can be predicted when retained candidate response mechanisms agree now but disagree under future interventions? | mechanism non-robustness | deterministic/typed/set-valued report + minimal candidate-safe state |
-| evidential licensing | CED | Which distinctions can a finite experiment/observation/failure/risk contract legitimately resolve and report for a declared target? | evidential non-resolvability | compatible-world target report + trustworthy refinement + risk-limited design |
+CED is therefore part of CREST but is **downstream of representational requirement** rather than a fourth ontic source of ecological difference.
 
-The shared program principle is:
+## CED's role inside trajectory-first CREST
 
-> Ecological state identity is contract-relative rather than intrinsic to the present visible configuration.
+CED asks:
 
-A usable state may need to remember future-relevant distinctions, preserve inherited meaning, retain target-relevant mechanism ambiguity, and avoid reporting distinctions that the evidence has not licensed.
+> once a scientific contract requires a distinction among possible ecological worlds, does the declared experiment, observation, failure, calibration and risk architecture actually license a deterministic report of that distinction or target?
 
-Passing any one audit does not imply passing the others.
-
-## CED's current role inside CREST
-
-CED is the **evidential-licensing layer**. The submission-facing Paper B story is now:
+The submission-facing Paper B story remains:
 
 ```text
 finite experiment record
   -> compatible-world / experiment-induced quotient
-  -> target-safe action-stable refinement
+  -> target-safe action-stable required resolution
   -> reliability check under failure architecture
   -> risk-limited next experiment or honest report
 ```
 
-The four current Paper B results are therefore:
+The four Paper B results remain:
 
 1. experiment-induced ecological quotient + honest deterministic/set-valued reporting;
 2. unique coarsest target-safe quotient;
@@ -50,91 +59,110 @@ The four current Paper B results are therefore:
 
 Delayed passive-closure non-certifiability remains supporting motivation/provenance, not a fifth headline theorem. Calibration, threshold, concentration, and related probability families remain supporting Methods/Supplement machinery.
 
-## CED–MRM firewall
+## Required state is not identified state
 
-CED and MRM can use the same neutral finite latent-world refinement lemma without becoming one theorem program.
+The CREST finite state construction and CED evidence result must not be conflated.
 
-### Shared substrate
+On one declared admissible finite common carrier, CREST-J1 gives a unique coarsest required state under the implemented closure assumptions. Let that state partition be \(J\), and let the reliability-qualified evidence partition be \(E_D\).
 
-Given a finite latent-world set, an initial partition, a report target, and declared actions, repeated splitting by target value and successor block yields the unique coarsest target-constant, action-stable refinement preserving the initial partition.
+Full deterministic state reporting is licensed only when
 
-This finite refinement/minimization machinery is classical substrate and is not claimed as an independent generic invention by either repository.
+\[
+J\preceq E_D.
+\]
 
-### CED specialization
+If this fails, the required state still exists mathematically, but the evidence has not identified one unique block. A requested target may nevertheless remain deterministic when it is constant across the compatible evidence class.
 
-CED obtains its initial partition from an experiment/observation record or a reliability-qualified compatible class. Its question is whether evidence licenses a target report and which experiment can support the needed target-relevant distinction under an explicit risk/failure contract.
+Thus CED owns the distinction
+
+\[
+\boxed{
+\text{required state}
+\neq
+\text{identified state}
+\neq
+\text{reportable target}
+}
+\]
+
+in general.
+
+## Updated CED–MRM firewall
+
+CED and MRM may use the same neutral finite latent-world refinement substrate without becoming one theorem program.
 
 ### MRM specialization
 
-MRM specializes latent worlds to `(observable macrostate, response type)` and asks which response-type distinctions must remain because retained mechanisms imply different future target behavior. Its output is a mechanism-safe deterministic/typed/set-valued report or candidate-safe state.
+MRM specializes latent worlds to observable macrostate × retained response type and asks which mechanism distinctions change required future behavior. Its output is a mechanism-safe deterministic/typed/set-valued report or candidate-safe state.
 
-### Valid composition
+### CED specialization
+
+CED begins from experiment/observation compatibility and asks what can be honestly reported under declared failure, calibration and risk assumptions.
+
+### Composition
+
+A useful directional composition can be
 
 ```text
-CED evidence contract
-  -> compatible worlds / risk-qualified class
-  -> MRM target agreement or mechanism-safe refinement
-  -> deterministic or ambiguity-explicit prediction
+retained mechanism family / MRM requirement
+  -> response-relevant required distinctions
+  -> CED evidence architecture
+  -> identified, unresolved, or risk-limited report
 ```
 
-This bridge is directional when useful, but no universal CED→MRM ordering is claimed. A particular problem may formulate the mechanism family before the evidence design.
+or an analysis may begin from evidence and then restrict the retained mechanism family. No universal chronological order is claimed.
 
-MRM's bounded-support observation update, posterior update, and one-step VOI are adapters around a mechanism-report target. They do not transfer ownership of imperfect detection, shared failure, calibration, false-resolution risk, or broad finite-evidence certification away from CED.
+MRM's bounded-support observation update, posterior update, and one-step VOI remain adapters around mechanism uncertainty. They do not transfer ownership of imperfect detection, shared failure, calibration, false-resolution risk, or broad finite-evidence certification away from CED.
 
-## CED–CCOC firewall
+## Updated CED–CCOC firewall
 
-CCOC asks how much exact state information becomes necessary when the legal future grammar is opened. CED asks what finite evidence can justify resolving/reporting.
+CCOC asks how much exact state information becomes necessary when the legal future grammar is opened. CED asks whether current evidence can identify the resulting required distinction.
 
-A future distinction can be mathematically necessary under CCOC yet empirically unresolved under CED. Conversely, an experiment may distinguish latent details that are irrelevant to the CCOC future-interface question.
+A future distinction can be mathematically necessary under CCOC yet empirically unresolved under CED. Conversely, an experiment may distinguish details irrelevant to the declared future-interface target.
 
-The delayed-exposure family in CED is retained as evidence/non-certifiability motivation; it is not a second CCOC open-interface headline theorem.
+The delayed-exposure family in CED remains evidence/non-certifiability motivation; it is not a second CCOC open-interface headline theorem.
 
-## CED–MLTR firewall
+## Updated CED–MLTR firewall
 
-MLTR can generate an obstruction pair or repaired state distinction that a monitoring system would need to detect after structural change. CED can then ask whether a declared measurement library, failure architecture, and risk contract actually license that distinction.
-
-That is a cross-contract application:
+MLTR can generate a source-relative repaired distinction after structural replacement. CED can then ask whether a declared measurement library, failure architecture and risk contract license that repaired distinction.
 
 ```text
-MLTR semantic audit
-  -> required repaired distinction / obstruction pair
+MLTR semantic/history obstruction
+  -> required repaired state distinction
   -> CED evidence audit
-  -> resolvable, unresolved, or risk-limited monitoring report
+  -> resolved / unresolved / risk-limited report
 ```
 
-Generic sensor selection, weighted set cover, imperfect detection, calibration, and evidence-risk accounting remain CED territory unless a genuinely new coupling theorem is proved.
+Generic sensor selection, weighted set cover, imperfect detection, calibration and evidence-risk accounting remain CED territory unless a genuinely new coupling theorem is proved.
 
-## CCOC–MLTR–MRM boundaries relevant to CED
+## Joint-state status after J1
 
-CED should not reinterpret companion outputs as evidence results:
+The old statement that CREST had only an architectural synthesis and no joint-minimality theorem is **superseded**.
 
-- CCOC's independently optimized closed-vs-open minimum-interface gap is not a detection or reportability theorem.
-- MLTR's transport defect is relative to one inherited source law, not an evidence deficit.
-- MRM's mechanism-memory surcharge is not an observation-error bound.
+Current finite status:
 
-The shared words `state`, `quotient`, `refinement`, `uncertainty`, and `information` do not erase these quantifier differences.
+- J3/J6: common-carrier feasibility/no-go under declared universal or controlled semantics;
+- J1: conditional unique coarsest joint state on an admissible finite carrier;
+- evidence gate: full-state licensing is separate from J1 state existence;
+- O1: cheapest structural repair and cheapest fully licensed repair can differ;
+- action-expansion witness: viable carrier can expand while required state refines and full-state identifiability falls, with target-only reportability preserved.
 
-## No universal joint theorem yet
+CREST still does **not** prove:
 
-CREST currently supplies an **architectural completeness claim**, not a theorem of simultaneous adequacy.
+- a nature-given canonical carrier or state independent of scientific contract;
+- that future/history/mechanism axes are philosophically exhaustive;
+- an unconditional globally minimal state across arbitrary carriers/contracts;
+- a general stochastic, continuous, infinite-state or partial-observation trajectory theorem.
 
-The program does not yet prove that:
+## Development rule
 
-- the four audits commute;
-- intersecting four valid partitions yields a unique globally minimal state;
-- their memory/defect/risk quantities add;
-- or passing three audits implies the fourth.
-
-A new synthesis theorem must prove a new noncommutation, joint minimality, or impossibility under explicitly coupled contracts. Merely composing existing refinements or adding existing complexity bounds does not qualify.
-
-## CED development rule
-
-New CED work should change evidential licensing: what finite evidence resolves, how failure architecture limits trustworthy distinction, or how explicit risk/cost changes reporting or experiment choice.
+New CED work must change evidential licensing: what finite evidence resolves, how failure architecture limits trustworthy distinction, or how explicit risk/cost changes reporting or experiment choice.
 
 Route central questions elsewhere when the object is:
 
 - open-future interface growth → CCOC;
 - inherited-law transport/repair/history → MLTR;
-- retained mechanism disagreement/candidate-safe state → MRM.
+- retained mechanism disagreement/candidate-safe state → MRM;
+- world-level state definition, snapshot-sufficiency theory, cross-gate coupling, or representational-stability theory → CREST.
 
-The current Paper B theorem inventory is frozen for submission preparation unless a reviewer-visible gap in the four-result reportability chain is found.
+The current Paper B theorem inventory remains frozen for submission preparation unless a reviewer-visible gap in the four-result reportability chain is found.
