@@ -2,7 +2,7 @@
 
 ## Fixed identity
 
-**Current title:** **From Ecological States to Distinguishable Futures: Target-safe Prediction from Finite Evidence**
+**Current title:** **When Full-world Information Misses the Ecological Target: Failure-diverse Evidence for Distinguishable Futures**
 
 **Repository role:** CED is the active combined-paper repository. Earlier CED closure/detection results and MRM quotient results remain theorem provenance, but the submission must be readable without knowing either repository history.
 
@@ -15,6 +15,8 @@
 > More ecological information does not necessarily produce more defensible ecological prediction. Monitoring should resolve the latent distinctions that separate possible futures, not identify the ecological state as completely as possible for its own sake.
 
 The theorem inventory is frozen. No new theorem family should be introduced during submission preparation unless it repairs a reviewer-visible logical gap in one of the four headline Results.
+
+**Presentation contract:** logical dependency remains Result 1 $\rightarrow$ Result 2 $\rightarrow$ Result 3 $\rightarrow$ Result 4. The main text uses consequence-first order: Result 3, Result 4 and its benchmark, then Results 1--2 as exact reporting infrastructure. This is an editorial inversion, not theorem renumbering or a change to any proof.
 
 ## Four-result mathematical spine
 

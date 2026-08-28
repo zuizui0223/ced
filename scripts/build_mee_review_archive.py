@@ -41,8 +41,9 @@ ARCHIVE_EXCLUDES = {
 
 ANONYMOUS_README = """# Paper B — anonymous code archive for peer review
 
-This archive accompanies the manuscript "From ecological states to distinguishable
-futures: Target-safe prediction from finite evidence" for double-anonymous review.
+This archive accompanies the manuscript "When full-world information misses the
+ecological target: Failure-diverse evidence for distinguishable futures" for
+double-anonymous review.
 
 ## Install and test
 

@@ -4,7 +4,7 @@
 
 ## Manuscript title
 
-From ecological states to distinguishable futures: Target-safe prediction from finite evidence
+When full-world information misses the ecological target: Failure-diverse evidence for distinguishable futures
 
 ## Authors and affiliations
 
