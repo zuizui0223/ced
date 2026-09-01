@@ -20,6 +20,8 @@ finite experiment records
         -> risk-limited adaptive experiment and report
 ```
 
+This chain records logical dependence, not reading order. The submission manuscript is consequence-first: Result 3 (failure diversity) and Result 4 (target-safe experiment choice) appear before Results 1--2, which are then stated as the exact reporting infrastructure. The theorem identifiers and proofs remain unchanged.
+
 The biological conclusion is:
 
 > More ecological information is not automatically more predictive. Evidence improves a declared prediction only when it separates worlds that imply different target values, and the observation architecture is reliable enough to support that separation.
@@ -145,17 +147,18 @@ Role:
 
 ### Introduction
 
-1. Ecologists can know a present state while remaining unable to distinguish futures.
-2. More data can resolve target-irrelevant details and still leave the prediction ambiguous.
+1. Equal raw effort can yield different evidence when observations share versus diversify failure modes.
+2. Full-world information can resolve target-irrelevant details and still leave the prediction ambiguous.
 3. A finite evidence framework therefore needs to say both what the experiment identifies and what it is justified to report.
-4. Paper B contributes four linked results: exact experiment quotient, minimal target-safe resolution requirement, failure-aware reliable refinement, and risk-limited adaptive design.
+4. Paper B uses exact quotient results as infrastructure for failure-aware refinement and risk-limited target resolution.
 
 ### Results
 
-1. **What did the experiment actually distinguish?** — experiment-induced quotient.
-2. **Which additional distinctions would be sufficient for the future being asked about?** — target-safe quotient as required refinement.
-3. **Can the observation architecture reliably support that split?** — failure architecture and worst-case guarantee under the declared observation contract.
-4. **What should be measured next, and when should monitoring stop?** — risk-limited adaptive design.
+1. **Can repeated evidence reliably support the required split?** — Result 3, failure architecture and the worst-case guarantee under the declared observation contract.
+2. **What should be measured next, and when should monitoring stop?** — Result 4, risk-limited adaptive design and the full-world-information counterexample.
+3. **What exact structure makes those claims reportable?** — Results 1--2, the experiment-induced quotient and target-safe quotient as formal infrastructure.
+
+The order above is presentational. Proof dependency remains Result 1 $\rightarrow$ Result 2 $\rightarrow$ Result 3 $\rightarrow$ Result 4.
 
 ### Discussion / conclusion
 

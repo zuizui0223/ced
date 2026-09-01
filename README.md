@@ -8,12 +8,17 @@ CED grew from delayed-exposure and panel-design results archived in CCOC/RACH. C
 
 ## Current Paper B core
 
-The submission-facing manuscript is organized around one four-result reportability chain:
+The submission-facing manuscript now uses consequence-first order while preserving the theorem dependency order. Readers encounter the two operational results first:
 
-1. **Experiment-induced ecological quotient and honest report criterion.** A finite experiment partitions latent worlds by the records it can produce. A deterministic target report is justified exactly when the target is constant on the compatible class; otherwise the sharp output remains set-valued or ambiguity-retaining.
-2. **Unique coarsest target-safe quotient.** Starting from the evidence-induced partition, retain the least additional resolution needed to preserve the declared target and deterministic successors under every declared action. Full latent-world identification is unnecessary when remaining distinctions cannot change the requested future report.
-3. **Failure architecture and trustworthy refinement.** A nominal record split is not automatically trustworthy under imperfect observation. Repeats inside one shared failure domain, independent modes, overlapping failures, and resetability support different guarantees; the observation architecture constrains which target-relevant refinement may be credited.
-4. **Adaptive risk-limited target resolution.** Experiment choice and stopping are evaluated by correct deterministic reporting, wrong deterministic reporting, honest ambiguity, and cost under an explicit false-resolution contract. The objective is defensible target resolution, not maximum latent-world information for its own sake.
+- **Result 3 — failure architecture and trustworthy refinement.** A nominal record split is not automatically trustworthy under imperfect observation. Repeats inside one shared failure domain, independent modes, overlapping failures, and resetability support different guarantees; the observation architecture constrains which target-relevant refinement may be credited.
+- **Result 4 — adaptive risk-limited target resolution.** Experiment choice and stopping are evaluated by correct deterministic reporting, wrong deterministic reporting, honest ambiguity, and cost under an explicit false-resolution contract. The schema-v5 witness shows that full-world information gain can select a target-irrelevant measurement; this does not imply that information or replication is generically unhelpful.
+
+The exact quotient results then supply the reporting infrastructure:
+
+- **Result 1 — experiment-induced ecological quotient and honest report criterion.** A finite experiment partitions latent worlds by the records it can produce. A deterministic target report is justified exactly when the target is constant on the compatible class; otherwise the sharp output remains set-valued or ambiguity-retaining.
+- **Result 2 — unique coarsest target-safe quotient.** Starting from the evidence-induced partition, retain the least additional resolution needed to preserve the declared target and deterministic successors under every declared action. Full latent-world identification is unnecessary when remaining distinctions cannot change the requested future report.
+
+Thus the logical dependency remains `Result 1 -> Result 2 -> Result 3 -> Result 4`, while the main-text presentation is `Result 3 -> Result 4 -> Results 1--2 as infrastructure`.
 
 **Evidence boundary for Result 2.** The target-safe quotient is a **required refinement**, not a claim that the current record has already identified its refined blocks. If the current compatible record class intersects more than one target-safe block and the evidence contract has not resolved which block contains the true world, Result 1 still governs the honest output: retain ambiguity or report the compatible target set. Results 3–4 ask when additional observation architecture can justifiably earn that refinement.
 

@@ -10,16 +10,17 @@ def test_main_manuscript_uses_mee_structure_and_four_result_spine():
     text = MANUSCRIPT.read_text(encoding="utf-8")
 
     required = (
-        r"\title{From ecological states to distinguishable futures:",
+        r"\title{When full-world information misses the ecological target:",
         r"\section*{Data and code for peer review}",
         r"\section*{Keywords}",
         r"\section{Introduction}",
         r"\section{Materials and Methods}",
         r"\section{Results}",
-        r"\subsection{Result 1: experiment-induced quotient and honest reporting}",
-        r"\subsection{Result 2: minimal resolution of future-relevant distinctions}",
         r"\subsection{Result 3: failure architecture determines trustworthy refinement}",
         r"\subsection{Result 4: adaptive risk-limited target resolution}",
+        r"\paragraph{Results 1--2: the reporting infrastructure.}",
+        r"\subsection{Result 1: experiment-induced quotient and honest reporting}",
+        r"\subsection{Result 2: minimal resolution of future-relevant distinctions}",
         r"\section{Discussion}",
         "Otherwise, the honest ecological prediction remains a set",
     )
@@ -28,8 +29,10 @@ def test_main_manuscript_uses_mee_structure_and_four_result_spine():
 
     assert r"\section{Modelling framework}" not in text
     assert r"\section{Conclusion}" not in text
-    assert text.index(required[3]) < text.index(required[4]) < text.index(required[5]) < text.index(required[10])
-    assert text.index(required[6]) < text.index(required[7]) < text.index(required[8]) < text.index(required[9])
+    assert text.index(required[3]) < text.index(required[4]) < text.index(required[5]) < text.index(required[11])
+    assert text.index(required[6]) < text.index(required[7]) < text.index(required[8])
+    assert text.index(required[8]) < text.index(required[9]) < text.index(required[10])
+    assert "present them in consequence-first order" in text
     assert "The central distinction is finite reportability, not target orientation by itself" in text
 
 
