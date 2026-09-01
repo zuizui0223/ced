@@ -51,7 +51,7 @@ def test_exact_to_risk_relaxation_layer_is_explicit_and_ordered():
     relaxation_text = text.split(relaxation, 1)[1].split(failure, 1)[0]
     for phrase in (
         "exact support-level baseline",
-        "declared false-resolution budget",
+        "finite false-resolution budget",
         "risk-limited singleton",
         "set-valued report or abstention",
         "does not turn finite nondetection into deductive absence",
