@@ -49,6 +49,21 @@ A finite ecological evidence problem contains a latent-world set $W$, experiment
 
 A target-safe quotient begins from the distinctions supplied by the current record and repeatedly refines worlds when their target values differ or when a declared action sends them to different current blocks. Because the world set is finite, refinement reaches a fixed point. Full proofs of existence, uniqueness, minimality, finite-action-word preservation, the failure guarantee, and finite policy existence are given in the Supplement.
 
+\subsection{Exact reportability and the risk-limited relaxation}
+The exact support-level baseline is the compatible-world target set induced by the realised record. A singleton is deductively justified only when every world still allowed by the observation model implies the same target value. Otherwise the exact report remains set-valued, irrespective of how concentrated a posterior distribution may be inside that support.
+
+For stochastic monitoring, Paper B adds a separate and explicit relaxation rather than replacing this baseline. If the analyst declares a finite false-resolution budget together with the likelihood, calibration, and failure contracts used to evaluate it, a risk-limited singleton may be reported when the corresponding posterior decision rule satisfies that budget. Records that do not satisfy the contract retain a set-valued report or abstention. Calibration, threshold, concentration, and adaptive risk-spending results therefore supply conservative inputs to this relaxation; they do not redefine the exact compatible set or create a fifth headline theorem.
+
+The reporting ladder is consequently
+\[
+\text{exact support-level target set}
+\;\longrightarrow\;
+\text{declared observation/error contract}
+\;\longrightarrow\;
+\text{risk-limited singleton or abstention}.
+\]
+Results 1--2 define the exact baseline, Result 3 determines whether the observation architecture can support the required distinctions, and Result 4 operates on the risk-limited relaxation. The relaxation does not turn finite nondetection into deductive absence, and a tighter posterior threshold cannot repair an observation model whose declared failure architecture leaves the target-relevant distinction unsupported.
+
 \subsection{Observation-failure contract}
 One-sided detection separates per-read sensitivity from shared mode availability. Reads inside an operating mode may be repeated, but all reads in that mode share the same mode-level failure. When each of $m$ independent modes is operational with probability at least $a$, the analysis evaluates guarantees uniformly over the declared lower-bound contract rather than treating $a$ as an exact realized availability. Exact overlapping-factor models are evaluated separately when exact factor failure probabilities are declared.
 
@@ -110,7 +125,7 @@ using within-mode repetition alone. For positive sensitivity, the guaranteed low
 Thus repeated reads inside one shared weather, access, sensor, observer, or laboratory domain are not evidentially equivalent to independent failure opportunities. The relevant resource is the architecture through which target-relevant class splits can actually be observed.
 
 \subsection{Result 4: adaptive risk-limited target resolution}
-Once a target-relevant distinction remains unresolved, a policy may either stop with ambiguity or choose a follow-up experiment. Terminal reports are evaluated by correctness, false deterministic resolution, ambiguity, and cost.
+Result 4 is the explicit relaxation of the exact support-level rule: once a target-relevant distinction remains unresolved, a policy may either stop with ambiguity or choose a follow-up experiment, and a stochastic singleton is permitted only within the declared false-resolution contract. Terminal reports are evaluated by correctness, false deterministic resolution, ambiguity, and cost.
 
 \begin{theorem}[Finite risk-limited adaptive design]
 For a finite policy family and declared bounds on false resolution, ambiguity, and expected cost, all policies can be evaluated exactly. A least-cost feasible policy exists whenever the feasible set is nonempty; unsupported terminal records retain a set-valued report rather than forcing resolution.
