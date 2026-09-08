@@ -7,7 +7,9 @@ on:
       - "ced/detection.py"
       - "ced/mode_detection.py"
       - "ced/target_safe_quotient.py"
+      - "ced/learning_licensing.py"
       - "scripts/render_paper_b_figures.py"
+      - "scripts/make_learning_licensing_figure.py"
       - "scripts/analyze_paper_b_reviewer_robustness.py"
       - "scripts/analyze_paper_b_posterior_bridge.py"
       - "scripts/paper_b_benchmark_core.py"
@@ -20,7 +22,9 @@ on:
       - "ced/detection.py"
       - "ced/mode_detection.py"
       - "ced/target_safe_quotient.py"
+      - "ced/learning_licensing.py"
       - "scripts/render_paper_b_figures.py"
+      - "scripts/make_learning_licensing_figure.py"
       - "scripts/analyze_paper_b_reviewer_robustness.py"
       - "scripts/analyze_paper_b_posterior_bridge.py"
       - "scripts/paper_b_benchmark_core.py"
@@ -37,7 +41,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Generate validated benchmark figures and compiled source
-        run: python scripts/render_paper_b_figures.py
+        run: |
+          python scripts/render_paper_b_figures.py
+          python scripts/make_learning_licensing_figure.py
       - name: Install LaTeX
         run: |
           sudo apt-get update
@@ -48,6 +54,9 @@ jobs:
       - name: Compile Paper B supplement
         working-directory: manuscript
         run: latexmk -pdf -interaction=nonstopmode -halt-on-error paper_b_supplement.tex
+      - name: Compile integrated Evidence preview
+        working-directory: manuscript
+        run: latexmk -pdf -interaction=nonstopmode -halt-on-error evidence_main.tex
       - name: Upload manuscript PDFs, logs, sources, and generated figures
         uses: actions/upload-artifact@v4
         with:
@@ -59,6 +68,11 @@ jobs:
             manuscript/paper_b_supplement.pdf
             manuscript/paper_b_supplement.log
             manuscript/paper_b_supplement.tex
+            manuscript/evidence_main.pdf
+            manuscript/evidence_main.log
+            manuscript/evidence_main.tex
+            manuscript/generated/evidence_learning_vs_licensing.svg
+            manuscript/generated/evidence_learning_vs_licensing.csv
             manuscript/generated/paper_b_target_safe_quotient.tex
             manuscript/generated/paper_b_failure_architecture.tex
             manuscript/generated/paper_b_experiment_contrast.tex
