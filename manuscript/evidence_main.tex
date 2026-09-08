@@ -1,0 +1,133 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,hyperref,array}
+\title{Evidence for ecological distinctions:\\Identification boundaries, measurement choice and honest reporting}
+\author{Anonymous for double-anonymous review}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Ecological monitoring often asks three questions as though they were one: what the current data identify, what should be measured next, and when the resulting evidence is sufficient to support a scientific report. We separate these questions within a common compatible-world framework. The current observation map induces an identification boundary; candidate observations then have objective-relative scientific value; and a nominally discriminating measurement counts as evidence only when its failure architecture supports the claimed split. In positive log-linear systems with observation matrix $M$, the structural unidentified dimension is $k-\operatorname{rank}(M)$, and a new scalar observation reduces it only if its row adds a direction outside the current row span. A finite experiment induces an exact compatible-world quotient, while target-safe refinement retains only distinctions required for a declared target and successor reports. Mechanism-learning value and target-licensing value are not interchangeable: in an exact eight-world benchmark, a target-irrelevant four-level observation provides $2$ bits of full mechanism information but zero exact target-resolution probability, whereas a target-splitting observation provides $1$ bit and resolves the target with probability one. The frozen mechanism-resolution benchmark independently shows that information-guided observation selection resolves confounding more efficiently than random ordering in a controlled candidate family. Evidence-directed monitoring should therefore declare the current boundary, scientific utility and reliability contract before choosing the next measurement, and should retain ambiguity when the declared target or mechanism remains unresolved.
+\end{abstract}
+
+\section{Introduction}
+More observations can improve precision without adding a new structural identification direction. More latent-world information can be scientifically useful while remaining irrelevant to the prediction being asked about. Conversely, a lower-information measurement can be decisive when it separates the worlds that imply different target values. Even a nominally discriminating measurement may fail as evidence when all repeats share one failure domain. These are different problems and should not be collapsed into one notion of ``more evidence.''
+
+We define the Evidence problem as follows: given the worlds still compatible with the current retained record, what is identifiable now, which unresolved distinctions matter for the declared scientific target, what should be measured next, and when is a deterministic report licensed? A companion Observation paper owns the upstream question of how records gain, lose and collapse distinctions. Evidence begins from the retained compatible-world set.
+
+The integrated framework has four layers. First, a structural identification boundary characterizes what the current observation map has failed to distinguish. Second, a target-safe requirement determines which of those distinctions must actually be resolved for the requested report. Third, candidate measurements are evaluated under an explicitly declared utility---mechanism learning or target licensing---rather than a universal value scalar. Fourth, reliability architecture determines whether a nominal split can be credited as trustworthy evidence.
+
+\section{Materials and Methods}
+\subsection{Compatible worlds and exact target reporting}
+Let $W$ denote a declared finite world set and let a realized record $x$ under design $D$ induce
+\[
+C_D(x)=\{w\in W:x\text{ is allowed under }w\text{ and }D\}.
+\]
+For target map $T:W\to Y$, the exact support-level report is
+\[
+T(C_D(x))=\{T(w):w\in C_D(x)\}.
+\]
+A deterministic target report is exact only when this set is a singleton. Otherwise the compatible target set is the honest output.
+
+\subsection{Current structural identification boundary}
+For a declared positive log-linear observation family with $k$ latent mechanism coordinates and observation matrix $M$, the residual structural dimension is
+\[
+d_{\rm unid}=k-\operatorname{rank}(M).
+\]
+For a candidate scalar observation with row $m_q$, structural dimension decreases if and only if
+\[
+m_q\notin \operatorname{rowspan}(M).
+\]
+Duplicate, rescaled or more precise versions of an existing row can improve statistical precision without changing this structural rank.
+
+\subsection{Experiment-induced quotient and target-safe refinement}
+For deterministic record map $\operatorname{record}_D$, worlds are equivalent when they generate the same complete record:
+\[
+w\sim_D w'\iff \operatorname{record}_D(w)=\operatorname{record}_D(w').
+\]
+This quotient is the exact finite information supplied by the experiment. A target-safe refinement begins from the current evidence partition and refines only when target values differ or declared actions send worlds to different current blocks. The resulting target-safe quotient is a required resolution, not a claim that the current record has already identified the correct refined block.
+
+\subsection{Mechanism-learning utility}
+For residual mechanism identity $S$ over admissible region $A$ and candidate observation $Q$, the learning branch uses conditional mechanism information
+\[
+V_{\rm learn}(Q)=\frac{I(S;Q\mid A)}{K},
+\]
+where $K$ is the normalization used in the source implementation. Candidate values are recomputed after each realized outcome because the admissible mechanism region changes.
+
+\subsection{Target-licensing utility}
+The licensing branch asks whether a candidate observation resolves the distinctions required for the declared target under the observation/failure and false-resolution contracts. In the exact deterministic baseline, an outcome licenses a singleton target only if its compatible target set is a singleton. A separate stochastic relaxation may permit singleton reporting only under a predeclared false-resolution budget.
+
+\subsection{Exact learning-versus-licensing divergence benchmark}
+The integration benchmark contains eight equiprobable worlds crossing binary scientific target $T\in\{0,1\}$ with a four-level target-irrelevant mechanism attribute $N\in\{0,1,2,3\}$. Full mechanism identity is $S=(T,N)$. All candidates have equal cost.
+
+The three deterministic candidates are: (i) \texttt{nuisance\_detail}, returning $N$ exactly; (ii) \texttt{target\_split}, returning $T$ exactly; and (iii) \texttt{constant\_probe}, returning one constant outcome. Since the observations are deterministic under a uniform prior, $I(S;Q)=H(Q)$.
+
+\begin{table}[ht]
+\centering
+\caption{Exact integrated benchmark values.}
+\begin{tabular}{lcc}
+\toprule
+Candidate & Mechanism information (bits) & Exact target resolution \\
+\midrule
+Nuisance detail & 2.0 & 0.0 \\
+Target split & 1.0 & 1.0 \\
+Constant probe & 0.0 & 0.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Controlled mechanism-resolution benchmark}
+The frozen mechanism-resolution benchmark compares information-guided sequential selection with random ordering across 1,000 generated systems per policy. At budget two, the recorded outcomes include convergence, fraction of initial confounding edges resolved, mean observations used, nuisance selections and hidden-truth false exclusion.
+
+\subsection{Failure-aware trustworthy refinement}
+A measurement can separate worlds in an ideal record model while failing to support that split under shared observation failure. When $m$ independent modes are each operational with probability at least $a$, within-mode repetition cannot raise the uniform worst-case mode-availability guarantee above
+\[
+1-(1-a)^m.
+\]
+This is a guarantee ceiling under the declared lower-bound contract rather than an upper bound on realized detection.
+
+\subsection{Objective-relative adaptive loop}
+The integrated policy is: characterize the current compatible class and boundary; declare the immediate utility; reject candidates whose reliability contract does not support the desired distinction; score and select before outcome revelation; acquire the outcome; update compatible worlds; and stop at target licensing, learning limits, budget limits or prediction/reliability limits.
+
+\section{Results}
+\subsection{Current observation geometry defines a structural boundary}
+Within the declared log-linear family, residual structural dimension is exactly $k-\operatorname{rank}(M)$. Greater precision along an existing direction does not change rank. A candidate reduces structural ambiguity only when it supplies a new row-space direction. Thus precision and structural identification are distinct scientific claims.
+
+\subsection{Target-safe resolution can be coarser than full world identification}
+The experiment-induced quotient states exactly which latent worlds a realized record distinguishes. Full latent-world identity is unnecessary when remaining differences cannot change the target or declared successor reports. Conversely, when a current compatible class crosses several target-safe blocks, deterministic reporting is not justified and the sharp report remains set-valued.
+
+\subsection{Learning and licensing rank the same equal-cost observations differently}
+The nuisance-detail candidate produces four equiprobable outcomes and therefore provides $2$ bits of full mechanism information. It is the highest-ranked candidate for mechanism learning. Yet every nuisance outcome remains compatible with both target values, so exact target-resolution probability is zero.
+
+The target-split candidate provides only $1$ bit of full mechanism information, but every outcome yields a singleton target set. Its exact target-resolution probability is one. The constant probe provides zero bits and no target resolution.
+
+Hence the top learning candidate is \texttt{nuisance\_detail}, whereas the top licensing candidate is \texttt{target\_split}. The result is an exact divergence witness, not a claim that one utility is generally superior to the other.
+
+\subsection{Information-guided acquisition efficiently resolves controlled mechanism ambiguity}
+At budget two, information-guided selection converged in $0.990$ of systems versus $0.435$ under random ordering. It resolved $1.000$ of initial confounding edges versus $0.6045$, used $1.505$ observations versus $1.821$, and selected $0.001$ nuisance measurements versus $0.974$. Hidden-truth false exclusion was zero in the frozen cells.
+
+At budget four, both policies resolved all initial confounding edges on average, but information-guided selection used $1.518$ observations versus $2.673$ and selected $0.014$ nuisance measurements versus $1.169$. The result supports mechanism-learning observation design within the declared controlled candidate family.
+
+\subsection{Failure architecture determines whether an ideal split can be credited}
+Repeated reads inside one shared failure domain are not evidentially equivalent to observations distributed across independent modes. A mathematically new direction can therefore fail to become trustworthy evidence when the observation architecture does not support the split. Structural novelty of a row and reliability of its realization are separate conditions.
+
+\subsection{Learning and licensing have distinct stopping states}
+A mechanism-learning programme can stop when no remaining declared candidate carries positive estimable mechanism information or when budget/prediction limits are reached. A target-licensing programme can stop once the target is resolved under the declared reliability and false-resolution contract even if mechanism ambiguity remains. These stopping states answer different scientific questions and should not be silently interchanged after observing outcomes.
+
+\section{Discussion}
+Evidence design should begin with the unresolved distinction rather than the available sensor. The current observation map defines the structural boundary; the scientific target determines which unresolved distinctions matter; the declared utility determines how candidate observations are valued; and the failure architecture determines whether a nominal split can be trusted.
+
+The learning-versus-licensing benchmark makes explicit why two apparently competing next-observation methods are complementary. A candidate can be genuinely more informative about full mechanism identity while irrelevant to the requested report. A different candidate can carry less mechanism information while completely resolving the target. Scientific utility must therefore be declared.
+
+Target-safe abstraction also clarifies why full state reconstruction can waste evidence. Biologically different worlds need not be separated if they imply the same target under the declared action grammar. At the same time, a seemingly small distinction cannot be discarded when it changes the target.
+
+A new mathematical direction is not enough by itself. Ecological observations often share weather, access, device, observer or laboratory failures. The reliability contract determines whether the desired refinement can be credited as evidence. Honest ambiguity is therefore a valid endpoint, not simply a failure to decide.
+
+The framework remains conditional on declared world/model, candidate-observation and reliability vocabularies. The rank result applies to the specified log-linear family; the new divergence benchmark is finite and exact; the mechanism benchmark is controlled; and no natural causal identification or universal observation utility is claimed.
+
+\section{Conclusion}
+Evidence design is not one optimization problem. The current observation map determines what is structurally unidentified; the scientific target determines which of those distinctions matter; mechanism-learning and target-licensing utilities can value the same observations differently; and reliability architecture determines whether a nominal distinction can be trusted. A defensible monitoring programme should declare its boundary, objective and evidence contract before choosing the next measurement, update compatible worlds only after the selected outcome is observed, and preserve ambiguity when the declared target or mechanism remains unresolved.
+
+\end{document}
