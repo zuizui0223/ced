@@ -1,0 +1,113 @@
+{
+  "schema": "evidence-literature-registry-v1",
+  "paper": "EVIDENCE",
+  "source_reference_counts": {
+    "ced_core": 16,
+    "boundary_core": 13,
+    "mrod_core": 14,
+    "deduplicated_union": 37
+  },
+  "shared_reference_families": [
+    "Manski2003",
+    "ChalonerVerdinelli1995",
+    "CanessaEtAl2015",
+    "CorreiaEtAl2025",
+    "GraceEtAl2025",
+    "SiegelDee2025"
+  ],
+  "clusters": {
+    "identification_and_partial_identification": [
+      "BellmanAstrom1970",
+      "Rothenberg1971",
+      "Manski2003"
+    ],
+    "ecological_mechanism_and_causal_context": [
+      "SmithEtAl2020",
+      "GraceEtAl2025",
+      "SiegelDee2025",
+      "CorreiaEtAl2025",
+      "UngererEtAl2008",
+      "RudmanEtAl2018",
+      "SchuppEtAl2010",
+      "RaderEtAl2012",
+      "ReynoldsFenster2008",
+      "BallantyneEtAl2017"
+    ],
+    "observation_error_and_monitoring": [
+      "MacKenzieEtAl2002",
+      "RoyleLink2006",
+      "NicholsWilliams2006",
+      "LindenmayerLikens2009",
+      "Williams2011",
+      "Dietze2017",
+      "DietzeEtAl2018",
+      "DormannEtAl2018"
+    ],
+    "targeted_design_value_and_state_abstraction": [
+      "ChalonerVerdinelli1995",
+      "VanlierEtAl2012",
+      "AttiaEtAl2018",
+      "ZhongEtAl2026",
+      "CanessaEtAl2015",
+      "GivanDeanGreig2003",
+      "BatesEtAl2021",
+      "RaiffaSchlaifer1961"
+    ],
+    "mechanism_ambiguity_and_simulation_inference": [
+      "BeaumontEtAl2002",
+      "Beaumont2010",
+      "CsilleryEtAl2010",
+      "RobertEtAl2011",
+      "GrimmEtAl2005",
+      "HartigEtAl2011",
+      "BetiniEtAl2017",
+      "YancoEtAl2020"
+    ]
+  },
+  "canonical_keys": [
+    "AttiaEtAl2018",
+    "BallantyneEtAl2017",
+    "BatesEtAl2021",
+    "Beaumont2010",
+    "BeaumontEtAl2002",
+    "BellmanAstrom1970",
+    "BetiniEtAl2017",
+    "CanessaEtAl2015",
+    "ChalonerVerdinelli1995",
+    "CorreiaEtAl2025",
+    "CsilleryEtAl2010",
+    "Dietze2017",
+    "DietzeEtAl2018",
+    "DormannEtAl2018",
+    "GivanDeanGreig2003",
+    "GraceEtAl2025",
+    "GrimmEtAl2005",
+    "HartigEtAl2011",
+    "LindenmayerLikens2009",
+    "MacKenzieEtAl2002",
+    "Manski2003",
+    "NicholsWilliams2006",
+    "RaderEtAl2012",
+    "RaiffaSchlaifer1961",
+    "ReynoldsFenster2008",
+    "RobertEtAl2011",
+    "Rothenberg1971",
+    "RoyleLink2006",
+    "RudmanEtAl2018",
+    "SchuppEtAl2010",
+    "SiegelDee2025",
+    "SmithEtAl2020",
+    "UngererEtAl2008",
+    "VanlierEtAl2012",
+    "Williams2011",
+    "YancoEtAl2020",
+    "ZhongEtAl2026"
+  ],
+  "source_snapshots": {
+    "ced_literature_contract": "tests/test_paper_b_literature_contract.py",
+    "ced_bibliography_generator": "scripts/render_paper_b_figures.py",
+    "boundary_reference_source": "zuizui0223/boundary/paper/manuscript.md",
+    "mrod_reference_source": "zuizui0223/mrod/paper/manuscript.md"
+  },
+  "integration_rule": "References are organized by Evidence claim role rather than source repository. Shared references are cited once under one canonical key. Source manuscripts are provenance, not bibliographic evidence for their own claims."
+}
