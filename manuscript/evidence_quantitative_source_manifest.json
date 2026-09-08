@@ -1,0 +1,97 @@
+{
+  "schema": "evidence-quantitative-source-manifest-v1",
+  "paper": "EVIDENCE",
+  "sources": {
+    "boundary_current_identification": {
+      "repository": "zuizui0223/boundary",
+      "path": "README.md",
+      "git_blob_sha1": "c0729112e4df1629c24d4cedd98a5fb7e23c3738",
+      "owned_claims": [
+        "unidentified dimension k-rank(M) in declared positive log-linear family",
+        "new scalar reduces structural dimension iff row is outside current row span"
+      ]
+    },
+    "mrod_g2": {
+      "repository": "zuizui0223/mrod",
+      "path": "paper/results/g2_frozen_v2_summary.json",
+      "git_blob_sha1": "e3b97c32232e41a556f15b4346dce1f2ab7a9b0f",
+      "code_commit_sha": "f343c2361db28c0b3e528b882b3370eda5abf5ed",
+      "workflow_run_id": 32801131991,
+      "artifact_id": 9546604585,
+      "artifact_sha256": "687593e70b54e5f1545cccaa2a84f0692e3ca99a945a8d58047b77f48f7cb655"
+    },
+    "ced_paper_b": {
+      "repository": "zuizui0223/ced",
+      "theorem_consolidation": {
+        "path": "docs/paper_b_theorem_consolidation.md",
+        "git_blob_sha1": "46cb4a6e7ddd8f0b013cc719a34e5204d8901290"
+      },
+      "main_manuscript": {
+        "path": "manuscript/paper_b_main.tex",
+        "git_blob_sha1": "7d4ff8fd44ee871cb3435c593fa37745a30f6c95"
+      }
+    },
+    "learning_licensing_integration": {
+      "repository": "zuizui0223/ced",
+      "implementation": {
+        "path": "ced/learning_licensing.py",
+        "git_blob_sha1": "996e71016c43cdaa6a23d7e2e7e582824638f949"
+      },
+      "result": "manuscript/evidence_learning_licensing_result.json"
+    }
+  },
+  "figure_values": {
+    "figure_2_learning_licensing": {
+      "nuisance_detail": {
+        "mechanism_information_bits": 2.0,
+        "exact_target_resolution_probability": 0.0
+      },
+      "target_split": {
+        "mechanism_information_bits": 1.0,
+        "exact_target_resolution_probability": 1.0
+      },
+      "constant_probe": {
+        "mechanism_information_bits": 0.0,
+        "exact_target_resolution_probability": 0.0
+      }
+    },
+    "figure_3_mrod_budget2": {
+      "information_guided": {
+        "convergence": 0.99,
+        "initial_edges_resolved": 1.0,
+        "mean_observations": 1.505,
+        "nuisance_selections": 0.001,
+        "false_exclusion": 0.0
+      },
+      "random_order": {
+        "convergence": 0.435,
+        "initial_edges_resolved": 0.6045,
+        "mean_observations": 1.821,
+        "nuisance_selections": 0.974,
+        "false_exclusion": 0.0
+      }
+    },
+    "figure_3_mrod_budget4": {
+      "information_guided": {
+        "convergence": 0.999,
+        "initial_edges_resolved": 1.0,
+        "mean_observations": 1.518,
+        "nuisance_selections": 0.014,
+        "false_exclusion": 0.0
+      },
+      "random_order": {
+        "convergence": 0.94,
+        "initial_edges_resolved": 1.0,
+        "mean_observations": 2.673,
+        "nuisance_selections": 1.169,
+        "false_exclusion": 0.0
+      }
+    }
+  },
+  "claim_boundary": [
+    "rank result is structural within declared model family",
+    "learning-versus-licensing witness is exact finite and not a universal utility theorem",
+    "MROD G2 is controlled declared-candidate validation",
+    "CED failure/reportability guarantees remain conditional on declared evidence contracts"
+  ]
+}
