@@ -1,0 +1,118 @@
+{
+  "schema": "evidence-paper-claim-manifest-v1",
+  "paper": "EVIDENCE",
+  "submission_home": "zuizui0223/ced",
+  "canonical_draft": "manuscript/EVIDENCE_DRAFT_V1.md",
+  "source_repositories": {
+    "boundary": "zuizui0223/boundary",
+    "mrod": "zuizui0223/mrod",
+    "ced": "zuizui0223/ced"
+  },
+  "headline_claims": [
+    {
+      "id": "E1_current_boundary",
+      "owner": "boundary",
+      "claim": "Within the declared positive log-linear family, current structural unidentified dimension is k-rank(M), and a new scalar observation reduces it iff its row adds a new direction outside the current row span.",
+      "primary_evidence": [
+        "zuizui0223/boundary/README.md"
+      ],
+      "source_blob_sha1": "c0729112e4df1629c24d4cedd98a5fb7e23c3738",
+      "claim_ceiling": "structural identification result under the declared model family; not generic ecological causal identification"
+    },
+    {
+      "id": "E2_target_safe_requirement",
+      "owner": "ced",
+      "claim": "A finite experiment induces an exact compatible-world quotient; deterministic target reporting is justified only when the target is constant over the compatible class, and only target-relevant distinctions need resolution.",
+      "primary_evidence": [
+        "docs/paper_b_theorem_consolidation.md",
+        "manuscript/paper_b_main.tex",
+        "manuscript/paper_b_supplement.tex"
+      ],
+      "claim_ceiling": "finite declared-world target reportability; target-safe refinement is a resolution requirement, not proof that the current record already identifies the required block"
+    },
+    {
+      "id": "E3_learning_licensing_divergence",
+      "owner": "ced_integration",
+      "claim": "Mechanism-learning information and exact target-licensing value can rank the same equal-cost candidate observations differently.",
+      "primary_evidence": [
+        "ced/learning_licensing.py",
+        "tests/test_learning_licensing.py",
+        "manuscript/evidence_learning_licensing_result.json"
+      ],
+      "source_blob_sha1": "996e71016c43cdaa6a23d7e2e7e582824638f949",
+      "numerical_anchors": {
+        "world_count": 8,
+        "nuisance_detail_mechanism_information_bits": 2.0,
+        "nuisance_detail_target_resolution_probability": 0.0,
+        "target_split_mechanism_information_bits": 1.0,
+        "target_split_target_resolution_probability": 1.0,
+        "constant_probe_mechanism_information_bits": 0.0,
+        "constant_probe_target_resolution_probability": 0.0
+      },
+      "claim_ceiling": "exact finite divergence witness; not a universal utility or universal optimal-design theorem"
+    },
+    {
+      "id": "E4_mechanism_learning",
+      "owner": "mrod",
+      "claim": "Within the frozen declared candidate family, information-guided sequential observation selection resolves residual mechanism ambiguity more efficiently than random ordering.",
+      "primary_evidence": [
+        "paper/results/g2_frozen_v2_summary.json"
+      ],
+      "source_blob_sha1": "e3b97c32232e41a556f15b4346dce1f2ab7a9b0f",
+      "numerical_anchors": {
+        "budget2_information_guided_convergence": 0.99,
+        "budget2_random_convergence": 0.435,
+        "budget2_information_guided_initial_edges_resolved": 1.0,
+        "budget2_random_initial_edges_resolved": 0.6045,
+        "budget2_information_guided_mean_observations": 1.505,
+        "budget2_random_mean_observations": 1.821,
+        "budget2_information_guided_nuisance_selections": 0.001,
+        "budget2_random_nuisance_selections": 0.974,
+        "false_exclusion_rate": 0.0
+      },
+      "claim_ceiling": "controlled truth-peek-free synthetic/known-truth validation; no universal natural-system optimality"
+    },
+    {
+      "id": "E5_failure_architecture",
+      "owner": "ced",
+      "claim": "A nominally discriminating observation direction is not automatically trustworthy evidence; shared versus independent failure architecture changes the guarantee that can be credited to repeated observations.",
+      "primary_evidence": [
+        "docs/paper_b_theorem_consolidation.md",
+        "manuscript/paper_b_main.tex",
+        "manuscript/paper_b_supplement.tex"
+      ],
+      "claim_ceiling": "guarantees conditional on declared failure contracts; no silent independence claim"
+    },
+    {
+      "id": "E6_adaptive_reporting",
+      "owner": "ced_mrod_integration",
+      "claim": "Adaptive acquisition and stopping are objective-relative: learning may stop at mechanism-information limits, whereas licensing may stop once the target is resolved under the declared reliability/risk/cost contract even if mechanism ambiguity remains.",
+      "primary_evidence": [
+        "manuscript/EVIDENCE_DRAFT_V1.md",
+        "docs/paper_b_theorem_consolidation.md",
+        "zuizui0223/mrod/paper/results/g2_frozen_v2_summary.json"
+      ],
+      "claim_ceiling": "integrated design rule over declared finite/model-supported candidates; not one universal stopping theorem"
+    }
+  ],
+  "paper_firewall": {
+    "evidence_owns": [
+      "current structural identification boundary",
+      "target-safe resolution requirement",
+      "mechanism-learning versus target-licensing utility distinction",
+      "failure-aware trustworthy refinement",
+      "objective-relative next-observation choice and stopping"
+    ],
+    "observation_owns": [
+      "retained-reference refinement in general",
+      "record-entry shadow/no-row support loss",
+      "semantic-coarsening information loss",
+      "downstream irreversibility after observation-stage collapse"
+    ]
+  },
+  "superseded_as_independent_submission_targets": [
+    "Boundary Paper A",
+    "MROD standalone MEE manuscript",
+    "CED Paper B standalone framing"
+  ]
+}
