@@ -1,0 +1,40 @@
+{
+  "schema": "evidence-theory-closure-v1",
+  "status": "structural-theory-closed",
+  "canonical_object": "current compatible-world block with mechanism, target and candidate-observation maps",
+  "theorem_count": 10,
+  "theorems": [
+    "E-T1_current_identification_boundary",
+    "E-T2_exact_target_report_criterion",
+    "E-T3_target_safe_resolution_requirement",
+    "E-T4_learning_licensing_noncommon_maximizer",
+    "E-T5_mechanism_resolution_implies_target_resolution",
+    "E-T6_target_resolution_not_mechanism_resolution",
+    "E-T7_candidate_exhaustion_not_target_resolution",
+    "E-T8_target_resolution_not_candidate_exhaustion",
+    "E-T9_realized_acquisition_nested_refinement",
+    "E-T10_objective_relative_stopping_relations"
+  ],
+  "interfaces_closed": {
+    "boundary_to_target_requirement": true,
+    "target_requirement_to_learning_licensing": true,
+    "learning_vs_licensing_non_equivalence": true,
+    "mechanism_resolution_to_target_resolution_relation": true,
+    "candidate_exhaustion_relation": true,
+    "objective_relative_stopping": true,
+    "realized_acquisition_update": true
+  },
+  "assumption_firewall": {
+    "mechanism_implies_target_requires": "target is a deterministic function of declared mechanism state",
+    "candidate_exhaustion_scope": "declared deterministic candidate vocabulary only",
+    "learning_licensing_divergence_scope": "existence result in finite equal-cost candidate problems",
+    "rank_boundary_scope": "declared positive exact log-linear family"
+  },
+  "remaining_questions_are_empirical_or_model_dependent": [
+    "physical realization of predicted observation partitions",
+    "validity of failure-mode contracts",
+    "adequacy of declared world and mechanism vocabulary",
+    "predictive likelihood calibration",
+    "transport across natural systems"
+  ]
+}
