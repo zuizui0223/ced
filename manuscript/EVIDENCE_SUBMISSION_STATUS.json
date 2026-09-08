@@ -1,0 +1,42 @@
+{
+  "schema": "evidence-submission-status-v1",
+  "status": "active-integrated-drafting",
+  "paper": "EVIDENCE",
+  "submission_home": "zuizui0223/ced",
+  "active_manuscript": "manuscript/EVIDENCE_DRAFT_V1.md",
+  "integration_contract": "manuscript/EVIDENCE_INTEGRATION_PLAN.md",
+  "claim_manifest": "manuscript/EVIDENCE_CLAIM_MANIFEST.json",
+  "figure_plan": "manuscript/EVIDENCE_FIGURE_PLAN.md",
+  "learning_licensing_benchmark": "manuscript/evidence_learning_licensing_result.json",
+  "source_repositories": [
+    "zuizui0223/boundary",
+    "zuizui0223/mrod",
+    "zuizui0223/ced"
+  ],
+  "completed": [
+    "two-paper architecture fixed in theouni",
+    "Evidence scientific question fixed",
+    "Boundary current-identification layer integrated",
+    "CED target-safe/reportability layer integrated",
+    "MROD mechanism-learning branch integrated",
+    "exact learning-versus-licensing divergence benchmark implemented",
+    "divergence result frozen in machine-readable form",
+    "claim ownership fixed",
+    "Figure 1-5 architecture fixed"
+  ],
+  "remaining_before_submission_package": [
+    "pin exact CED theorem/manuscript source blobs in a quantitative evidence-data manifest",
+    "generate Figure 2 directly from the divergence result JSON",
+    "merge Boundary and MROD references into the CED bibliography",
+    "migrate integrated draft into the existing paper_b_main.tex production path",
+    "run overlap audit against Boundary and MROD standalone abstracts",
+    "update MEE submission package from standalone CED Paper B to integrated Evidence",
+    "build and validate anonymous reviewer archive"
+  ],
+  "superseded_as_independent_submission_targets": [
+    "Boundary Paper A",
+    "MROD standalone MEE manuscript",
+    "CED Paper B standalone framing"
+  ],
+  "next_mainline": "Evidence quantitative source manifest, Figure 2 generator, and LaTeX migration"
+}
