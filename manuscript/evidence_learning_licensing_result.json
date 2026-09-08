@@ -1,0 +1,68 @@
+{
+  "candidates": {
+    "constant_probe": {
+      "equal_cost": 1.0,
+      "exact_target_resolution_probability": 0.0,
+      "mechanism_information_bits": 0.0,
+      "outcome_target_sets": {
+        "0": [
+          0,
+          1
+        ]
+      }
+    },
+    "nuisance_detail": {
+      "equal_cost": 1.0,
+      "exact_target_resolution_probability": 0.0,
+      "mechanism_information_bits": 2.0,
+      "outcome_target_sets": {
+        "0": [
+          0,
+          1
+        ],
+        "1": [
+          0,
+          1
+        ],
+        "2": [
+          0,
+          1
+        ],
+        "3": [
+          0,
+          1
+        ]
+      }
+    },
+    "target_split": {
+      "equal_cost": 1.0,
+      "exact_target_resolution_probability": 1.0,
+      "mechanism_information_bits": 1.0,
+      "outcome_target_sets": {
+        "0": [
+          0
+        ],
+        "1": [
+          1
+        ]
+      }
+    }
+  },
+  "divergence": true,
+  "interpretation": "Mechanism-learning value and target-licensing value rank the same equal-cost candidate set differently. This finite witness does not assert a universal observation utility.",
+  "learning_rank": [
+    "nuisance_detail",
+    "target_split",
+    "constant_probe"
+  ],
+  "licensing_rank": [
+    "target_split",
+    "constant_probe",
+    "nuisance_detail"
+  ],
+  "mechanism_identity": "full (target,nuisance) world",
+  "prior": "uniform over binary target x four-level nuisance attribute",
+  "schema": "ced-learning-licensing-divergence-v1",
+  "scientific_target": "binary target coordinate",
+  "world_count": 8
+}
