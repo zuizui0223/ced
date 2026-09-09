@@ -1,5 +1,5 @@
 {
-  "schema": "evidence-paper-claim-manifest-v1",
+  "schema": "evidence-paper-claim-manifest-v2",
   "paper": "EVIDENCE",
   "submission_home": "zuizui0223/ced",
   "canonical_draft": "manuscript/EVIDENCE_DRAFT_V1.md",
@@ -75,9 +75,19 @@
       "claim_ceiling": "exact finite compatible-world stopping relations under declared mechanism/target/candidate maps; not a universal policy-optimality theorem"
     }
   ],
-  "paper_firewall": {
-    "evidence_owns": ["current structural identification boundary", "target-safe resolution requirement", "mechanism-learning versus target-licensing utility distinction", "failure-aware trustworthy refinement", "objective-relative next-observation choice and stopping"],
-    "observation_owns": ["retained-reference refinement in general", "record-entry shadow/no-row support loss", "semantic-coarsening information loss", "downstream irreversibility after observation-stage collapse"]
+  "non_headline_extensions": [
+    {
+      "id":"U5_intervention_diagnosis",
+      "owner":"ced_integration",
+      "role":"active-identification extension",
+      "claim":"An intervention can change the observation map and create a separating direction that is absent under passive observation.",
+      "claim_ceiling":"exact/structural finite-world extension only; physical intervention validity is deferred to InsePi or another empirical validation layer"
+    }
+  ],
+  "paper_firewall_registry": {
+    "repository":"zuizui0223/theouni",
+    "path":"universe/TWO_PAPER_FIREWALL.json",
+    "source_blob_sha1":"ea78c0db140c08dd109404ed8a9460dd68036d6e"
   },
   "superseded_as_independent_submission_targets": ["Boundary Paper A", "MROD standalone MEE manuscript", "CED Paper B standalone framing"]
 }
