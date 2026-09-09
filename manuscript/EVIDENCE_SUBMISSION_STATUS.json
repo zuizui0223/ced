@@ -1,11 +1,12 @@
 {
   "schema": "evidence-submission-status-v1",
-  "status": "active-integrated-drafting",
+  "status": "theory-closed-production-active",
   "paper": "EVIDENCE",
   "submission_home": "zuizui0223/ced",
   "active_manuscript": "manuscript/EVIDENCE_DRAFT_V1.md",
   "integration_contract": "manuscript/EVIDENCE_INTEGRATION_PLAN.md",
   "claim_manifest": "manuscript/EVIDENCE_CLAIM_MANIFEST.json",
+  "theory_closure": "manuscript/evidence_theory_closure.json",
   "figure_plan": "manuscript/EVIDENCE_FIGURE_PLAN.md",
   "learning_licensing_benchmark": "manuscript/evidence_learning_licensing_result.json",
   "source_repositories": [
@@ -22,21 +23,35 @@
     "exact learning-versus-licensing divergence benchmark implemented",
     "divergence result frozen in machine-readable form",
     "claim ownership fixed",
-    "Figure 1-5 architecture fixed"
+    "Figure 1-5 architecture fixed",
+    "quantitative Boundary/MROD/CED source manifest pinned",
+    "deterministic Figure 2 generator and regression test added",
+    "integrated Evidence LaTeX preview added to manuscript build",
+    "Boundary and MROD literature merged into Evidence bibliography registry/core bibliography",
+    "source abstracts pinned and long-text overlap audit implemented",
+    "objective-relative stopping formalized as E-T1 through E-T10",
+    "Evidence structural theory closure ledger set to structural-theory-closed",
+    "CED theorem tests passed on Python 3.10, 3.11 and 3.12 for commit 24b020b09ba05268f1cced109692a3f9368d197c, run 34247658430",
+    "legacy Paper B, Supplement and integrated Evidence preview all compiled successfully in run 34247658418"
   ],
   "remaining_before_submission_package": [
-    "pin exact CED theorem/manuscript source blobs in a quantitative evidence-data manifest",
-    "generate Figure 2 directly from the divergence result JSON",
-    "merge Boundary and MROD references into the CED bibliography",
-    "migrate integrated draft into the existing paper_b_main.tex production path",
-    "run overlap audit against Boundary and MROD standalone abstracts",
-    "update MEE submission package from standalone CED Paper B to integrated Evidence",
-    "build and validate anonymous reviewer archive"
+    "promote integrated Evidence preview from parallel preview to canonical journal-facing source",
+    "update MEE submission package/front matter from standalone CED Paper B to integrated Evidence",
+    "assemble final integrated Figure 1-5 set",
+    "build and validate anonymous reviewer archive with pinned Boundary/MROD source snapshots",
+    "run final word-count, citation and journal-format audits"
+  ],
+  "remaining_scientific_questions": [
+    "physical realization of predicted observation partitions",
+    "validity of failure-mode contracts",
+    "adequacy of declared world and mechanism vocabulary",
+    "predictive likelihood calibration",
+    "transport across natural systems"
   ],
   "superseded_as_independent_submission_targets": [
     "Boundary Paper A",
     "MROD standalone MEE manuscript",
     "CED Paper B standalone framing"
   ],
-  "next_mainline": "Evidence quantitative source manifest, Figure 2 generator, and LaTeX migration"
+  "next_mainline": "promote integrated Evidence production source and rebuild the MEE submission/reviewer package"
 }
