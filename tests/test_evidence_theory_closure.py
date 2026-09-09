@@ -20,6 +20,13 @@ def target(world):
     return world.target
 
 
+def test_exact_target_report_criterion():
+    same_target = (WORLDS[0], WORLDS[1])
+    mixed_target = (WORLDS[0], WORLDS[4])
+    assert target_resolved(same_target, target)
+    assert not target_resolved(mixed_target, target)
+
+
 def test_target_resolution_need_not_resolve_mechanism():
     block = augmentation_block(WORLDS, target_split, WORLDS[0])
     assert target_resolved(block, target)
@@ -51,11 +58,29 @@ def test_realized_acquisition_is_nested():
     assert len(updated) < len(block)
 
 
+def test_objective_relative_stopping_relations():
+    target_only = augmentation_block(WORLDS, target_split, WORLDS[0])
+    exhausted_unresolved = (WORLDS[0], WORLDS[4])
+    singleton = (WORLDS[0],)
+
+    assert target_resolved(target_only, target)
+    assert not mechanism_resolved(target_only, mechanism)
+    assert not candidate_exhausted(target_only, [nuisance_detail])
+
+    assert candidate_exhausted(exhausted_unresolved, [constant_probe])
+    assert not target_resolved(exhausted_unresolved, target)
+
+    assert mechanism_resolved(singleton, mechanism)
+    assert target_resolved(singleton, target)
+
+
 def test_machine_readable_closure_is_complete():
     path = ROOT / "manuscript" / "evidence_theory_closure.json"
     data = json.loads(path.read_text(encoding="utf-8"))
     assert data["status"] == "structural-theory-closed"
     assert data["theorem_count"] == 10
     assert len(data["theorems"]) == 10
-    assert len(set(data["theorems"])) == 10
+    ids = [item["id"] for item in data["theorems"]]
+    assert len(set(ids)) == 10
+    assert all(item["verified_by"] for item in data["theorems"])
     assert all(data["interfaces_closed"].values())
