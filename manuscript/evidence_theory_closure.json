@@ -1,19 +1,19 @@
 {
-  "schema": "evidence-theory-closure-v1",
+  "schema": "evidence-theory-closure-v2",
   "status": "structural-theory-closed",
   "canonical_object": "current compatible-world block with mechanism, target and candidate-observation maps",
   "theorem_count": 10,
   "theorems": [
-    "E-T1_current_identification_boundary",
-    "E-T2_exact_target_report_criterion",
-    "E-T3_target_safe_resolution_requirement",
-    "E-T4_learning_licensing_noncommon_maximizer",
-    "E-T5_mechanism_resolution_implies_target_resolution",
-    "E-T6_target_resolution_not_mechanism_resolution",
-    "E-T7_candidate_exhaustion_not_target_resolution",
-    "E-T8_target_resolution_not_candidate_exhaustion",
-    "E-T9_realized_acquisition_nested_refinement",
-    "E-T10_objective_relative_stopping_relations"
+    {"id":"E-T1_current_identification_boundary","verified_by":["zuizui0223/boundary::tests/test_joint_measurement_rank_witness.py::test_data_rich_panel_has_rank_two_and_one_unidentified_direction","zuizui0223/boundary::tests/test_joint_measurement_rank_witness.py::test_more_rows_inside_old_span_do_not_change_identification"]},
+    {"id":"E-T2_exact_target_report_criterion","verified_by":["tests/test_evidence_theory_closure.py::test_exact_target_report_criterion"]},
+    {"id":"E-T3_target_safe_resolution_requirement","verified_by":["tests/test_target_safe_quotient.py::test_refinement_propagates_future_target_distinctions_upstream","tests/test_target_safe_quotient.py::test_fixed_point_is_coarsest_among_all_valid_partitions_by_exhaustive_oracle"]},
+    {"id":"E-T4_learning_licensing_noncommon_maximizer","verified_by":["tests/test_learning_licensing.py::test_learning_and_licensing_rank_candidates_differently","tests/test_learning_licensing.py::test_target_sets_make_divergence_exact"]},
+    {"id":"E-T5_mechanism_resolution_implies_target_resolution","verified_by":["tests/test_evidence_theory_closure.py::test_mechanism_resolution_implies_target_resolution"]},
+    {"id":"E-T6_target_resolution_not_mechanism_resolution","verified_by":["tests/test_evidence_theory_closure.py::test_target_resolution_need_not_resolve_mechanism"]},
+    {"id":"E-T7_candidate_exhaustion_not_target_resolution","verified_by":["tests/test_evidence_theory_closure.py::test_candidate_exhaustion_does_not_license_target"]},
+    {"id":"E-T8_target_resolution_not_candidate_exhaustion","verified_by":["tests/test_evidence_theory_closure.py::test_target_resolution_need_not_exhaust_learning_candidates"]},
+    {"id":"E-T9_realized_acquisition_nested_refinement","verified_by":["tests/test_evidence_theory_closure.py::test_realized_acquisition_is_nested"]},
+    {"id":"E-T10_objective_relative_stopping_relations","verified_by":["tests/test_evidence_theory_closure.py::test_objective_relative_stopping_relations"]}
   ],
   "interfaces_closed": {
     "boundary_to_target_requirement": true,
