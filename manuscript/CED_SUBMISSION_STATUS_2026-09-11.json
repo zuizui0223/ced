@@ -1,7 +1,7 @@
 {
   "schema": "ced-standalone-submission-status-v1",
   "date": "2026-09-11",
-  "status": "standalone-reframing-active",
+  "status": "standalone-production-validated",
   "paper": "CED",
   "submission_home": "zuizui0223/ced",
   "target_journal": "Ecological Modelling",
@@ -13,6 +13,18 @@
     "ced/learning_licensing.py",
     "ced/mode_detection.py"
   ],
+  "validated_production": {
+    "validated_source_sha": "60258505aa5bcdcf9adc3befa3207f359a0de0db",
+    "reproducibility_workflow_run_id": 34575265031,
+    "reproducibility_status": "success",
+    "manuscript_build_workflow_run_id": 34575265062,
+    "manuscript_build_status": "success",
+    "artifact_id": 10189451673,
+    "artifact_name": "ced-ecological-modelling-package",
+    "artifact_digest": "sha256:81a4ec9bd871c73fab03b29b77f374f0eefc1099b5736eaa652d9840475f9394",
+    "artifact_retention_expires": "2026-09-25T07:41:02Z",
+    "metadata_note": "This status update records the validated production receipt and does not alter the validated CED scientific core."
+  },
   "headline_claims": [
     "a finite experiment induces a compatible-world quotient and honest reportability is target-relative",
     "the unique coarsest target-safe refinement need not identify the full latent world",
@@ -26,7 +38,8 @@
   },
   "external_companions": {
     "boundary": "identification-geometry owner; cite/contrast only",
-    "mrod": "mechanism-learning observation-design owner; cite/contrast only"
+    "mrod": "mechanism-learning observation-design owner; cite/contrast only",
+    "c2": "cross-programme four-failure synthesis; conceptual context only"
   },
   "historical_integrated_evidence_assets": [
     "manuscript/EVIDENCE_DRAFT_V1.md",
@@ -42,12 +55,27 @@
     "exact learning-versus-licensing witness",
     "risk-limited finite experiment/reporting machinery",
     "Python theorem and simulation tests",
-    "existing standalone manuscript and supplement"
+    "standalone manuscript and supplement"
   ],
-  "next_mainline": [
-    "audit paper_b_main.tex so Boundary/MROD integration language is removed from headline novelty",
-    "replace MEE-specific routing/front matter with Ecological Modelling-facing production metadata after live journal-rule verification",
-    "retain C2 only as a higher-level conceptual cross-reference, not as prerequisite evidence"
+  "completed_production_assets": [
+    "Ecological Modelling submission checklist",
+    "five conservative Highlights",
+    "cover-letter draft",
+    "data/code statement",
+    "title-page template",
+    "machine-readable package manifest",
+    "standalone CED production workflow",
+    "compiled standalone main manuscript and supplement",
+    "validated Ecological Modelling package artifact"
   ],
-  "science_blocker": false
+  "remaining_before_submission": [
+    "recheck live Ecological Modelling Guide for Authors immediately before upload",
+    "confirm final article type and journal-specific abstract/keyword/Highlights/graphical-abstract rules",
+    "perform final human visual inspection of compiled main manuscript, supplement and figures",
+    "complete author/affiliation/correspondence/CRediT/funding/acknowledgement/competing-interest metadata",
+    "run final reference-scope and historical-Evidence text-overlap audit after any retargeting edits",
+    "freeze permanent code/data archive and DOI if required by the final journal workflow"
+  ],
+  "science_blocker": false,
+  "next_mainline": "human/journal metadata completion and final visual/reference audit; no new scientific analysis"
 }
