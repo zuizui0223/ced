@@ -30,9 +30,14 @@ def test_standalone_ced_is_current_ecological_modelling_route() -> None:
     status = _load(STATUS)
     assert status["paper"] == "CED"
     assert status["target_journal"] == "Ecological Modelling"
-    assert status["status"] == "standalone-reframing-active"
+    assert status["status"] == "standalone-production-validated"
     assert "manuscript/paper_b_main.tex" in status["canonical_scientific_base"]
     assert status["science_blocker"] is False
+    validated = status["validated_production"]
+    assert validated["reproducibility_status"] == "success"
+    assert validated["manuscript_build_status"] == "success"
+    assert validated["artifact_name"] == "ced-ecological-modelling-package"
+    assert validated["artifact_digest"].startswith("sha256:")
 
 
 def test_historical_integrated_evidence_does_not_replace_standalone_paper() -> None:
