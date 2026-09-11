@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "manuscript/**"
+      - "submission/**"
       - "ced/detection.py"
       - "ced/mode_detection.py"
       - "ced/target_safe_quotient.py"
@@ -19,6 +20,7 @@ on:
     branches: [main]
     paths:
       - "manuscript/**"
+      - "submission/**"
       - "ced/detection.py"
       - "ced/mode_detection.py"
       - "ced/target_safe_quotient.py"
@@ -33,14 +35,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-paper-b:
+  build-ced-standalone:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Generate validated benchmark figures and compiled source
+      - name: Generate validated CED benchmark figures and compiled source
         run: |
           python scripts/render_paper_b_figures.py
           python scripts/make_learning_licensing_figure.py
@@ -48,19 +50,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y latexmk texlive-latex-extra texlive-pictures
-      - name: Compile Paper B with generated figures
+      - name: Compile standalone CED main manuscript
         working-directory: manuscript
         run: latexmk -pdf -interaction=nonstopmode -halt-on-error paper_b_compiled.tex
-      - name: Compile Paper B supplement
+      - name: Compile standalone CED supplement
         working-directory: manuscript
         run: latexmk -pdf -interaction=nonstopmode -halt-on-error paper_b_supplement.tex
-      - name: Compile integrated Evidence preview
-        working-directory: manuscript
-        run: latexmk -pdf -interaction=nonstopmode -halt-on-error evidence_main.tex
-      - name: Upload manuscript PDFs, logs, sources, and generated figures
+      - name: Upload standalone CED / Ecological Modelling production package
         uses: actions/upload-artifact@v4
         with:
-          name: paper-b-manuscript
+          name: ced-ecological-modelling-package
           path: |
             manuscript/paper_b_compiled.pdf
             manuscript/paper_b_compiled.log
@@ -68,9 +67,14 @@ jobs:
             manuscript/paper_b_supplement.pdf
             manuscript/paper_b_supplement.log
             manuscript/paper_b_supplement.tex
-            manuscript/evidence_main.pdf
-            manuscript/evidence_main.log
-            manuscript/evidence_main.tex
+            manuscript/CED_SUBMISSION_STATUS_2026-09-11.json
+            manuscript/PUBLICATION_ROUTE_2026-09-11.md
+            submission/ECOLOGICAL_MODELLING_SUBMISSION_CHECKLIST.md
+            submission/ECOLOGICAL_MODELLING_HIGHLIGHTS.md
+            submission/ECOLOGICAL_MODELLING_COVER_LETTER_DRAFT.md
+            submission/ECOLOGICAL_MODELLING_DATA_CODE_STATEMENT.md
+            submission/ECOLOGICAL_MODELLING_PACKAGE_MANIFEST.json
+            submission/ECOLOGICAL_MODELLING_TITLE_PAGE_TEMPLATE.md
             manuscript/generated/evidence_learning_vs_licensing.svg
             manuscript/generated/evidence_learning_vs_licensing.csv
             manuscript/generated/paper_b_target_safe_quotient.tex
@@ -82,3 +86,4 @@ jobs:
             manuscript/generated/paper_b_posterior_bridge_table.tex
             artifacts/paper_b_reviewer_robustness.json
             artifacts/paper_b_posterior_bridge.json
+          retention-days: 14
