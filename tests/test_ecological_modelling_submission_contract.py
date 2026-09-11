@@ -7,6 +7,8 @@ ROOT = Path(__file__).resolve().parents[1]
 STATUS = ROOT / "manuscript" / "CED_SUBMISSION_STATUS_2026-09-11.json"
 CHECKLIST = ROOT / "submission" / "ECOLOGICAL_MODELLING_SUBMISSION_CHECKLIST.md"
 HIGHLIGHTS = ROOT / "submission" / "ECOLOGICAL_MODELLING_HIGHLIGHTS.md"
+COVER = ROOT / "submission" / "ECOLOGICAL_MODELLING_COVER_LETTER_DRAFT.md"
+DATA_CODE = ROOT / "submission" / "ECOLOGICAL_MODELLING_DATA_CODE_STATEMENT.md"
 MAIN = ROOT / "manuscript" / "paper_b_main.tex"
 
 
@@ -39,8 +41,8 @@ def test_historical_integrated_evidence_does_not_replace_standalone_paper() -> N
 
 
 def test_ecological_modelling_package_exists() -> None:
-    assert CHECKLIST.exists()
-    assert HIGHLIGHTS.exists()
+    for path in (CHECKLIST, HIGHLIGHTS, COVER, DATA_CODE):
+        assert path.exists()
     checklist = CHECKLIST.read_text(encoding="utf-8")
     assert "Ecological Modelling" in checklist
     assert "scientific core unchanged" in checklist
@@ -62,3 +64,12 @@ def test_active_ced_manuscript_retains_standalone_identity() -> None:
     assert "target-safe" in text
     assert "failure" in text.lower()
     assert "MROD learning utility" not in text
+
+
+def test_cover_letter_and_data_statement_do_not_overclaim_empirical_validation() -> None:
+    cover = COVER.read_text(encoding="utf-8")
+    data = DATA_CODE.read_text(encoding="utf-8")
+    assert "target-safe ecological reportability" in cover
+    assert "no external empirical dataset" in cover.lower()
+    assert "do not depend on a newly collected empirical dataset" in data
+    assert "model examples" in data
