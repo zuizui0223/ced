@@ -15,6 +15,7 @@ on:
       - "scripts/analyze_paper_b_posterior_bridge.py"
       - "scripts/paper_b_benchmark_core.py"
       - "scripts/simulate_paper_b_benchmark.py"
+      - "scripts/audit_ced_final_submission.py"
       - ".github/workflows/manuscript-build.yml"
   push:
     branches: [main]
@@ -31,6 +32,7 @@ on:
       - "scripts/analyze_paper_b_posterior_bridge.py"
       - "scripts/paper_b_benchmark_core.py"
       - "scripts/simulate_paper_b_benchmark.py"
+      - "scripts/audit_ced_final_submission.py"
       - ".github/workflows/manuscript-build.yml"
   workflow_dispatch:
 
@@ -46,6 +48,12 @@ jobs:
         run: |
           python scripts/render_paper_b_figures.py
           python scripts/make_learning_licensing_figure.py
+      - name: Audit final citations and self-overlap
+        run: |
+          python scripts/audit_ced_final_submission.py
+          test -s artifacts/ced_final_submission_audit.json
+          test -s artifacts/ced_final_submission_audit.md
+          cat artifacts/ced_final_submission_audit.md
       - name: Install LaTeX
         run: |
           sudo apt-get update
@@ -86,4 +94,6 @@ jobs:
             manuscript/generated/paper_b_posterior_bridge_table.tex
             artifacts/paper_b_reviewer_robustness.json
             artifacts/paper_b_posterior_bridge.json
+            artifacts/ced_final_submission_audit.json
+            artifacts/ced_final_submission_audit.md
           retention-days: 14
