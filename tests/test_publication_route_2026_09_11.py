@@ -15,7 +15,7 @@ def _load(path: Path):
 
 def test_ced_standalone_is_current_submission_route() -> None:
     status = _load(STATUS)
-    assert status["status"] == "standalone-reframing-active"
+    assert status["status"] == "standalone-production-validated"
     assert status["paper"] == "CED"
     assert status["target_journal"] == "Ecological Modelling"
     assert "manuscript/paper_b_main.tex" in status["canonical_scientific_base"]
