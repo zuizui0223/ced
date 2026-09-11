@@ -1,0 +1,53 @@
+{
+  "schema": "ced-standalone-submission-status-v1",
+  "date": "2026-09-11",
+  "status": "standalone-reframing-active",
+  "paper": "CED",
+  "submission_home": "zuizui0223/ced",
+  "target_journal": "Ecological Modelling",
+  "canonical_scientific_base": [
+    "manuscript/paper_b_main.tex",
+    "manuscript/paper_b_supplement.tex",
+    "docs/paper_b_theorem_consolidation.md",
+    "ced/target_safe_quotient.py",
+    "ced/learning_licensing.py",
+    "ced/mode_detection.py"
+  ],
+  "headline_claims": [
+    "a finite experiment induces a compatible-world quotient and honest reportability is target-relative",
+    "the unique coarsest target-safe refinement need not identify the full latent world",
+    "more full-world mechanism information need not provide more target-licensing value",
+    "repetition within one shared failure domain is not equivalent to independent failure diversity",
+    "risk-limited reporting and stopping require explicit failure and false-resolution contracts"
+  ],
+  "retained_internal_witness": {
+    "source": "ced/learning_licensing.py",
+    "role": "CED-internal exact counterexample separating full-world information from target resolution; it does not transfer MROD ownership into CED"
+  },
+  "external_companions": {
+    "boundary": "identification-geometry owner; cite/contrast only",
+    "mrod": "mechanism-learning observation-design owner; cite/contrast only"
+  },
+  "historical_integrated_evidence_assets": [
+    "manuscript/EVIDENCE_DRAFT_V1.md",
+    "manuscript/EVIDENCE_CLAIM_MANIFEST.json",
+    "manuscript/EVIDENCE_THEORY_CLOSURE.md",
+    "manuscript/evidence_theory_closure.json",
+    "manuscript/evidence_main.tex"
+  ],
+  "historical_asset_policy": "retain for synthesis, proof-interface checks and provenance; do not describe them as the current journal-facing submission or as superseding Boundary/MROD submissions",
+  "completed_scientific_assets": [
+    "target-safe quotient theorem/proofs and exhaustive oracle",
+    "failure-aware repeated-observation theory",
+    "exact learning-versus-licensing witness",
+    "risk-limited finite experiment/reporting machinery",
+    "Python theorem and simulation tests",
+    "existing standalone manuscript and supplement"
+  ],
+  "next_mainline": [
+    "audit paper_b_main.tex so Boundary/MROD integration language is removed from headline novelty",
+    "replace MEE-specific routing/front matter with Ecological Modelling-facing production metadata after live journal-rule verification",
+    "retain C2 only as a higher-level conceptual cross-reference, not as prerequisite evidence"
+  ],
+  "science_blocker": false
+}
