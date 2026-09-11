@@ -1,0 +1,50 @@
+{
+  "schema": "ced-ecological-modelling-package-v1",
+  "paper": "CED",
+  "target_journal": "Ecological Modelling",
+  "status": "prebuild-contract",
+  "canonical_main": "manuscript/paper_b_main.tex",
+  "canonical_supplement": "manuscript/paper_b_supplement.tex",
+  "submission_assets": [
+    "submission/ECOLOGICAL_MODELLING_SUBMISSION_CHECKLIST.md",
+    "submission/ECOLOGICAL_MODELLING_HIGHLIGHTS.md",
+    "submission/ECOLOGICAL_MODELLING_COVER_LETTER_DRAFT.md",
+    "submission/ECOLOGICAL_MODELLING_DATA_CODE_STATEMENT.md"
+  ],
+  "scientific_core": [
+    "experiment-induced compatible-world quotient",
+    "target-safe quotient and set-valued reportability",
+    "failure-aware refinement under shared versus independent modes",
+    "learning-versus-licensing finite witness as internal CED example",
+    "false-resolution ambiguity and cost contract",
+    "risk-limited adaptive reporting and stopping"
+  ],
+  "external_ownership": {
+    "boundary": "structural identification geometry including k-rank(M)",
+    "mrod": "mechanism-learning next-observation design and G2 benchmark",
+    "c2": "cross-programme four-failure synthesis"
+  },
+  "historical_not_submission_units": [
+    "manuscript/EVIDENCE_DRAFT_V1.md",
+    "manuscript/evidence_main.tex",
+    "manuscript/EVIDENCE_CLAIM_MANIFEST.json",
+    "manuscript/EVIDENCE_FIGURE_PLAN.md",
+    "manuscript/EVIDENCE_INTEGRATION_PLAN.md"
+  ],
+  "forbidden_promotions": [
+    "do not claim full-world information is generically inferior to targeted design",
+    "do not claim repeated observations are useless; the limitation is shared failure dependence",
+    "do not claim natural-system empirical validation from finite model examples",
+    "do not absorb Boundary rank novelty or MROD mechanism-learning novelty",
+    "do not present the historical integrated Evidence manuscript as the submitted paper"
+  ],
+  "required_checks_before_release": [
+    "main and supplement compile",
+    "Ecological Modelling package contract tests pass",
+    "Highlights count and character guard pass if journal requires Highlights",
+    "cover letter and data-code statement retain the non-empirical claim ceiling",
+    "final live Guide-for-Authors rules checked",
+    "author and declaration metadata complete",
+    "reference/overlap audit passes"
+  ]
+}
