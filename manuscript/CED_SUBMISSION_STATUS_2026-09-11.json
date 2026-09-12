@@ -14,9 +14,12 @@
     "ced/mode_detection.py"
   ],
   "validated_production": {
+    "validated_source_sha": "60258505aa5bcdcf9adc3befa3207f359a0de0db",
     "scientific_source_sha": "60258505aa5bcdcf9adc3befa3207f359a0de0db",
     "reproducibility_workflow_run_id": 34575265031,
     "reproducibility_status": "success",
+    "manuscript_build_workflow_run_id": 34575265062,
+    "manuscript_build_status": "success",
     "historical_manuscript_build_workflow_run_id": 34575265062,
     "historical_manuscript_build_status": "success",
     "final_audited_source_sha": "47fb525b0e82334c297887a4e7b5705691ce5bf4",
@@ -43,6 +46,7 @@
       "evidence_main_tex_exact_sentences_ge_12_words": 0,
       "interpretation": "low residual overlap with historical synthesis assets; no exact sentence of at least 12 words is reused"
     },
+    "compatibility_note": "validated_source_sha, manuscript_build_workflow_run_id and manuscript_build_status are retained as backward-compatible aliases for the original production receipt; final_* keys record the later audited production pass.",
     "metadata_note": "The final audit/build receipt is publication-production metadata and does not alter the validated CED scientific core."
   },
   "headline_claims": [
