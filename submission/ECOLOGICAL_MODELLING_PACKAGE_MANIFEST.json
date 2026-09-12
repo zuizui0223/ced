@@ -10,7 +10,8 @@
     "submission/ECOLOGICAL_MODELLING_HIGHLIGHTS.md",
     "submission/ECOLOGICAL_MODELLING_COVER_LETTER_DRAFT.md",
     "submission/ECOLOGICAL_MODELLING_DATA_CODE_STATEMENT.md",
-    "submission/ECOLOGICAL_MODELLING_TITLE_PAGE_TEMPLATE.md"
+    "submission/ECOLOGICAL_MODELLING_TITLE_PAGE_TEMPLATE.md",
+    "submission/ECOLOGICAL_MODELLING_AI_DECLARATION_TEMPLATE.md"
   ],
   "scientific_core": [
     "experiment-induced compatible-world quotient",
@@ -44,6 +45,7 @@
     "Ecological Modelling package contract tests pass",
     "Highlights count and character guard pass if journal requires Highlights",
     "cover letter and data-code statement retain the non-empirical claim ceiling",
+    "Elsevier generative-AI declaration finalized with exact tool/model version(s) and scope of use",
     "final live Guide-for-Authors rules checked",
     "author and declaration metadata complete",
     "reference/overlap audit passes"
