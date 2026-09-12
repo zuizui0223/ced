@@ -10,6 +10,7 @@ HIGHLIGHTS = ROOT / "submission" / "ECOLOGICAL_MODELLING_HIGHLIGHTS.md"
 COVER = ROOT / "submission" / "ECOLOGICAL_MODELLING_COVER_LETTER_DRAFT.md"
 DATA_CODE = ROOT / "submission" / "ECOLOGICAL_MODELLING_DATA_CODE_STATEMENT.md"
 PACKAGE = ROOT / "submission" / "ECOLOGICAL_MODELLING_PACKAGE_MANIFEST.json"
+AI_DECLARATION = ROOT / "submission" / "ECOLOGICAL_MODELLING_AI_DECLARATION_TEMPLATE.md"
 MAIN = ROOT / "manuscript" / "paper_b_main.tex"
 SUPPLEMENT = ROOT / "manuscript" / "paper_b_supplement.tex"
 
@@ -49,7 +50,7 @@ def test_historical_integrated_evidence_does_not_replace_standalone_paper() -> N
 
 
 def test_ecological_modelling_package_exists() -> None:
-    for path in (CHECKLIST, HIGHLIGHTS, COVER, DATA_CODE, PACKAGE):
+    for path in (CHECKLIST, HIGHLIGHTS, COVER, DATA_CODE, PACKAGE, AI_DECLARATION):
         assert path.exists()
     checklist = CHECKLIST.read_text(encoding="utf-8")
     package = _load(PACKAGE)
@@ -61,6 +62,7 @@ def test_ecological_modelling_package_exists() -> None:
     assert package["target_journal"] == "Ecological Modelling"
     assert package["canonical_main"] == "manuscript/paper_b_main.tex"
     assert "manuscript/EVIDENCE_DRAFT_V1.md" in package["historical_not_submission_units"]
+    assert "submission/ECOLOGICAL_MODELLING_AI_DECLARATION_TEMPLATE.md" in package["submission_assets"]
 
 
 def test_elsevier_highlights_are_short_and_count_limited() -> None:
@@ -86,6 +88,18 @@ def test_cover_letter_and_data_statement_do_not_overclaim_empirical_validation()
     assert "no external empirical dataset" in cover.lower()
     assert "do not depend on a newly collected empirical dataset" in data
     assert "model examples" in data
+
+
+def test_ai_declaration_is_human_finalization_gate_not_scientific_claim() -> None:
+    text = AI_DECLARATION.read_text(encoding="utf-8")
+    package = _load(PACKAGE)
+    assert "OpenAI ChatGPT [confirm exact application/model version(s)]" in text
+    assert "take(s) full responsibility" in text
+    assert "immediately before the References" in text
+    assert "publication metadata only" in text
+    required = " ".join(package["required_checks_before_release"])
+    assert "generative-AI declaration" in required
+    assert "exact tool/model version" in required
 
 
 def test_package_manifest_preserves_external_novelty_ownership() -> None:
