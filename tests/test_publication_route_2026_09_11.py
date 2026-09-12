@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 STATUS = ROOT / "manuscript" / "CED_SUBMISSION_STATUS_2026-09-11.json"
 HISTORICAL = ROOT / "manuscript" / "EVIDENCE_SUBMISSION_STATUS.json"
 ROUTE = ROOT / "manuscript" / "PUBLICATION_ROUTE_2026-09-11.md"
+CANONICAL_MAIN = ROOT / "manuscript" / "paper_b_main.tex"
 
 
 def _load(path: Path):
@@ -40,3 +41,16 @@ def test_boundary_and_mrod_ownership_are_not_absorbed() -> None:
     witness = status["retained_internal_witness"]
     assert witness["source"] == "ced/learning_licensing.py"
     assert "does not transfer MROD ownership" in witness["role"]
+
+
+def test_canonical_ced_manuscript_does_not_reown_boundary_theorem_surface() -> None:
+    text = CANONICAL_MAIN.read_text(encoding="utf-8")
+    forbidden = (
+        "k-rank(M)",
+        "row span",
+        "breakdown factor",
+        "anchor-ladder",
+        "structural identification geometry",
+    )
+    for token in forbidden:
+        assert token not in text
