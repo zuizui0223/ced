@@ -14,16 +14,36 @@
     "ced/mode_detection.py"
   ],
   "validated_production": {
-    "validated_source_sha": "60258505aa5bcdcf9adc3befa3207f359a0de0db",
+    "scientific_source_sha": "60258505aa5bcdcf9adc3befa3207f359a0de0db",
     "reproducibility_workflow_run_id": 34575265031,
     "reproducibility_status": "success",
-    "manuscript_build_workflow_run_id": 34575265062,
-    "manuscript_build_status": "success",
-    "artifact_id": 10189451673,
+    "historical_manuscript_build_workflow_run_id": 34575265062,
+    "historical_manuscript_build_status": "success",
+    "final_audited_source_sha": "47fb525b0e82334c297887a4e7b5705691ce5bf4",
+    "final_reproducibility_workflow_run_id": 34605107374,
+    "final_reproducibility_status": "success",
+    "final_manuscript_build_workflow_run_id": 34605107433,
+    "final_manuscript_build_status": "success",
+    "artifact_id": 10265554938,
     "artifact_name": "ced-ecological-modelling-package",
-    "artifact_digest": "sha256:81a4ec9bd871c73fab03b29b77f374f0eefc1099b5736eaa652d9840475f9394",
-    "artifact_retention_expires": "2026-09-25T07:41:02Z",
-    "metadata_note": "This status update records the validated production receipt and does not alter the validated CED scientific core."
+    "artifact_digest": "sha256:b7d8c54ad91d61dfa87fca7592176365c9723d5331169e233abf2d87b2e91ddf",
+    "artifact_retention_expires": "2026-09-25T13:37:40Z",
+    "citation_audit": {
+      "citation_keys": 16,
+      "bibitems": 16,
+      "missing": 0,
+      "unused": 0
+    },
+    "historical_text_overlap_audit": {
+      "EVIDENCE_DRAFT_V1_12gram_overlap_fraction": 0.002014098690835851,
+      "EVIDENCE_DRAFT_V1_longest_exact_run_words": 14,
+      "EVIDENCE_DRAFT_V1_exact_sentences_ge_12_words": 0,
+      "evidence_main_tex_12gram_overlap_fraction": 0.000671366230278617,
+      "evidence_main_tex_longest_exact_run_words": 12,
+      "evidence_main_tex_exact_sentences_ge_12_words": 0,
+      "interpretation": "low residual overlap with historical synthesis assets; no exact sentence of at least 12 words is reused"
+    },
+    "metadata_note": "The final audit/build receipt is publication-production metadata and does not alter the validated CED scientific core."
   },
   "headline_claims": [
     "a finite experiment induces a compatible-world quotient and honest reportability is target-relative",
@@ -66,16 +86,18 @@
     "machine-readable package manifest",
     "standalone CED production workflow",
     "compiled standalone main manuscript and supplement",
-    "validated Ecological Modelling package artifact"
+    "validated Ecological Modelling package artifact",
+    "final citation-key to bibliography audit",
+    "final historical-Evidence self-overlap audit"
   ],
   "remaining_before_submission": [
     "recheck live Ecological Modelling Guide for Authors immediately before upload",
     "confirm final article type and journal-specific abstract/keyword/Highlights/graphical-abstract rules",
     "perform final human visual inspection of compiled main manuscript, supplement and figures",
     "complete author/affiliation/correspondence/CRediT/funding/acknowledgement/competing-interest metadata",
-    "run final reference-scope and historical-Evidence text-overlap audit after any retargeting edits",
     "freeze permanent code/data archive and DOI if required by the final journal workflow"
   ],
   "science_blocker": false,
-  "next_mainline": "human/journal metadata completion and final visual/reference audit; no new scientific analysis"
+  "machine_production_blocker": false,
+  "next_mainline": "human journal-metadata completion and final visual inspection; no new scientific or machine-production analysis"
 }
